@@ -74,6 +74,37 @@
         </div>
     </main>
 
+    <!-- FENÊTRE MODALE DE CONNEXION ADMIN -->
+    <div id="modal-admin" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-200 text-center space-y-5 relative">
+            <button onclick="fermerModalAdmin()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+            <div class="space-y-2">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-xl font-bold shadow-inner">🎱</div>
+                <h3 class="text-lg font-black text-slate-900">Billard Club Segréen</h3>
+                <p class="text-xs text-slate-500">Accès sécurisé</p>
+            </div>
+            <div id="modal-message-erreur" class="hidden bg-rose-50 border border-rose-200 text-rose-700 p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5">
+                <div class="flex items-start gap-2">
+                    <span class="text-base shrink-0">❌</span>
+                    <span id="texte-erreur">Accès refusé.</span>
+                </div>
+                <div class="text-[11px] text-rose-800 font-bold border-t border-rose-200/60 pt-1.5 mt-1">
+                    ⚠️ Votre adresse IP a été enregistrée dans notre système.
+                </div>
+            </div>
+            <form onsubmit="validerConnexionAdmin(event)" class="space-y-4 text-left text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Votre adresse e-mail :</label>
+                    <input type="email" id="email-admin-saisi" required placeholder="votre.email@exemple.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-medium">
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="fermerModalAdmin()" class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">Annuler</button>
+                    <button type="submit" class="w-1/2 bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl transition shadow-md">Se connecter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="bg-[#0b1329] text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
         <div class="flex flex-wrap justify-center gap-4 text-slate-300">
@@ -99,21 +130,50 @@
         ];
 
         function ouvrirModalAdmin() {
+            document.getElementById('modal-message-erreur').classList.add('hidden');
+            document.getElementById('email-admin-saisi').value = '';
             document.getElementById('modal-admin').classList.remove('hidden');
+            document.getElementById('email-admin-saisi').focus();
         }
-        function fermerModalAdmin() { document.getElementById('modal-admin').classList.add('hidden'); }
+
+        function fermerModalAdmin() {
+            document.getElementById('modal-admin').classList.add('hidden');
+        }
+
+        function afficherErreur(message) {
+            var boxErreur = document.getElementById('modal-message-erreur');
+            var texteErreur = document.getElementById('texte-erreur');
+            texteErreur.innerText = message;
+            boxErreur.classList.remove('hidden');
+        }
+
+        function validerConnexionAdmin(event) {
+            event.preventDefault();
+            var emailSaisi = document.getElementById('email-admin-saisi').value.trim().toLowerCase();
+
+            if (LISTE_ADMINS.includes(emailSaisi)) {
+                localStorage.setItem("bcs_admin_connecte", "true");
+                fermerModalAdmin();
+                activerInterfaceAdmin();
+            } else {
+                afficherErreur("Accès refusé : Cet e-mail ne fait pas partie des utilisateurs autorisés.");
+            }
+        }
+
         function activerInterfaceAdmin() {
             document.getElementById('nav-publique').classList.add('hidden');
-            var nav = document.getElementById('nav-admin');
-            nav.classList.remove('hidden');
-            nav.classList.add('flex');
+            var navAdmin = document.getElementById('nav-admin');
+            navAdmin.classList.remove('hidden');
+            navAdmin.classList.add('flex');
         }
+
         function deconnexionAdmin() {
             localStorage.removeItem("bcs_admin_connecte");
             document.getElementById('nav-admin').classList.add('hidden');
             document.getElementById('nav-admin').classList.remove('flex');
             document.getElementById('nav-publique').classList.remove('hidden');
         }
+
         window.onload = function() {
             if (localStorage.getItem("bcs_admin_connecte") === "true") {
                 activerInterfaceAdmin();
