@@ -15,7 +15,7 @@
 
     <!-- En-tête / Navigation -->
     <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col xl:flex-row justify-between items-center gap-3">
             <a href="index.html" class="flex items-center gap-3">
                 <span class="text-3xl">🎱</span>
                 <div>
@@ -24,23 +24,26 @@
                 </div>
             </a>
 
-            <!-- Navigation Publique (Redirection si non admin) -->
+            <!-- Navigation Publique -->
             <nav id="nav-publique" class="flex flex-wrap gap-2 text-xs font-bold items-center">
                 <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">🏠 Accueil</a>
                 <a href="inscription.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">🎯 Inscription Tournoi</a>
                 <a href="streaming.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">📺 Direct & TV</a>
                 <a href="galerie.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">📸 Galeries Photos</a>
                 <a href="contacts.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">📞 Contacts</a>
-                
-
             </nav>
 
-            <!-- Navigation Admin -->
-            <nav id="nav-admin" class="hidden flex-wrap gap-1 text-xs font-bold items-center">
-                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Mode Admin Actif 🟢</span>
-                <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg">🏠 Accueil</a>
+            <!-- Navigation Admin (Unifiée) -->
+            <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
+                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
+                <a href="index.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🏠 Accueil</a>
+                <a href="bar.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🍻 Bar</a>
+                <a href="stock.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">📦 Stocks</a>
+                <a href="https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin" target="_blank" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg transition">🎯 Admin Tournoi</a>
+                <a href="https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin" target="_blank" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">📸 Trombi Admin</a>
+                <a href="https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin" target="_blank" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🤝 Gérer Partenaires</a>
                 <a href="comptes-rendus.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">📝 Comptes Rendus</a>
-                <a href="contacts.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg">📞 Contacts</a>
+                <a href="registre-rgpd.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
                 <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
             </nav>
         </div>
@@ -113,7 +116,7 @@
 
     </main>
 
-<footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
         <div class="flex flex-wrap justify-center gap-4 text-slate-300">
             <a href="contacts.html" class="hover:underline">Contacts</a>
             <span>•</span>
@@ -229,6 +232,5 @@
             }
         });
     </script>
-
 </body>
 </html>
