@@ -15,7 +15,7 @@
         ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen flex flex-col justify-between">
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between text-slate-800 pt-28 sm:pt-24">
 
    <!-- BARRE DE MENU FIXE ET IDENTIQUE SUR TOUTES LES PAGES -->
     <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50">
@@ -30,13 +30,13 @@
 
             <!-- Navigation Publique -->
             <nav id="nav-publique" class="flex flex-wrap items-center gap-2 text-xs font-bold">
-                <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🏠 Accueil</a>
+                <a href="index.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏠 Accueil</a>
                 <a href="inscription.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription Tournoi</a>
                 <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏆 CueScore</a>
                 <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📰 La Gazette</a>
                 <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📸 Trombinoscope</a>
                 <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🤝 Partenaires</a>
-                <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📺 Direct & TV</a>
+                <a href="streaming.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">📺 Direct & TV</a>
                 <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📞 Contacts</a>
                 
                 <button onclick="ouvrirModalAdmin()" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow font-bold ml-1">
@@ -47,7 +47,7 @@
             <!-- Navigation Admin -->
             <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
                 <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
-                <a href="index.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">🏠 Accueil</a>
+                <a href="index.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🏠 Accueil</a>
                 <a href="bar.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🍻 Bar</a>
                 <a href="stock.html" class="bg-amber-600 text-white px-3 py-1.5 rounded-lg">📦 Stocks</a>
                 <a href="registre-rgpd.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
@@ -236,7 +236,39 @@
 
     </main>
 
-<footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+    <!-- FENÊTRE MODALE DE CONNEXION ADMIN -->
+    <div id="modal-admin" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-200 text-center space-y-5 relative">
+            <button onclick="fermerModalAdmin()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+            <div class="space-y-2">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-xl font-bold shadow-inner">🎱</div>
+                <h3 class="text-lg font-black text-slate-900">Billard Club Segréen</h3>
+                <p class="text-xs text-slate-500">Accès sécurisé</p>
+            </div>
+            <div id="modal-message-erreur" class="hidden bg-rose-50 border border-rose-200 text-rose-700 p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5">
+                <div class="flex items-start gap-2">
+                    <span class="text-base shrink-0">❌</span>
+                    <span id="texte-erreur">Accès refusé.</span>
+                </div>
+                <div class="text-[11px] text-rose-800 font-bold border-t border-rose-200/60 pt-1.5 mt-1">
+                    ⚠️ Votre adresse IP a été enregistrée dans notre système.
+                </div>
+            </div>
+            <form onsubmit="validerConnexionAdmin(event)" class="space-y-4 text-left text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Votre adresse e-mail :</label>
+                    <input type="email" id="email-admin-saisi" required placeholder="votre.email@exemple.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-medium">
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="fermerModalAdmin()" class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">Annuler</button>
+                    <button type="submit" class="w-1/2 bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl transition shadow-md">Se connecter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pied de page -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
         <div class="flex flex-wrap justify-center gap-4 text-slate-300">
             <a href="contacts.html" class="hover:underline">Contacts</a>
             <span>•</span>
@@ -251,6 +283,47 @@
 
     <!-- Script JavaScript -->
     <script>
+        var LISTE_ADMINS = [
+            "franck.toupin@gmail.com",
+            "matpoupart@outlook.fr",
+            "martin.eric1@hotmail.fr",
+            "lefome2411@gmail.com",
+            "chc.chris.09@gmail.com",
+            "Djebmanu@orange.fr",
+            "frederikbrun007@gmail.com"
+        ];
+
+        function ouvrirModalAdmin() {
+            document.getElementById('modal-message-erreur').classList.add('hidden');
+            document.getElementById('email-admin-saisi').value = '';
+            document.getElementById('modal-admin').classList.remove('hidden');
+            document.getElementById('email-admin-saisi').focus();
+        }
+
+        function fermerModalAdmin() {
+            document.getElementById('modal-admin').classList.add('hidden');
+        }
+
+        function afficherErreur(message) {
+            var boxErreur = document.getElementById('modal-message-erreur');
+            var texteErreur = document.getElementById('texte-erreur');
+            texteErreur.innerText = message;
+            boxErreur.classList.remove('hidden');
+        }
+
+        function validerConnexionAdmin(event) {
+            event.preventDefault();
+            var emailSaisi = document.getElementById('email-admin-saisi').value.trim().toLowerCase();
+
+            if (LISTE_ADMINS.includes(emailSaisi)) {
+                localStorage.setItem("bcs_admin_connecte", "true");
+                fermerModalAdmin();
+                activerInterfaceAdmin();
+            } else {
+                afficherErreur("Accès refusé : Cet e-mail ne fait pas partie des utilisateurs autorisés.");
+            }
+        }
+
         // Fonction pour transformer une URL YouTube classique en URL Embed intégrable
         function convertirUrlEmbed(url) {
             if (!url) return "";
@@ -268,7 +341,7 @@
             if (videoId) {
                 return `https://www.youtube.com/embed/${videoId}`;
             }
-            return url; // Si c'est déjà un autre type de lien
+            return url;
         }
 
         function chargerFluxVideos() {
@@ -278,7 +351,6 @@
             document.getElementById('box-iframe-cam1').innerHTML = `<iframe class="w-full h-full" src="${url1}" title="Caméra 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
             document.getElementById('box-iframe-cam2').innerHTML = `<iframe class="w-full h-full" src="${url2}" title="Caméra 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
 
-            // Remplir les inputs si l'admin les modifie
             document.getElementById('input-url-cam1').value = localStorage.getItem("bcs_cam1_url") || "";
             document.getElementById('input-url-cam2').value = localStorage.getItem("bcs_cam2_url") || "";
         }
@@ -308,47 +380,33 @@
 
         setInterval(rafraichirDirect, 30000);
 
-        // Mode Admin
-        function verifierMotDePasseAdmin() {
-            var saisie = prompt("Entrez le code secret administrateur :");
-            if (saisie === "bcs2026") {
-                try { localStorage.setItem("bcs_admin_connecte", "true"); } catch(e){}
-                afficherInterfaceAdmin();
-                alert("Accès administrateur autorisé ! Panneau de configuration des flux activé 🔓");
-            } else if (saisie !== null) {
-                alert("Code secret incorrect ! ❌");
-            }
-        }
-
-        function afficherInterfaceAdmin() {
-            var np = document.getElementById('nav-publique');
-            var na = document.getElementById('nav-admin');
+        function activerInterfaceAdmin() {
+            document.getElementById('nav-publique').classList.add('hidden');
+            var navAdmin = document.getElementById('nav-admin');
+            navAdmin.classList.remove('hidden');
+            navAdmin.classList.add('flex');
+            
             var panelConfig = document.getElementById('panel-admin-config');
-            if (np) np.classList.add('hidden');
-            if (na) { na.classList.remove('hidden'); na.classList.add('flex'); }
             if (panelConfig) panelConfig.classList.remove('hidden');
         }
 
         function deconnexionAdmin() {
-            try { localStorage.removeItem("bcs_admin_connecte"); } catch(e){}
-            var np = document.getElementById('nav-publique');
-            var na = document.getElementById('nav-admin');
+            localStorage.removeItem("bcs_admin_connecte");
+            document.getElementById('nav-admin').classList.add('hidden');
+            document.getElementById('nav-admin').classList.remove('flex');
+            document.getElementById('nav-publique').classList.remove('hidden');
+            
             var panelConfig = document.getElementById('panel-admin-config');
-            if (na) { na.classList.add('hidden'); na.classList.remove('flex'); }
-            if (np) np.classList.remove('hidden');
             if (panelConfig) panelConfig.classList.add('hidden');
-            alert("Déconnecté de l'espace administrateur.");
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
+        window.onload = function() {
             chargerFluxVideos();
             rafraichirDirect();
-            try {
-                if (localStorage.getItem("bcs_admin_connecte") === "true") {
-                    afficherInterfaceAdmin();
-                }
-            } catch(e){}
-        });
+            if (localStorage.getItem("bcs_admin_connecte") === "true") {
+                activerInterfaceAdmin();
+            }
+        };
     </script>
 
 </body>
