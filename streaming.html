@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct & TV — Billard Club Segréen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Zoom uniforme à 85% pour toutes les pages */
+        html {
+            zoom: 0.85;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between">
+
+   <!-- BARRE DE MENU FIXE ET IDENTIQUE SUR TOUTES LES PAGES -->
+    <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col xl:flex-row justify-between items-center gap-3">
+            <a href="index.html" class="flex items-center gap-3 shrink-0">
+                <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-xl shadow border border-slate-700">🎱</div>
+                <div>
+                    <h1 class="text-xl font-black uppercase tracking-wider text-amber-400 leading-tight">BILLARD CLUB SEGRÉEN</h1>
+                    <p class="text-[11px] text-slate-400">Plateforme officielle BCS</p>
+                </div>
+            </a>
+
+            <!-- Navigation Publique -->
+            <nav id="nav-publique" class="flex flex-wrap items-center gap-2 text-xs font-bold">
+                <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🏠 Accueil</a>
+                <a href="inscription.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription Tournoi</a>
+                <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏆 CueScore</a>
+                <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📰 La Gazette</a>
+                <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📸 Trombinoscope</a>
+                <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🤝 Partenaires</a>
+                <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📺 Direct & TV</a>
+                <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📞 Contacts</a>
+                
+                <button onclick="ouvrirModalAdmin()" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow font-bold ml-1">
+                    🔒 Accès sécurisé
+                </button>
+            </nav>
+
+            <!-- Navigation Admin -->
+            <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
+                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
+                <a href="index.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">🏠 Accueil</a>
+                <a href="bar.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🍻 Bar</a>
+                <a href="stock.html" class="bg-amber-600 text-white px-3 py-1.5 rounded-lg">📦 Stocks</a>
+                <a href="registre-rgpd.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
+                <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenu Principal -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-8 flex-grow w-full">
+
+        <!-- Banner de bienvenue -->
+        <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row justify-between items-center gap-4 border border-slate-800">
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="bg-rose-500/20 text-rose-400 border border-rose-500/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span> DIRECT TV BCS
+                    </span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black mt-2">📺 Double Diffusion Live (2 Caméras)</h2>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">Suivez simultanément les flux des deux caméras du club en direct.</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="rafraichirDirect()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                    🔄 Actualiser les scores
+                </button>
+            </div>
+        </div>
+
+        <!-- Panneau de Configuration Admin des Liens (Visible uniquement en mode Admin) -->
+        <div id="panel-admin-config" class="hidden bg-amber-50 border-2 border-amber-300 p-6 rounded-3xl shadow-sm space-y-4">
+            <h3 class="text-sm font-black text-amber-900 flex items-center gap-2">
+                ⚙️ Configuration Administrateur des Flux Vidéo YouTube
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="space-y-1">
+                    <label class="font-bold text-slate-700">Lien Caméra 1 (Tables 1 & 2) :</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="input-url-cam1" placeholder="Coller le lien YouTube ici..." class="w-full bg-white border border-slate-300 rounded-xl p-2.5 outline-none focus:border-amber-500">
+                        <button onclick="sauvegarderFlux(1)" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-4 py-2.5 rounded-xl shadow transition">Appliquer</button>
+                    </div>
+                </div>
+                <div class="space-y-1">
+                    <label class="font-bold text-slate-700">Lien Caméra 2 (Tables 3 & 4) :</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="input-url-cam2" placeholder="Coller le lien YouTube ici..." class="w-full bg-white border border-slate-300 rounded-xl p-2.5 outline-none focus:border-amber-500">
+                        <button onclick="sauvegarderFlux(2)" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-4 py-2.5 rounded-xl shadow transition">Appliquer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Streaming Vidéo (Divisée en deux) + Suivi des Tables -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Zone Vidéo Double (Caméra 1 & Caméra 2) -->
+            <div class="lg:col-span-2 bg-slate-900 rounded-3xl p-4 sm:p-6 shadow-xl border border-slate-800 space-y-6">
+                
+                <div class="flex justify-between items-center text-xs font-bold text-slate-300 border-b border-slate-800 pb-3">
+                    <span>🎥 Les 2 flux simultanés en direct</span>
+                    <a href="https://www.youtube.com/@billardclubsegreen" target="_blank" class="text-rose-400 hover:underline flex items-center gap-1">
+                        Chaîne YouTube 🔴
+                    </a>
+                </div>
+
+                <!-- Grille divisée en deux lecteurs -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    
+                    <!-- Caméra 1 -->
+                    <div class="space-y-2">
+                        <div class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                            <span>🎯</span> Caméra 1 (Tables 1 & 2)
+                        </div>
+                        <div class="relative w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-xl border border-slate-800 flex items-center justify-center" id="box-iframe-cam1">
+                            <!-- Injecté par JS -->
+                        </div>
+                    </div>
+
+                    <!-- Caméra 2 -->
+                    <div class="space-y-2">
+                        <div class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                            <span>🎯</span> Caméra 2 (Tables 3 & 4)
+                        </div>
+                        <div class="relative w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-xl border border-slate-800 flex items-center justify-center" id="box-iframe-cam2">
+                            <!-- Injecté par JS -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/50 flex justify-between items-center text-[11px] text-slate-400">
+                    <span>💡 Rafraîchissement automatique des résultats des tables toutes les 30 sec.</span>
+                    <span id="heure-maj" class="font-mono text-slate-300">Mis à jour à --:--</span>
+                </div>
+            </div>
+
+            <!-- Panneau d'affichage des scores en direct -->
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-base font-bold text-slate-800 flex items-center justify-between">
+                    <span>🏆 Scores des Tables</span>
+                    <span class="text-[10px] font-normal text-slate-500 bg-slate-100 px-2 py-1 rounded-lg">En direct</span>
+                </h3>
+
+                <div class="space-y-3" id="liste-tables">
+                    <!-- Table 1 -->
+                    <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+                        <div class="flex justify-between items-center text-xs font-bold text-slate-700">
+                            <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">Table 1</span>
+                            <span class="text-emerald-600 font-mono text-[11px]">En cours</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs font-bold pt-1">
+                            <span class="text-slate-800">Joueur A</span>
+                            <span class="bg-slate-900 text-amber-400 px-2.5 py-1 rounded-lg font-mono text-sm">3 - 1</span>
+                            <span class="text-slate-800">Joueur B</span>
+                        </div>
+                    </div>
+
+                    <!-- Table 2 -->
+                    <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+                        <div class="flex justify-between items-center text-xs font-bold text-slate-700">
+                            <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">Table 2</span>
+                            <span class="text-emerald-600 font-mono text-[11px]">En cours</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs font-bold pt-1">
+                            <span class="text-slate-800">Joueur C</span>
+                            <span class="bg-slate-900 text-amber-400 px-2.5 py-1 rounded-lg font-mono text-sm">2 - 2</span>
+                            <span class="text-slate-800">Joueur D</span>
+                        </div>
+                    </div>
+
+                    <!-- Table 3 -->
+                    <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+                        <div class="flex justify-between items-center text-xs font-bold text-slate-700">
+                            <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">Table 3</span>
+                            <span class="text-emerald-600 font-mono text-[11px]">En cours</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs font-bold pt-1">
+                            <span class="text-slate-800">Joueur E</span>
+                            <span class="bg-slate-900 text-amber-400 px-2.5 py-1 rounded-lg font-mono text-sm">1 - 0</span>
+                            <span class="text-slate-800">Joueur F</span>
+                        </div>
+                    </div>
+
+                    <!-- Table 4 -->
+                    <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+                        <div class="flex justify-between items-center text-xs font-bold text-slate-700">
+                            <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">Table 4</span>
+                            <span class="text-emerald-600 font-mono text-[11px]">En cours</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs font-bold pt-1">
+                            <span class="text-slate-800">Joueur G</span>
+                            <span class="bg-slate-900 text-amber-400 px-2.5 py-1 rounded-lg font-mono text-sm">4 - 2</span>
+                            <span class="text-slate-800">Joueur H</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Guide de Lancement du Live (Procédure YouTube) -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+            <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                📱 Guide de Lancement du Live (Pour l'organisation)
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs text-slate-600">
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+                    <div class="font-black text-indigo-600 text-sm">1. Trépied</div>
+                    <p>Positionnez le trépied et orientez le téléphone pour cadrer au mieux les tables concernées.</p>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+                    <div class="font-black text-indigo-600 text-sm">2. App YouTube</div>
+                    <p>Ouvrez l'application YouTube sur le téléphone en étant bien connecté au compte du Billard Club Segréen.</p>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+                    <div class="font-black text-indigo-600 text-sm">3. Passer au direct</div>
+                    <p>Appuyez sur le bouton "<strong>+</strong>" au bas de l'écran, choisissez "<strong>Passer au direct</strong>" et nommez l'événement.</p>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
+                    <div class="font-black text-indigo-600 text-sm">4. Lancer & Copier</div>
+                    <p>Appuyez sur "<strong>Diffuser en direct</strong>", copiez le lien de la vidéo et collez-le ci-dessus dans l'espace Admin !</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+<footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+        <div class="flex flex-wrap justify-center gap-4 text-slate-300">
+            <a href="contacts.html" class="hover:underline">Contacts</a>
+            <span>•</span>
+            <a href="registre-rgpd.html" class="hover:underline text-indigo-400 font-bold">Registre RGPD</a>
+            <span>•</span>
+            <a href="https://www.facebook.com/billard.club.segreen.bcs/" target="_blank" class="hover:underline">Facebook</a>
+            <span>•</span>
+            <a href="https://www.youtube.com/@billardclubsegreen" target="_blank" class="hover:underline">YouTube</a>
+        </div>
+        <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
+    </footer>
+
+    <!-- Script JavaScript -->
+    <script>
+        // Fonction pour transformer une URL YouTube classique en URL Embed intégrable
+        function convertirUrlEmbed(url) {
+            if (!url) return "";
+            if (url.includes("embed/")) return url;
+            
+            let videoId = "";
+            if (url.includes("youtu.be/")) {
+                videoId = url.split("youtu.be/")[1].split("?")[0];
+            } else if (url.includes("watch?v=")) {
+                videoId = url.split("watch?v=")[1].split("&")[0];
+            } else if (url.includes("live/")) {
+                videoId = url.split("live/")[1].split("?")[0];
+            }
+
+            if (videoId) {
+                return `https://www.youtube.com/embed/${videoId}`;
+            }
+            return url; // Si c'est déjà un autre type de lien
+        }
+
+        function chargerFluxVideos() {
+            let url1 = localStorage.getItem("bcs_cam1_url") || "https://www.youtube.com/embed/K1sgR-hipGk";
+            let url2 = localStorage.getItem("bcs_cam2_url") || "https://www.youtube.com/embed/live_stream?channel=UC_REPLACE_WITH_CHANNEL_ID";
+
+            document.getElementById('box-iframe-cam1').innerHTML = `<iframe class="w-full h-full" src="${url1}" title="Caméra 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+            document.getElementById('box-iframe-cam2').innerHTML = `<iframe class="w-full h-full" src="${url2}" title="Caméra 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+
+            // Remplir les inputs si l'admin les modifie
+            document.getElementById('input-url-cam1').value = localStorage.getItem("bcs_cam1_url") || "";
+            document.getElementById('input-url-cam2').value = localStorage.getItem("bcs_cam2_url") || "";
+        }
+
+        function sauvegarderFlux(camNum) {
+            let inputVal = document.getElementById(`input-url-cam${camNum}`).value.trim();
+            let embedUrl = convertirUrlEmbed(inputVal);
+
+            if (camNum === 1) {
+                localStorage.setItem("bcs_cam1_url", embedUrl);
+            } else {
+                localStorage.setItem("bcs_cam2_url", embedUrl);
+            }
+            alert(`Lien de la Caméra ${camNum} mis à jour avec succès ! 🎥`);
+            chargerFluxVideos();
+        }
+
+        function rafraichirDirect() {
+            const maint = new Date();
+            const h = String(maint.getHours()).padStart(2, '0');
+            const m = String(maint.getMinutes()).padStart(2, '0');
+            const s = String(maint.getSeconds()).padStart(2, '0');
+            
+            const el = document.getElementById('heure-maj');
+            if (el) el.innerText = `Mis à jour à ${h}:${m}:${s}`;
+        }
+
+        setInterval(rafraichirDirect, 30000);
+
+        // Mode Admin
+        function verifierMotDePasseAdmin() {
+            var saisie = prompt("Entrez le code secret administrateur :");
+            if (saisie === "bcs2026") {
+                try { localStorage.setItem("bcs_admin_connecte", "true"); } catch(e){}
+                afficherInterfaceAdmin();
+                alert("Accès administrateur autorisé ! Panneau de configuration des flux activé 🔓");
+            } else if (saisie !== null) {
+                alert("Code secret incorrect ! ❌");
+            }
+        }
+
+        function afficherInterfaceAdmin() {
+            var np = document.getElementById('nav-publique');
+            var na = document.getElementById('nav-admin');
+            var panelConfig = document.getElementById('panel-admin-config');
+            if (np) np.classList.add('hidden');
+            if (na) { na.classList.remove('hidden'); na.classList.add('flex'); }
+            if (panelConfig) panelConfig.classList.remove('hidden');
+        }
+
+        function deconnexionAdmin() {
+            try { localStorage.removeItem("bcs_admin_connecte"); } catch(e){}
+            var np = document.getElementById('nav-publique');
+            var na = document.getElementById('nav-admin');
+            var panelConfig = document.getElementById('panel-admin-config');
+            if (na) { na.classList.add('hidden'); na.classList.remove('flex'); }
+            if (np) np.classList.remove('hidden');
+            if (panelConfig) panelConfig.classList.add('hidden');
+            alert("Déconnecté de l'espace administrateur.");
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            chargerFluxVideos();
+            rafraichirDirect();
+            try {
+                if (localStorage.getItem("bcs_admin_connecte") === "true") {
+                    afficherInterfaceAdmin();
+                }
+            } catch(e){}
+        });
+    </script>
+
+</body>
+</html>

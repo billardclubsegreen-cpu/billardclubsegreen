@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts — Billard Club Segréen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Zoom uniforme à 85% pour toutes les pages */
+        html {
+            zoom: 0.85;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+        .dropdown:hover .dropdown-menu { display: block; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between">
+
+   <!-- BARRE DE MENU FIXE ET IDENTIQUE SUR TOUTES LES PAGES -->
+    <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col xl:flex-row justify-between items-center gap-3">
+            <a href="index.html" class="flex items-center gap-3 shrink-0">
+                <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-xl shadow border border-slate-700">🎱</div>
+                <div>
+                    <h1 class="text-xl font-black uppercase tracking-wider text-amber-400 leading-tight">BILLARD CLUB SEGRÉEN</h1>
+                    <p class="text-[11px] text-slate-400">Plateforme officielle BCS</p>
+                </div>
+            </a>
+
+            <!-- Navigation Publique -->
+            <nav id="nav-publique" class="flex flex-wrap items-center gap-2 text-xs font-bold">
+                <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🏠 Accueil</a>
+                <a href="inscription.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription Tournoi</a>
+                <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏆 CueScore</a>
+                <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📰 La Gazette</a>
+                <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📸 Trombinoscope</a>
+                <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🤝 Partenaires</a>
+                <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📺 Direct & TV</a>
+                <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📞 Contacts</a>
+                
+                <button onclick="ouvrirModalAdmin()" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow font-bold ml-1">
+                    🔒 Accès sécurisé
+                </button>
+            </nav>
+
+            <!-- Navigation Admin -->
+            <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
+                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
+                <a href="index.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">🏠 Accueil</a>
+                <a href="bar.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🍻 Bar</a>
+                <a href="stock.html" class="bg-amber-600 text-white px-3 py-1.5 rounded-lg">📦 Stocks</a>
+                <a href="registre-rgpd.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
+                <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenu Principal -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-8 flex-grow w-full">
+
+        <!-- Banner de bienvenue -->
+        <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row justify-between items-center gap-4 border border-slate-800">
+            <div>
+                <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Nous Contacter & Venir au Club</span>
+                <h2 class="text-2xl sm:text-3xl font-black mt-2">📞 Contactez le Billard Club Segréen</h2>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">Une question sur le club, les adhésions ou une information générale ? Écrivez-nous ou calculez votre itinéraire pour venir nous rendre visite !</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Carte Coordonnées & Itinéraires -->
+            <div class="space-y-6">
+                <!-- Coordonnées Générales & Trajet -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                    <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        📍 Localisation & Trajet
+                    </h3>
+                    
+                    <div class="space-y-4 text-xs text-slate-600">
+                        <div class="flex items-start gap-3">
+                            <span class="text-lg">🏛️</span>
+                            <div>
+                                <strong class="text-slate-800 block">Adresse du Club :</strong>
+                                Billard Club Segréen<br>
+                                4 Rue Nicolas<br>
+                                49500 Segré-en-Anjou Bleu
+                            </div>
+                        </div>
+
+                        <!-- Boutons d'itinéraires GPS -->
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                            <strong class="text-slate-800 text-[11px] uppercase tracking-wider block font-black">🚗 Calculez votre itinéraire :</strong>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                                <a href="https://www.google.com/maps/dir/?api=1&destination=4+Rue+Nicolas+49500+Segre-en-Anjou+Bleu" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded-xl transition flex items-center justify-center gap-2 text-xs shadow-sm">
+                                    🗺️ Google Maps
+                                </a>
+                                <a href="https://waze.com/ul?q=4%20Rue%20Nicolas%2049500%20Segre-en-Anjou%20Bleu&navigate=yes" target="_blank" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-3 rounded-xl transition flex items-center justify-center gap-2 text-xs shadow-sm">
+                                    🚘 Waze
+                                </a>
+                                <a href="https://www.viamichelin.fr" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-3 rounded-xl transition flex items-center justify-center gap-2 text-xs shadow-sm">
+                                    🟡 ViaMichelin
+                                </a>
+                                <a href="https://www.roole.fr/application-roole-map" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-xl transition flex items-center justify-center gap-2 text-xs shadow-sm">
+                                    🚙 Roole Map
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 pt-2">
+                            <span class="text-lg">✉️</span>
+                            <div>
+                                <strong class="text-slate-800 block">Adresse E-mail du Club :</strong>
+                                <a href="mailto:billardclubsegreen@gmail.com" class="text-indigo-600 hover:underline font-bold">billardclubsegreen@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <span class="text-lg">📱</span>
+                            <div>
+                                <strong class="text-slate-800 block">Réseaux Officiels :</strong>
+                                <div class="flex flex-col gap-1 mt-1 font-bold">
+                                    <a href="https://www.facebook.com/billard.club.segreen.bcs/" target="_blank" class="text-blue-600 hover:underline">👍 Page Facebook</a>
+                                    <a href="https://www.youtube.com/@billardclubsegreen" target="_blank" class="text-rose-600 hover:underline">📺 Chaîne YouTube</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bureau du Club -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                    <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        👥 Le Bureau du Club
+                    </h3>
+
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
+                            <div>
+                                <div class="font-bold text-slate-800">Éric MARTIN</div>
+                                <div class="text-[11px] text-slate-500">Président du BCS</div>
+                                <a href="mailto:martin.eric1@hotmail.fr" class="text-[11px] text-indigo-600 hover:underline font-medium">martin.eric1@hotmail.fr</a>
+                            </div>
+                            <span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded-lg font-bold text-[10px]">Président</span>
+                        </div>
+
+                        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
+                            <div>
+                                <div class="font-bold text-slate-800">Franck TOUPIN</div>
+                                <div class="text-[11px] text-slate-500">Secrétaire / Organisation</div>
+                                <a href="mailto:franck.toupin@gmail.com" class="text-[11px] text-amber-600 hover:underline font-medium">franck.toupin@gmail.com</a>
+                            </div>
+                            <span class="bg-amber-100 text-amber-700 px-2 py-1 rounded-lg font-bold text-[10px]">Secrétaire</span>
+                        </div>
+
+                        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
+                            <div>
+                                <div class="font-bold text-slate-800">Jérôme LEFOUL</div>
+                                <div class="text-[11px] text-slate-500">Trésorerie & Finances</div>
+                                <a href="mailto:lefome2411@gmail.com" class="text-[11px] text-emerald-600 hover:underline font-medium">lefome2411@gmail.com</a>
+                            </div>
+                            <span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-lg font-bold text-[10px]">Trésorier</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulaire de Contact -->
+            <div class="lg:col-span-2 bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                    ✉️ Envoyer un Message
+                </h3>
+
+                <form onsubmit="envoyerMessage(event)" class="space-y-4 text-xs">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Votre Nom & Prénom *</label>
+                            <input type="text" id="nom" required placeholder="Ex : Jean Dupont" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-indigo-500 transition">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Votre Adresse E-mail *</label>
+                            <input type="email" id="email" required placeholder="Ex : jean.dupont@gmail.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-indigo-500 transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Objet de votre demande *</label>
+                        <select id="sujet" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-indigo-500 transition">
+                            <option value="Renseignement licence / Adhésion">Renseignement licence / Adhésion</option>
+                            <option value="Question Partenariat / Mécénat">Question Partenariat / Mécénat</option>
+                            <option value="Autre demande">Autre demande</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Votre Message *</label>
+                        <textarea id="message" rows="5" required placeholder="Rédigez votre message ici..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-indigo-500 transition"></textarea>
+                    </div>
+
+                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition shadow flex items-center justify-center gap-2 w-full sm:w-auto">
+                        🚀 Envoyer le Message
+                    </button>
+                </form>
+            </div>
+
+        </div>
+
+    </main>
+
+<footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+        <div class="flex flex-wrap justify-center gap-4 text-slate-300">
+            <a href="contacts.html" class="hover:underline">Contacts</a>
+            <span>•</span>
+            <a href="registre-rgpd.html" class="hover:underline text-indigo-400 font-bold">Registre RGPD</a>
+            <span>•</span>
+            <a href="https://www.facebook.com/billard.club.segreen.bcs/" target="_blank" class="hover:underline">Facebook</a>
+            <span>•</span>
+            <a href="https://www.youtube.com/@billardclubsegreen" target="_blank" class="hover:underline">YouTube</a>
+        </div>
+        <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
+    </footer>
+
+    <!-- Script JavaScript -->
+    <script>
+        function envoyerMessage(e) {
+            e.preventDefault();
+            const nom = document.getElementById('nom').value;
+            const email = document.getElementById('email').value;
+            const sujet = document.getElementById('sujet').value;
+            const message = document.getElementById('message').value;
+
+            // Destinataire principal + membres du bureau en copie (Cc)
+            const destinatairePrincipal = "billardclubsegreen@gmail.com";
+            const copiesMembres = "martin.eric1@hotmail.fr,franck.toupin@gmail.com,lefome2411@gmail.com";
+
+            const mailtoUrl = `mailto:${destinatairePrincipal}?cc=${copiesMembres}&subject=${encodeURIComponent(sujet + ' - ' + nom)}&body=${encodeURIComponent("Nom : " + nom + "\nE-mail : " + email + "\n\nMessage :\n" + message)}`;
+            
+            window.location.href = mailtoUrl;
+            alert("Votre client de messagerie s'ouvre avec les adresses du bureau en copie !");
+        }
+
+        // Mode Admin
+        function verifierMotDePasseAdmin() {
+            var saisie = prompt("Entrez le code secret administrateur :");
+            if (saisie === "bcs2026") {
+                try { localStorage.setItem("bcs_admin_connecte", "true"); } catch(e){}
+                afficherInterfaceAdmin();
+            } else if (saisie !== null) {
+                alert("Code secret incorrect ! ❌");
+            }
+        }
+
+        function afficherInterfaceAdmin() {
+            var np = document.getElementById('nav-publique');
+            var na = document.getElementById('nav-admin');
+            if (np) np.classList.add('hidden');
+            if (na) { na.classList.remove('hidden'); na.classList.add('flex'); }
+        }
+
+        function deconnexionAdmin() {
+            try { localStorage.removeItem("bcs_admin_connecte"); } catch(e){}
+            var np = document.getElementById('nav-publique');
+            var na = document.getElementById('nav-admin');
+            if (na) { na.classList.add('hidden'); na.classList.remove('flex'); }
+            if (np) np.classList.remove('hidden');
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            try {
+                if (localStorage.getItem("bcs_admin_connecte") === "true") {
+                    afficherInterfaceAdmin();
+                }
+            } catch(e){}
+        });
+    </script>
+
+</body>
+</html>

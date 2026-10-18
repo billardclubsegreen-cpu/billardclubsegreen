@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeries Photos — Billard Club Segréen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Zoom uniforme à 85% pour toutes les pages */
+        html {
+            zoom: 0.85;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+        .dropdown:hover .dropdown-menu { display: block; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between">
+
+<!-- BARRE DE MENU FIXE ET IDENTIQUE SUR TOUTES LES PAGES -->
+    <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col xl:flex-row justify-between items-center gap-3">
+            <a href="index.html" class="flex items-center gap-3 shrink-0">
+                <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-xl shadow border border-slate-700">🎱</div>
+                <div>
+                    <h1 class="text-xl font-black uppercase tracking-wider text-amber-400 leading-tight">BILLARD CLUB SEGRÉEN</h1>
+                    <p class="text-[11px] text-slate-400">Plateforme officielle BCS</p>
+                </div>
+            </a>
+
+            <!-- Navigation Publique -->
+            <nav id="nav-publique" class="flex flex-wrap items-center gap-2 text-xs font-bold">
+                <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🏠 Accueil</a>
+                <a href="inscription.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription Tournoi</a>
+                <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏆 CueScore</a>
+                <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📰 La Gazette</a>
+                <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📸 Trombinoscope</a>
+                <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🤝 Partenaires</a>
+                <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📺 Direct & TV</a>
+                <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📞 Contacts</a>
+                
+                <button onclick="ouvrirModalAdmin()" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow font-bold ml-1">
+                    🔒 Accès sécurisé
+                </button>
+            </nav>
+
+            <!-- Navigation Admin -->
+            <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
+                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
+                <a href="index.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">🏠 Accueil</a>
+                <a href="bar.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🍻 Bar</a>
+                <a href="stock.html" class="bg-amber-600 text-white px-3 py-1.5 rounded-lg">📦 Stocks</a>
+                <a href="registre-rgpd.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
+                <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenu Principal -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-8 flex-grow w-full">
+
+        <!-- Banner de bienvenue -->
+        <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row justify-between items-center gap-4 border border-slate-800">
+            <div>
+                <span class="bg-purple-500/20 text-purple-300 border border-purple-400/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Saison 2026 - 2027</span>
+                <h2 class="text-2xl sm:text-3xl font-black mt-2">📸 Galeries Photos du BCS</h2>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">Sélectionnez un mois ci-dessous pour afficher l'album officiel de la compétition.</p>
+            </div>
+            <a href="https://www.facebook.com/billard.club.segreen.bcs" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                👍 Page Facebook BCS
+            </a>
+        </div>
+
+        <!-- Grille des boutons des Mois -->
+        <div>
+            <h3 class="text-xs font-black text-slate-500 uppercase tracking-wider mb-3">Choisissez un album mensuel :</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                <button type="button" onclick="afficherAlbum('septembre')" class="cursor-pointer bg-white hover:bg-indigo-50 active:scale-95 border border-slate-200 p-3 rounded-2xl shadow-sm text-center font-bold text-slate-700 text-xs transition">🍂 Septembre 2026</button>
+                <button type="button" onclick="afficherAlbum('octobre')" class="cursor-pointer bg-white hover:bg-indigo-50 active:scale-95 border border-slate-200 p-3 rounded-2xl shadow-sm text-center font-bold text-slate-700 text-xs transition">🍁 Octobre 2026</button>
+                <button type="button" onclick="afficherAlbum('novembre')" class="cursor-pointer bg-white hover:bg-indigo-50 active:scale-95 border border-slate-200 p-3 rounded-2xl shadow-sm text-center font-bold text-slate-700 text-xs transition">🌧️ Novembre 2026</button>
+                <button type="button" onclick="afficherAlbum('decembre')" class="cursor-pointer bg-white hover:bg-indigo-50 active:scale-95 border border-slate-200 p-3 rounded-2xl shadow-sm text-center font-bold text-slate-700 text-xs transition">❄️ Décembre 2026</button>
+                <button type="button" onclick="afficherAlbum('janvier')" class="cursor-pointer bg-white hover:bg-indigo-50 active:scale-95 border border-slate-200 p-3 rounded-2xl shadow-sm text-center font-bold text-slate-700 text-xs transition">⛄ Janvier 2027</button>
+                <button type="button" onclick="afficherAlbum('fevrier')" class="cursor-pointer bg-white hover:bg-indigo-50 active:scale-95 border border-slate-200 p-3 rounded-2xl shadow-sm text-center font-bold text-slate-700 text-xs transition">⛷️ Février 2027</button>
+                <button type="button" onclick="afficherAlbum('mars')" class="cursor-pointer bg-white hover:bg-indigo-50 active:scale-95 border border-slate-200 p-3 rounded-2xl shadow-sm text-center font-bold text-slate-700 text-xs transition">🌱 Mars 2027</button>
+                <button type="button" onclick="afficherAlbum('avril')" class="cursor-pointer bg-white hover:bg-indigo-50 active:scale-95 border border-slate-200 p-3 rounded-2xl shadow-sm text-center font-bold text-slate-700 text-xs transition">🌷 Avril 2027</button>
+                <button type="button" onclick="afficherAlbum('mai')" class="cursor-pointer bg-white hover:bg-indigo-50 active:scale-95 border border-slate-200 p-3 rounded-2xl shadow-sm text-center font-bold text-slate-700 text-xs transition">🌸 Mai 2027</button>
+                <button type="button" onclick="afficherAlbum('juin')" class="cursor-pointer bg-white hover:bg-indigo-50 active:scale-95 border border-slate-200 p-3 rounded-2xl shadow-sm text-center font-bold text-slate-700 text-xs transition">☀️ Juin 2027</button>
+            </div>
+        </div>
+
+        <!-- Zone d'affichage Facebook -->
+        <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 space-y-4">
+            <h4 id="titre-album" class="font-bold text-slate-800 text-base flex items-center gap-2">
+                🖼️ Galerie : Septembre 2026
+            </h4>
+            
+            <div id="conteneur-iframe" class="w-full flex justify-center items-center min-h-[450px] bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden p-4">
+                <!-- L'iframe s'insère ici -->
+            </div>
+        </div>
+
+    </main>
+
+  <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+        <div class="flex flex-wrap justify-center gap-4 text-slate-300">
+            <a href="contacts.html" class="hover:underline">Contacts</a>
+            <span>•</span>
+            <a href="registre-rgpd.html" class="hover:underline text-indigo-400 font-bold">Registre RGPD</a>
+            <span>•</span>
+            <a href="https://www.facebook.com/billard.club.segreen.bcs/" target="_blank" class="hover:underline">Facebook</a>
+            <span>•</span>
+            <a href="https://www.youtube.com/@billardclubsegreen" target="_blank" class="hover:underline">YouTube</a>
+        </div>
+        <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
+    </footer>
+
+    <!-- Script JavaScript Sécurisé & Autonome -->
+    <script>
+        var albumsFacebook = {
+            septembre: '<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid02HPKuH3Q63ksnQErfFZHBr9QXEX9dQMZF3BS1EwnGKuQJXrPvnjyhtTZksZH5PxPVl&show_text=true&width=500" width="500" height="652" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>',
+            octobre: '<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid02S7jVuaTw4DbArHiwsq2CGU2XQkfdjmxgFPJp2dEg2UGAR9a7nDZLFfUzdWkLV3vXl&show_text=true&width=500" width="500" height="569" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>',
+            novembre: '<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid0mNdHKV3CvUtCALZowaCqHQDkx6B2WB9omKBvDhwNaYDDDQ8cUtQaZbpGtVq4Sm52l&show_text=true&width=500" width="500" height="497" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>',
+            decembre: '<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid0ggapkdzcMcsFwYvYh5gL2LoYtVkJ2nwzqj7LmtEX28p3vBg6UZytfTkc1U1p6HZRl&show_text=true&width=500" width="500" height="497" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>',
+            janvier: '<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid02AZSUcNV4i4NyttyvRiJRGAC2FnSgvKLNmwkyJjeYGchzQTbTYfieWJWvLbMe2bAZl&show_text=true&width=500" width="500" height="497" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>',
+            fevrier: '<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid0J5xFiRRJzXg9gz3epotVTZk1SuJsEaJpaDL2jjo45speKrQkxMsGN6Mdbpk1WhKWl&show_text=true&width=500" width="500" height="497" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>',
+            mars: '<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid0mkFT7cUajyTmPUvkWDGGJ5bUbvJPzJ4Y4mPpHb4cK21KcPP2X9xmukACdJDz1ykvl&show_text=true&width=500" width="500" height="497" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>',
+            avril: '<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid02zWUWJ5AqoNCNHTRQwqJcmAroiL6VpH3K79FFEuxN23sDa92X9koKAfvfZtUTj81ql&show_text=true&width=500" width="500" height="497" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>',
+            mai: '<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid0f7q7eDott2HQNRNWxpF3Vgvp7ZcrcrdfiFpNHEVebsBfRjeVABPfuH2TWseLVH8Cl&show_text=true&width=500" width="500" height="497" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>',
+            juin: '<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid031vVUnGyb1BQyY6DKqUrKWHjahhGGHp6gZQwnWJo92wRyvTw92ynrcQ75SFuCSxn9l&show_text=true&width=500" width="500" height="497" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>'
+        };
+
+        function afficherAlbum(mois) {
+            var nomMois = mois.charAt(0).toUpperCase() + mois.slice(1);
+            var titre = document.getElementById('titre-album');
+            var conteneur = document.getElementById('conteneur-iframe');
+            
+            if (titre) titre.innerHTML = '🖼️ Galerie : ' + nomMois + ' 2026/2027';
+            if (conteneur && albumsFacebook[mois]) {
+                conteneur.innerHTML = albumsFacebook[mois];
+            }
+        }
+
+        // Mode Admin
+        function verifierMotDePasseAdmin() {
+            var saisie = prompt("Entrez le code secret administrateur :");
+            if (saisie === "bcs2026") {
+                try { localStorage.setItem("bcs_admin_connecte", "true"); } catch(e){}
+                afficherInterfaceAdmin();
+            } else if (saisie !== null) {
+                alert("Code secret incorrect ! ❌");
+            }
+        }
+
+        function afficherInterfaceAdmin() {
+            var np = document.getElementById('nav-publique');
+            var na = document.getElementById('nav-admin');
+            if (np) np.classList.add('hidden');
+            if (na) { na.classList.remove('hidden'); na.classList.add('flex'); }
+        }
+
+        function deconnexionAdmin() {
+            try { localStorage.removeItem("bcs_admin_connecte"); } catch(e){}
+            var np = document.getElementById('nav-publique');
+            var na = document.getElementById('nav-admin');
+            if (na) { na.classList.add('hidden'); na.classList.remove('flex'); }
+            if (np) np.classList.remove('hidden');
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            afficherAlbum('septembre');
+            try {
+                if (localStorage.getItem("bcs_admin_connecte") === "true") {
+                    afficherInterfaceAdmin();
+                }
+            } catch(e){}
+        });
+    </script>
+
+</body>
+</html>

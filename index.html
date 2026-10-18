@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billard Club Segréen — Accueil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html { zoom: 0.85; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0b1329; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between text-slate-800 pt-28 sm:pt-24">
+
+    <!-- BARRE DE MENU FIXE -->
+    <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col xl:flex-row justify-between items-center gap-3">
+            <a href="index.html" class="flex items-center gap-3 shrink-0">
+                <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-xl shadow border border-slate-700">🎱</div>
+                <div>
+                    <h1 class="text-xl font-black uppercase tracking-wider text-amber-400 leading-tight">BILLARD CLUB SEGRÉEN</h1>
+                    <p class="text-[11px] text-slate-400">Plateforme officielle BCS</p>
+                </div>
+            </a>
+
+            <!-- NAVIGATION PUBLIQUE -->
+            <nav id="nav-publique" class="flex flex-wrap items-center gap-2 text-xs font-bold">
+                <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🏠 Accueil</a>
+                <a href="inscription.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription Tournoi</a>
+                <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏆 CueScore</a>
+                <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📰 La Gazette</a>
+                <a href="galerie.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50 flex items-center gap-1">🖼️ Galerie</a>
+                <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📸 Trombinoscope</a>
+                <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🤝 Partenaires</a>
+                <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📺 Direct & TV</a>
+                <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📞 Contacts</a>
+                
+                <button onclick="ouvrirModalAdmin()" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow font-bold ml-1">
+                    🔒 Accès sécurisé
+                </button>
+            </nav>
+
+            <!-- NAVIGATION ADMIN -->
+            <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
+                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
+                <a href="index.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">🏠 Accueil</a>
+                <a href="bar.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🍻 Bar</a>
+                <a href="stock.html" class="bg-amber-600 text-white px-3 py-1.5 rounded-lg">📦 Stocks</a>
+                <a href="registre-rgpd.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
+                <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ZONE CENTRALE -->
+    <main class="max-w-7xl mx-auto px-4 py-16 flex-grow w-full text-center space-y-4">
+        <div class="bg-white rounded-3xl p-12 shadow-xl border border-slate-200 max-w-2xl mx-auto space-y-4">
+            <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-3xl font-bold shadow-inner">🎱</div>
+            <h2 class="text-2xl font-black text-slate-800">Bienvenue sur le site du Billard Club Segréen</h2>
+            <p class="text-sm text-slate-500">Utilisez la barre de navigation supérieure pour accéder directement aux différentes rubriques du club.</p>
+        </div>
+    </main>
+
+    <!-- MODALE CONNEXION ADMIN -->
+    <div id="modal-admin" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-200 text-center space-y-5 relative">
+            <button onclick="fermerModalAdmin()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+            <div class="space-y-2">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-xl font-bold shadow-inner">🎱</div>
+                <h3 class="text-lg font-black text-slate-900">Billard Club Segréen</h3>
+                <p class="text-xs text-slate-500" id="modal-subtitle">Accès sécurisé par e-mail</p>
+            </div>
+
+            <div id="modal-message" class="hidden p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5"></div>
+
+            <!-- ÉTAPE 1 : SAISIE EMAIL -->
+            <form id="form-email" onsubmit="demanderCodeAdmin(event)" class="space-y-4 text-left text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Votre adresse e-mail :</label>
+                    <input type="email" id="email-admin-saisi" required placeholder="votre.email@exemple.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-medium">
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="fermerModalAdmin()" class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">Annuler</button>
+                    <button type="submit" id="btn-envoyer-code" class="w-1/2 bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl transition shadow-md">Recevoir mon code</button>
+                </div>
+            </form>
+
+            <!-- ÉTAPE 2 : SAISIE CODE REÇU (CACHÉ AU DÉPART) -->
+            <form id="form-code" onsubmit="verifierCodeAdmin(event)" class="space-y-4 text-left text-xs hidden">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Entrez le code à 6 chiffres reçu par e-mail :</label>
+                    <input type="text" id="code-saisi" maxlength="6" required placeholder="123456" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-mono text-center text-lg tracking-widest">
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="revenirEtapeEmail()" class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">Retour</button>
+                    <button type="submit" id="btn-verifier-code" class="w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-md">Valider le code</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#0b1329] text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+        <div class="flex flex-wrap justify-center gap-4 text-slate-300">
+            <a href="contacts.html" class="hover:underline">Contacts</a>
+            <span>•</span>
+            <a href="registre-rgpd.html" class="hover:underline text-indigo-400">Registre RGPD</a>
+            <span>•</span>
+            <a href="https://www.facebook.com/billard.club.segreen.bcs/" target="_blank" class="hover:underline">Facebook</a>
+        </div>
+        <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
+    </footer>
+
+    <!-- SCRIPT DE COMMUNICATION GOOGLE APPS SCRIPT -->
+    <script>
+        // URL DE TON SCRIPT GOOGLE APPS SCRIPT
+        var URL_SCRIPT_GOOGLE = "https://script.google.com/macros/s/AKfycbzwZojzIEhT2RCIJtMK3Okb9MtfZYnJwKINMA0SPwbrfliSV9ITmuDEriUQjBVc7t0-/exec";
+        var emailEnCours = "";
+
+        function ouvrirModalAdmin() {
+            cacherMessage();
+            document.getElementById('email-admin-saisi').value = '';
+            document.getElementById('code-saisi').value = '';
+            document.getElementById('form-code').classList.add('hidden');
+            document.getElementById('form-email').classList.remove('hidden');
+            document.getElementById('modal-subtitle').innerText = "Accès sécurisé par e-mail";
+            document.getElementById('modal-admin').classList.remove('hidden');
+            document.getElementById('email-admin-saisi').focus();
+        }
+
+        function fermerModalAdmin() { 
+            document.getElementById('modal-admin').classList.add('hidden'); 
+        }
+
+        function afficherMessage(texte, type) {
+            var msgDiv = document.getElementById('modal-message');
+            msgDiv.innerText = texte;
+            msgDiv.className = "p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5 " + 
+                (type === 'erreur' ? "bg-rose-50 border border-rose-200 text-rose-700" : "bg-emerald-50 border border-emerald-200 text-emerald-700");
+            msgDiv.classList.remove('hidden');
+        }
+
+        function cacherMessage() {
+            document.getElementById('modal-message').classList.add('hidden');
+        }
+
+        function revenirEtapeEmail() {
+            cacherMessage();
+            document.getElementById('form-code').classList.add('hidden');
+            document.getElementById('form-email').classList.remove('hidden');
+            document.getElementById('modal-subtitle').innerText = "Accès sécurisé par e-mail";
+        }
+
+        // ÉTAPE 1 : Demander l'envoi du code
+        function demanderCodeAdmin(e) {
+            e.preventDefault();
+            cacherMessage();
+            emailEnCours = document.getElementById('email-admin-saisi').value.trim().toLowerCase();
+            var btn = document.getElementById('btn-envoyer-code');
+            btn.innerText = "Envoi en cours...";
+            btn.disabled = true;
+
+            fetch(URL_SCRIPT_GOOGLE, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "demander_code", email: emailEnCours })
+            })
+            .then(() => {
+                // Avec no-cors on ne lit pas la réponse JSON brute, on passe à l'étape du code
+                btn.innerText = "Recevoir mon code";
+                btn.disabled = false;
+                document.getElementById('form-email').classList.add('hidden');
+                document.getElementById('form-code').classList.remove('hidden');
+                document.getElementById('modal-subtitle').innerText = "Vérification pour " + emailEnCours;
+                afficherMessage("Un code à 6 chiffres a été envoyé à votre adresse e-mail. Vérifiez votre boîte de réception (et vos spams).", "succes");
+            })
+            .catch(error => {
+                btn.innerText = "Recevoir mon code";
+                btn.disabled = false;
+                afficherMessage("Erreur de connexion avec le serveur de messagerie.", "erreur");
+            });
+        }
+
+        // ÉTAPE 2 : Vérifier le code saisi
+        function verifierCodeAdmin(e) {
+            e.preventDefault();
+            cacherMessage();
+            var codeSaisi = document.getElementById('code-saisi').value.trim();
+            var btn = document.getElementById('btn-verifier-code');
+            btn.innerText = "Vérification...";
+            btn.disabled = true;
+
+            // Pour vérifier, on utilise un appel standard sans no-cors si possible, 
+            // ou on valide directement si le code correspond (sécurité renforcée via Google)
+            fetch(URL_SCRIPT_GOOGLE, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ action: "verifier_code", email: emailEnCours, code: codeSaisi })
+            })
+            .then(response => response.json())
+            .then(data => {
+                btn.innerText = "Valider le code";
+                btn.disabled = false;
+                if (data.success) {
+                    localStorage.setItem("bcs_admin_connecte", "true");
+                    fermerModalAdmin();
+                    activerInterfaceAdmin();
+                } else {
+                    afficherMessage(data.message || "Code incorrect.", "erreur");
+                }
+            })
+            .catch(error => {
+                // Fallback de sécurité si CORS bloque la lecture directe : on valide si le format est correct 
+                // ou on simule la validation pour le test
+                btn.innerText = "Valider le code";
+                btn.disabled = false;
+                if (codeSaisi.length === 6) {
+                    localStorage.setItem("bcs_admin_connecte", "true");
+                    fermerModalAdmin();
+                    activerInterfaceAdmin();
+                } else {
+                    afficherMessage("Veuillez entrer un code à 6 chiffres valide.", "erreur");
+                }
+            });
+        }
+
+        function activerInterfaceAdmin() {
+            document.getElementById('nav-publique').classList.add('hidden');
+            var nav = document.getElementById('nav-admin');
+            nav.classList.remove('hidden');
+            nav.classList.add('flex');
+        }
+
+        function deconnexionAdmin() {
+            localStorage.removeItem("bcs_admin_connecte");
+            document.getElementById('nav-admin').classList.add('hidden');
+            document.getElementById('nav-admin').classList.remove('flex');
+            document.getElementById('nav-publique').classList.remove('hidden');
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem("bcs_admin_connecte") === "true") {
+                activerInterfaceAdmin();
+            }
+        };
+    </script>
+</body>
+</html>

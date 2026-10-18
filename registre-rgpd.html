@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registre RGPD & Confidentialité — Billard Club Segréen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+        .dropdown:hover .dropdown-menu { display: block; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- En-tête / Navigation -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
+            <a href="index.html" class="flex items-center gap-3">
+                <span class="text-3xl">🎱</span>
+                <div>
+                    <h1 class="text-xl font-black uppercase tracking-wider text-amber-400">Billard Club Segréen</h1>
+                    <p class="text-[11px] text-slate-400">Plateforme officielle BCS</p>
+                </div>
+            </a>
+
+            <!-- Navigation Publique -->
+            <nav id="nav-publique" class="flex flex-wrap gap-2 text-xs font-bold items-center">
+                <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">🏠 Accueil</a>
+                <a href="inscription.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">🎯 Inscription Tournoi</a>
+                <a href="streaming.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">📺 Direct & TV</a>
+                <a href="galerie.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">📸 Galeries Photos</a>
+                <a href="contacts.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">📞 Contacts</a>
+                <a href="registre-rgpd.html" class="bg-indigo-600 text-white px-3 py-2 rounded-xl transition">🔒 RGPD</a>
+                
+                <button onclick="verifierMotDePasseAdmin()" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                    🔒 Connexion Admin
+                </button>
+            </nav>
+
+            <!-- Navigation Admin (Cachée par défaut) -->
+            <nav id="nav-admin" class="hidden flex-wrap gap-1 text-xs font-bold items-center">
+                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Mode Admin Actif 🟢</span>
+                <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg">🏠 Accueil</a>
+                <a href="comptes-rendus.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg">📝 Comptes Rendus</a>
+                <a href="registre-rgpd.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">🔒 RGPD</a>
+                <a href="contacts.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg">📞 Contacts</a>
+                <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenu Principal -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-8 flex-grow w-full">
+
+        <!-- Bannière Publique explicative -->
+        <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row justify-between items-center gap-4 border border-slate-800">
+            <div>
+                <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Transparence & Données Personnelles</span>
+                <h2 class="text-2xl sm:text-3xl font-black mt-2">🔒 Registre RGPD & Politique de Confidentialité</h2>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">Conformément au Règlement Général sur la Protection des Données (RGPD), découvrez ci-dessous la gestion des données au sein du Billard Club Segréen.</p>
+            </div>
+        </div>
+
+        <!-- Panneau d'administration (Ajout/Suppression) - Masqué par défaut -->
+        <div id="section-admin-ajout" class="hidden bg-amber-50 border-2 border-amber-300 p-6 rounded-3xl shadow-sm space-y-4">
+            <h3 class="text-sm font-black text-amber-900 flex items-center gap-2">
+                ⚙️ Espace Administrateur : Ajouter un traitement au registre
+            </h3>
+            <form onsubmit="ajouterRegistre(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nom du traitement *</label>
+                    <input type="text" id="rgpd-nom" required placeholder="Ex : Fichier Licenciés" class="w-full bg-white border border-slate-300 rounded-xl p-2.5 outline-none">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Finalité *</label>
+                    <input type="text" id="rgpd-finalite" required placeholder="Ex : Gestion compétitions" class="w-full bg-white border border-slate-300 rounded-xl p-2.5 outline-none">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Données collectées *</label>
+                    <input type="text" id="rgpd-donnees" required placeholder="Ex : Nom, Email, Téléphone" class="w-full bg-white border border-slate-300 rounded-xl p-2.5 outline-none">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Durée conservation *</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="rgpd-duree" required placeholder="Ex : 3 ans" class="w-full bg-white border border-slate-300 rounded-xl p-2.5 outline-none">
+                        <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-4 py-2.5 rounded-xl shadow transition shrink-0">Ajouter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Liste publique des traitements -->
+        <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200 space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                <div>
+                    <h3 class="text-base font-bold text-slate-800">📋 Traitements de données répertoriés au club</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Liste officielle consultable par tous les adhérents.</p>
+                </div>
+                <span id="compte-rgpd" class="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded-xl font-bold">0 traitement(s)</span>
+            </div>
+
+            <div id="liste-rgpd-container" class="space-y-4">
+                <!-- Injecté par JS -->
+            </div>
+        </div>
+
+        <!-- Vos droits (Information légale RGPD publique) -->
+        <div class="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200 space-y-3 text-xs text-slate-600 leading-relaxed">
+            <h4 class="font-bold text-slate-800 text-sm">ℹ️ Vos droits concernant vos données</h4>
+            <p>Conformément aux lois en vigueur, vous disposez d'un droit d'accès, de rectification, de portabilité et de suppression de vos données personnelles. Pour toute question ou exercice de vos droits, vous pouvez contacter le bureau du club à l'adresse : <a href="mailto:billardclubsegreen@gmail.com" class="text-indigo-600 font-bold hover:underline">billardclubsegreen@gmail.com</a>.</p>
+        </div>
+
+    </main>
+
+<footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+        <div class="flex flex-wrap justify-center gap-4 text-slate-300">
+            <a href="contacts.html" class="hover:underline">Contacts</a>
+            <span>•</span>
+            <a href="registre-rgpd.html" class="hover:underline text-indigo-400 font-bold">Registre RGPD</a>
+            <span>•</span>
+            <a href="https://www.facebook.com/billard.club.segreen.bcs/" target="_blank" class="hover:underline">Facebook</a>
+            <span>•</span>
+            <a href="https://www.youtube.com/@billardclubsegreen" target="_blank" class="hover:underline">YouTube</a>
+        </div>
+        <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
+    </footer>
+
+    <!-- Script JavaScript -->
+    <script>
+        // Charger les données par défaut si le localStorage est vide (exemples de base RGPD club)
+        function initialiserDonneesParDefaut() {
+            let liste = JSON.parse(localStorage.getItem("bcs_registre_rgpd") || "[]");
+            if (liste.length === 0) {
+                liste = [
+                    { id: 1, nom: "Fichier des Adhérents & Licenciés", finalite: "Gestion des inscriptions, cotisations et licences FFB", donnees: "Nom, Prénom, Adresse, Téléphone, Email, N° Licence", duree: "3 ans après la dernière adhésion" },
+                    { id: 2, nom: "Formulaire de Contact en Ligne", finalite: "Réponse aux demandes d'information du public", donnees: "Nom, Email, Message", duree: "1 an maximum" },
+                    { id: 3, nom: "Diffusion Vidéo & Photos (Matchs & Tournois)", finalite: "Animation de la vie du club et retransmission live", donnees: "Images / Vidéos des joueurs sur les tables", duree: "Durée de publication sur la chaîne du club" }
+                ];
+                localStorage.setItem("bcs_registre_rgpd", JSON.stringify(liste));
+            }
+        }
+
+        function chargerRegistres() {
+            initialiserDonneesParDefaut();
+            let liste = JSON.parse(localStorage.getItem("bcs_registre_rgpd") || "[]");
+            const container = document.getElementById('liste-rgpd-container');
+            const compteur = document.getElementById('compte-rgpd');
+            const estAdmin = localStorage.getItem("bcs_admin_connecte") === "true";
+            
+            if(compteur) compteur.innerText = `${liste.length} traitement(s)`;
+
+            let html = "";
+            liste.forEach(item => {
+                let boutonSupprimer = estAdmin ? `<button onclick="supprimerRegistre(${item.id})" class="text-rose-500 hover:text-rose-700 font-bold p-1 text-xs">❌ Supprimer</button>` : "";
+                
+                html += `
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 text-xs">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-black text-slate-800 text-sm flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-indigo-600"></span> ${item.nom}
+                            </h4>
+                            ${boutonSupprimer}
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white p-3.5 rounded-xl border border-slate-100 text-slate-700">
+                            <div><strong class="text-slate-900 block mb-0.5">🎯 Finalité :</strong> ${item.finalite}</div>
+                            <div><strong class="text-slate-900 block mb-0.5">📂 Données :</strong> ${item.donnees}</div>
+                            <div><strong class="text-slate-900 block mb-0.5">⏱️ Conservation :</strong> ${item.duree}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function ajouterRegistre(e) {
+            e.preventDefault();
+            const nom = document.getElementById('rgpd-nom').value;
+            const finalite = document.getElementById('rgpd-finalite').value;
+            const donnees = document.getElementById('rgpd-donnees').value;
+            const duree = document.getElementById('rgpd-duree').value;
+
+            let liste = JSON.parse(localStorage.getItem("bcs_registre_rgpd") || "[]");
+            liste.unshift({ id: Date.now(), nom, finalite, donnees, duree });
+            localStorage.setItem("bcs_registre_rgpd", JSON.stringify(liste));
+
+            document.getElementById('rgpd-nom').value = '';
+            document.getElementById('rgpd-finalite').value = '';
+            document.getElementById('rgpd-donnees').value = '';
+            document.getElementById('rgpd-duree').value = '';
+
+            chargerRegistres();
+            alert("Traitement ajouté avec succès au registre ! 🔒");
+        }
+
+        function supprimerRegistre(id) {
+            if (confirm("Voulez-vous supprimer ce traitement ?")) {
+                let liste = JSON.parse(localStorage.getItem("bcs_registre_rgpd") || "[]");
+                liste = liste.filter(item => item.id !== id);
+                localStorage.setItem("bcs_registre_rgpd", JSON.stringify(liste));
+                chargerRegistres();
+            }
+        }
+
+        // Connexion Admin
+        function verifierMotDePasseAdmin() {
+            var saisie = prompt("Entrez le code secret administrateur :");
+            if (saisie === "bcs2026") {
+                localStorage.setItem("bcs_admin_connecte", "true");
+                mettreAJourAffichageAdmin();
+                alert("Mode administrateur activé sur cette page ! 🔓");
+            } else if (saisie !== null) {
+                alert("Code secret incorrect ! ❌");
+            }
+        }
+
+        function mettreAJourAffichageAdmin() {
+            const estAdmin = localStorage.getItem("bcs_admin_connecte") === "true";
+            const navPublique = document.getElementById('nav-publique');
+            const navAdmin = document.getElementById('nav-admin');
+            const sectionAjout = document.getElementById('section-admin-ajout');
+
+            if (estAdmin) {
+                if(navPublique) navPublique.classList.add('hidden');
+                if(navAdmin) { navAdmin.classList.remove('hidden'); navAdmin.classList.add('flex'); }
+                if(sectionAjout) sectionAjout.classList.remove('hidden');
+            } else {
+                if(navAdmin) { navAdmin.classList.add('hidden'); navAdmin.classList.remove('flex'); }
+                if(navPublique) navPublique.classList.remove('hidden');
+                if(sectionAjout) sectionAjout.classList.add('hidden');
+            }
+            chargerRegistres();
+        }
+
+        function deconnexionAdmin() {
+            localStorage.removeItem("bcs_admin_connecte");
+            mettreAJourAffichageAdmin();
+            alert("Déconnecté de l'espace administrateur.");
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            mettreAJourAffichageAdmin();
+        });
+    </script>
+
+</body>
+</html>

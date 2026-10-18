@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Partenaires — Billard Club Segréen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Zoom uniforme à 85% pour toutes les pages */
+        html {
+            zoom: 0.85;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0b1329; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between text-slate-800">
+
+  <!-- BARRE DE MENU FIXE ET IDENTIQUE SUR TOUTES LES PAGES -->
+    <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col xl:flex-row justify-between items-center gap-3">
+            <a href="index.html" class="flex items-center gap-3 shrink-0">
+                <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-xl shadow border border-slate-700">🎱</div>
+                <div>
+                    <h1 class="text-xl font-black uppercase tracking-wider text-amber-400 leading-tight">BILLARD CLUB SEGRÉEN</h1>
+                    <p class="text-[11px] text-slate-400">Plateforme officielle BCS</p>
+                </div>
+            </a>
+
+            <!-- Navigation Publique -->
+            <nav id="nav-publique" class="flex flex-wrap items-center gap-2 text-xs font-bold">
+                <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🏠 Accueil</a>
+                <a href="inscription.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription Tournoi</a>
+                <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏆 CueScore</a>
+                <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📰 La Gazette</a>
+                <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📸 Trombinoscope</a>
+                <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🤝 Partenaires</a>
+                <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📺 Direct & TV</a>
+                <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📞 Contacts</a>
+                
+                <button onclick="ouvrirModalAdmin()" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow font-bold ml-1">
+                    🔒 Accès sécurisé
+                </button>
+            </nav>
+
+            <!-- Navigation Admin -->
+            <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
+                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
+                <a href="index.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">🏠 Accueil</a>
+                <a href="bar.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🍻 Bar</a>
+                <a href="stock.html" class="bg-amber-600 text-white px-3 py-1.5 rounded-lg">📦 Stocks</a>
+                <a href="registre-rgpd.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
+                <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PAGE EXCLUSIVEMENT DÉDIÉE AUX PARTENAIRES -->
+    <main class="max-w-7xl mx-auto px-4 py-10 flex-grow w-full space-y-8">
+        
+        <!-- Titre & Présentation -->
+        <div class="text-center space-y-3 bg-white rounded-3xl p-8 shadow-md border border-slate-200">
+            <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-3xl shadow-inner">🤝</div>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-wide">
+                Nos Partenaires Officiels
+            </h2>
+            <p class="text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Le Billard Club Segréen remercie chaleureusement l'ensemble de ses partenaires et mécènes pour leur soutien précieux au développement de notre club, de nos installations et de nos équipes engagées en compétition.
+            </p>
+        </div>
+
+        <!-- Grille des 5 Partenaires Officiels -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            
+            <!-- Partenaire 1 : Entreprise Defais -->
+            <a href="https://www.entreprise-defais.com/" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-6 shadow-sm hover:shadow-2xl transition-all flex flex-col items-center justify-between text-center group h-52">
+                <div class="w-full h-28 flex items-center justify-center">
+                    <img src="https://lh3.googleusercontent.com/d/1oqqXI0zohN4LEaEyPjE9-oyWie98UKhj=s400" alt="Entreprise Defais" class="max-h-24 max-w-full object-contain group-hover:scale-105 transition-transform">
+                </div>
+                <div class="border-t border-slate-100 pt-3 w-full">
+                    <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Entreprise Defais</span>
+                </div>
+            </a>
+
+            <!-- Partenaire 2 : Garage Caillère -->
+            <a href="https://www.garagecaillere.com/" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-6 shadow-sm hover:shadow-2xl transition-all flex flex-col items-center justify-between text-center group h-52">
+                <div class="w-full h-28 flex items-center justify-center">
+                    <img src="https://lh3.googleusercontent.com/d/1AjF41wZffyiaD0qxgsZdsr05aAsRSIy3=s400" alt="Garage Caillère" class="max-h-24 max-w-full object-contain group-hover:scale-105 transition-transform">
+                </div>
+                <div class="border-t border-slate-100 pt-3 w-full">
+                    <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Garage Caillère</span>
+                </div>
+            </a>
+
+            <!-- Partenaire 3 : L'Coiff by Cynthia -->
+            <a href="https://www.planity.com/lcoiff-by-cynthia-49500-segre-en-anjou-bleu-d6i" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-6 shadow-sm hover:shadow-2xl transition-all flex flex-col items-center justify-between text-center group h-52">
+                <div class="w-full h-28 flex items-center justify-center">
+                    <img src="https://lh3.googleusercontent.com/d/12LlmDgVU0u-2WW9LVzUBnYTJCYRtgY5o=s400" alt="L'Coiff by Cynthia" class="max-h-24 max-w-full object-contain group-hover:scale-105 transition-transform">
+                </div>
+                <div class="border-t border-slate-100 pt-3 w-full">
+                    <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">L'Coiff Cynthia</span>
+                </div>
+            </a>
+
+            <!-- Partenaire 4 : Solutec Point Clés -->
+            <a href="https://www.solutec-pointcles.fr/" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-6 shadow-sm hover:shadow-2xl transition-all flex flex-col items-center justify-between text-center group h-52">
+                <div class="w-full h-28 flex items-center justify-center">
+                    <img src="https://lh3.googleusercontent.com/d/18ailFwFGyg5d3hL60gKI5w2YafYXhghY=s400" alt="Solutec Point Clés" class="max-h-24 max-w-full object-contain group-hover:scale-105 transition-transform">
+                </div>
+                <div class="border-t border-slate-100 pt-3 w-full">
+                    <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Solutec Point Clés</span>
+                </div>
+            </a>
+
+            <!-- Partenaire 5 : Segré en Anjou Bleu -->
+            <a href="https://www.segreenanjoubleu.fr/" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-6 shadow-sm hover:shadow-2xl transition-all flex flex-col items-center justify-between text-center group h-52">
+                <div class="w-full h-28 flex items-center justify-center">
+                    <img src="https://lh3.googleusercontent.com/d/1yEdcGvjGc2Mx5XhkC7cA5EyQFpfAVNVV=s400" alt="Segré en Anjou Bleu" class="max-h-24 max-w-full object-contain group-hover:scale-105 transition-transform">
+                </div>
+                <div class="border-t border-slate-100 pt-3 w-full">
+                    <span class="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Segré Anjou Bleu</span>
+                </div>
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- MODALE CONNEXION ADMIN -->
+    <div id="modal-admin" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-200 text-center space-y-5 relative">
+            <button onclick="fermerModalAdmin()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+            <div class="space-y-2">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-xl font-bold shadow-inner">🎱</div>
+                <h3 class="text-lg font-black text-slate-900">Billard Club Segréen</h3>
+                <p class="text-xs text-slate-500">Accès sécurisé</p>
+            </div>
+            <div id="modal-message-erreur" class="hidden bg-rose-50 border border-rose-200 text-rose-700 p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5">
+                <div class="flex items-start gap-2">
+                    <span class="text-base shrink-0">❌</span>
+                    <span id="texte-erreur">Accès refusé.</span>
+                </div>
+                <div class="text-[11px] text-rose-800 font-bold border-t border-rose-200/60 pt-1.5 mt-1">
+                    ⚠️ Votre adresse IP a été enregistrée dans notre système.
+                </div>
+            </div>
+            <form onsubmit="validerConnexionAdmin(event)" class="space-y-4 text-left text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Votre adresse e-mail :</label>
+                    <input type="email" id="email-admin-saisi" required placeholder="votre.email@exemple.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-medium">
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="fermerModalAdmin()" class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">Annuler</button>
+                    <button type="submit" class="w-1/2 bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl transition shadow-md">Se connecter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#0b1329] text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+        <div class="flex flex-wrap justify-center gap-4 text-slate-300">
+            <a href="contacts.html" class="hover:underline">Contacts</a>
+            <span>•</span>
+            <a href="registre-rgpd.html" class="hover:underline text-indigo-400">Registre RGPD</a>
+            <span>•</span>
+            <a href="https://www.facebook.com/billard.club.segreen.bcs/" target="_blank" class="hover:underline">Facebook</a>
+        </div>
+        <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
+    </footer>
+
+    <!-- SCRIPT AUTHENTIFICATION -->
+    <script>
+        var LISTE_ADMINS = [
+            "franck.toupin@gmail.com",
+            "matpoupart@outlook.fr",
+            "martin.eric1@hotmail.fr",
+            "lefome2411@gmail.com",
+            "chc.chris.09@gmail.com",
+            "Djebmanu@orange.fr",
+            "frederikbrun007@gmail.com"
+        ];
+
+        function ouvrirModalAdmin() {
+            document.getElementById('modal-message-erreur').classList.add('hidden');
+            document.getElementById('email-admin-saisi').value = '';
+            document.getElementById('modal-admin').classList.remove('hidden');
+            document.getElementById('email-admin-saisi').focus();
+        }
+        function fermerModalAdmin() { document.getElementById('modal-admin').classList.add('hidden'); }
+        function afficherErreur(msg) {
+            document.getElementById('texte-erreur').innerText = msg;
+            document.getElementById('modal-message-erreur').classList.remove('hidden');
+        }
+        function validerConnexionAdmin(e) {
+            e.preventDefault();
+            var email = document.getElementById('email-admin-saisi').value.trim().toLowerCase();
+            if (LISTE_ADMINS.includes(email)) {
+                localStorage.setItem("bcs_admin_connecte", "true");
+                fermerModalAdmin();
+                activerInterfaceAdmin();
+            } else {
+                afficherErreur("Accès refusé : Cet e-mail ne fait pas partie des utilisateurs autorisés.");
+            }
+        }
+        function activerInterfaceAdmin() {
+            document.getElementById('nav-publique').classList.add('hidden');
+            var nav = document.getElementById('nav-admin');
+            nav.classList.remove('hidden');
+            nav.classList.add('flex');
+        }
+        function deconnexionAdmin() {
+            localStorage.removeItem("bcs_admin_connecte");
+            document.getElementById('nav-admin').classList.add('hidden');
+            document.getElementById('nav-admin').classList.remove('flex');
+            document.getElementById('nav-publique').classList.remove('hidden');
+        }
+        window.onload = function() {
+            if (localStorage.getItem("bcs_admin_connecte") === "true") {
+                activerInterfaceAdmin();
+            }
+        };
+    </script>
+</body>
+</html>

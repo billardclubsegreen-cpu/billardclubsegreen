@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comptes Rendus — Billard Club Segréen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- En-tête / Navigation -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
+            <a href="index.html" class="flex items-center gap-3">
+                <span class="text-3xl">🎱</span>
+                <div>
+                    <h1 class="text-xl font-black uppercase tracking-wider text-amber-400">Billard Club Segréen</h1>
+                    <p class="text-[11px] text-slate-400">Plateforme officielle BCS</p>
+                </div>
+            </a>
+
+            <!-- Navigation Publique (Redirection si non admin) -->
+            <nav id="nav-publique" class="flex flex-wrap gap-2 text-xs font-bold items-center">
+                <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">🏠 Accueil</a>
+                <a href="inscription.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">🎯 Inscription Tournoi</a>
+                <a href="streaming.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">📺 Direct & TV</a>
+                <a href="galerie.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">📸 Galeries Photos</a>
+                <a href="contacts.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">📞 Contacts</a>
+                
+                <button onclick="verifierMotDePasseAdmin()" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                    🔒 Connexion Admin
+                </button>
+            </nav>
+
+            <!-- Navigation Admin -->
+            <nav id="nav-admin" class="hidden flex-wrap gap-1 text-xs font-bold items-center">
+                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Mode Admin Actif 🟢</span>
+                <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg">🏠 Accueil</a>
+                <a href="comptes-rendus.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">📝 Comptes Rendus</a>
+                <a href="contacts.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg">📞 Contacts</a>
+                <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenu Principal -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-8 flex-grow w-full">
+
+        <!-- Protection Admin / Message si non connecté -->
+        <div id="section-acces-refuse" class="bg-amber-50 border-2 border-amber-300 p-8 rounded-3xl text-center space-y-4">
+            <h2 class="text-xl font-black text-amber-900">🔒 Espace Strictement Réservé aux Administrateurs</h2>
+            <p class="text-xs text-slate-600 max-w-md mx-auto">Vous devez vous connecter avec le code secret administrateur pour accéder à la gestion des comptes-rendus du club.</p>
+            <button onclick="verifierMotDePasseAdmin()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-3 rounded-xl text-xs transition shadow">
+                🔑 Se connecter en Admin
+            </button>
+        </div>
+
+        <!-- Contenu Admin (Caché par défaut) -->
+        <div id="section-admin-contenu" class="hidden space-y-8">
+
+            <!-- Bannière -->
+            <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row justify-between items-center gap-4 border border-slate-800">
+                <div>
+                    <span class="bg-amber-500/20 text-amber-400 border border-amber-400/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Espace Sécurisé Admin</span>
+                    <h2 class="text-2xl sm:text-3xl font-black mt-2">📝 Gestion des Comptes Rendus</h2>
+                    <p class="text-xs sm:text-sm text-slate-300 mt-1">Publiez et archivez les comptes-rendus de réunions et assemblées du Billard Club Segréen.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Formulaire d'ajout -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                    <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        ➕ Nouveau Compte Rendu
+                    </h3>
+
+                    <form onsubmit="ajouterCompteRendu(event)" class="space-y-4 text-xs">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Titre de la réunion *</label>
+                            <input type="text" id="cr-titre" required placeholder="Ex : Réunion de Bureau - Septembre 2026" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Date *</label>
+                            <input type="date" id="cr-date" required class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Résumé / Décisions *</label>
+                            <textarea id="cr-texte" rows="4" required placeholder="Points abordés, décisions votées..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 outline-none focus:border-indigo-500"></textarea>
+                        </div>
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition shadow w-full">
+                            💾 Enregistrer le Compte Rendu
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Liste des comptes rendus enregistrés -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                    <h3 class="text-base font-bold text-slate-800 flex items-center justify-between">
+                        <span>📚 Archives des Comptes Rendus</span>
+                        <span id="compte-cr" class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-lg">0 enregistré(s)</span>
+                    </h3>
+
+                    <div id="liste-cr-container" class="space-y-3">
+                        <!-- Injecté par JS -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+<footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+        <div class="flex flex-wrap justify-center gap-4 text-slate-300">
+            <a href="contacts.html" class="hover:underline">Contacts</a>
+            <span>•</span>
+            <a href="registre-rgpd.html" class="hover:underline text-indigo-400 font-bold">Registre RGPD</a>
+            <span>•</span>
+            <a href="https://www.facebook.com/billard.club.segreen.bcs/" target="_blank" class="hover:underline">Facebook</a>
+            <span>•</span>
+            <a href="https://www.youtube.com/@billardclubsegreen" target="_blank" class="hover:underline">YouTube</a>
+        </div>
+        <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
+    </footer>
+
+    <!-- Script JavaScript -->
+    <script>
+        function verifierMotDePasseAdmin() {
+            var saisie = prompt("Entrez le code secret administrateur :");
+            if (saisie === "bcs2026") {
+                localStorage.setItem("bcs_admin_connecte", "true");
+                basculerAffichageAdmin(true);
+                alert("Accès autorisé ! 🔓");
+            } else if (saisie !== null) {
+                alert("Code secret incorrect ! ❌");
+            }
+        }
+
+        function basculerAffichageAdmin(estAdmin) {
+            const ref = document.getElementById('section-acces-refuse');
+            const cont = document.getElementById('section-admin-contenu');
+            const np = document.getElementById('nav-publique');
+            const na = document.getElementById('nav-admin');
+
+            if (estAdmin) {
+                if(ref) ref.classList.add('hidden');
+                if(cont) cont.classList.remove('hidden');
+                if(np) np.classList.add('hidden');
+                if(na) { na.classList.remove('hidden'); na.classList.add('flex'); }
+                chargerComptesRendus();
+            } else {
+                if(ref) ref.classList.remove('hidden');
+                if(cont) cont.classList.add('hidden');
+                if(na) { na.classList.add('hidden'); na.classList.remove('flex'); }
+                if(np) np.classList.remove('hidden');
+            }
+        }
+
+        function deconnexionAdmin() {
+            localStorage.removeItem("bcs_admin_connecte");
+            basculerAffichageAdmin(false);
+        }
+
+        function ajouterCompteRendu(e) {
+            e.preventDefault();
+            const titre = document.getElementById('cr-titre').value;
+            const date = document.getElementById('cr-date').value;
+            const texte = document.getElementById('cr-texte').value;
+
+            let liste = JSON.parse(localStorage.getItem("bcs_comptes_rendus") || "[]");
+            liste.unshift({ id: Date.now(), titre, date, texte });
+            localStorage.setItem("bcs_comptes_rendus", JSON.stringify(liste));
+
+            document.getElementById('cr-titre').value = '';
+            document.getElementById('cr-date').value = '';
+            document.getElementById('cr-texte').value = '';
+
+            chargerComptesRendus();
+            alert("Compte-rendu enregistré avec succès ! 📝");
+        }
+
+        function supprimerCompteRendu(id) {
+            if (confirm("Voulez-vous supprimer ce compte rendu ?")) {
+                let liste = JSON.parse(localStorage.getItem("bcs_comptes_rendus") || "[]");
+                liste = liste.filter(item => item.id !== id);
+                localStorage.setItem("bcs_comptes_rendus", JSON.stringify(liste));
+                chargerComptesRendus();
+            }
+        }
+
+        function chargerComptesRendus() {
+            let liste = JSON.parse(localStorage.getItem("bcs_comptes_rendus") || "[]");
+            const container = document.getElementById('liste-cr-container');
+            const compteur = document.getElementById('compte-cr');
+            
+            if(compteur) compteur.innerText = `${liste.length} enregistré(s)`;
+
+            if (liste.length === 0) {
+                container.innerHTML = `<div class="p-6 text-center bg-slate-50 rounded-2xl border border-slate-100 text-xs text-slate-500">Aucun compte rendu enregistré pour le moment.</div>`;
+                return;
+            }
+
+            let html = "";
+            liste.forEach(item => {
+                html += `
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 text-xs">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded font-bold">${item.date}</span>
+                                <h4 class="font-bold text-slate-800 text-sm mt-1">${item.titre}</h4>
+                            </div>
+                            <button onclick="supprimerCompteRendu(${item.id})" class="text-rose-500 hover:text-rose-700 font-bold p-1">❌ Supprimer</button>
+                        </div>
+                        <p class="text-slate-600 whitespace-pre-line bg-white p-3 rounded-xl border border-slate-100">${item.texte}</p>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if (localStorage.getItem("bcs_admin_connecte") === "true") {
+                basculerAffichageAdmin(true);
+            } else {
+                basculerAffichageAdmin(false);
+            }
+        });
+    </script>
+
+</body>
+</html>
