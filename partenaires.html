@@ -15,9 +15,9 @@
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen flex flex-col justify-between text-slate-800">
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between text-slate-800 pt-28 sm:pt-24">
 
-  <!-- BARRE DE MENU FIXE ET IDENTIQUE SUR TOUTES LES PAGES -->
+   <!-- BARRE DE MENU FIXE ET IDENTIQUE SUR TOUTES LES PAGES -->
     <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col xl:flex-row justify-between items-center gap-3">
             <a href="index.html" class="flex items-center gap-3 shrink-0">
@@ -30,12 +30,13 @@
 
             <!-- Navigation Publique -->
             <nav id="nav-publique" class="flex flex-wrap items-center gap-2 text-xs font-bold">
-                <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🏠 Accueil</a>
+                <a href="index.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏠 Accueil</a>
                 <a href="inscription.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription Tournoi</a>
                 <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏆 CueScore</a>
                 <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📰 La Gazette</a>
+                <a href="galerie.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🖼️ Galerie</a>
                 <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📸 Trombinoscope</a>
-                <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🤝 Partenaires</a>
+                <a href="partenaires.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🤝 Partenaires</a>
                 <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📺 Direct & TV</a>
                 <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📞 Contacts</a>
                 
@@ -47,7 +48,7 @@
             <!-- Navigation Admin -->
             <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
                 <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
-                <a href="index.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">🏠 Accueil</a>
+                <a href="index.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🏠 Accueil</a>
                 <a href="bar.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🍻 Bar</a>
                 <a href="stock.html" class="bg-amber-600 text-white px-3 py-1.5 rounded-lg">📦 Stocks</a>
                 <a href="registre-rgpd.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
@@ -57,7 +58,7 @@
     </header>
 
     <!-- PAGE EXCLUSIVEMENT DÉDIÉE AUX PARTENAIRES -->
-    <main class="max-w-7xl mx-auto px-4 py-10 flex-grow w-full space-y-8">
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-8">
         
         <!-- Titre & Présentation -->
         <div class="text-center space-y-3 bg-white rounded-3xl p-8 shadow-md border border-slate-200">
