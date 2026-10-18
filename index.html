@@ -51,6 +51,7 @@
                 <a href="https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin" target="_blank" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg transition">🎯 Admin Tournoi</a>
                 <a href="https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin" target="_blank" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">📸 Trombi Admin</a>
                 <a href="https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin" target="_blank" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🤝 Gérer Partenaires</a>
+                <button onclick="ouvrirModalGazetteAdmin()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg transition">📰 Éditer Gazette</button>
                 <button onclick="ouvrirModalFacebook()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition">🤖 Générateur FB</button>
                 <a href="registre-rgpd.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
                 <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
@@ -170,22 +171,37 @@
 
     </main>
 
+    <!-- MODALE EDITION GAZETTE ADMIN -->
+    <div id="modal-gazette-admin" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-white rounded-3xl w-full max-w-5xl h-[90vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
+            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shrink-0">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">📰</span>
+                    <div>
+                        <h3 class="font-bold text-sm sm:text-base text-amber-400">Administration — Modifier les textes de la Gazette</h3>
+                        <p class="text-[11px] text-slate-400">Modifiez les contenus affichés sur la page de la Gazette du club</p>
+                    </div>
+                </div>
+                <button onclick="fermerModalGazetteAdmin()" class="text-slate-400 hover:text-white text-2xl font-bold transition">✕</button>
+            </div>
+            <div class="flex-grow w-full bg-slate-100 overflow-hidden">
+                <iframe id="iframe-gazette-admin" src="" class="w-full h-full border-0"></iframe>
+            </div>
+        </div>
+    </div>
+
     <!-- MODALE AFFICHAGE QR CODE -->
     <div id="modal-qrcode" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl border border-slate-200 text-center space-y-4 relative">
             <button onclick="fermerModalQRCode()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
-            
             <div class="space-y-1">
                 <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-2xl font-bold shadow-inner">📱</div>
                 <h3 id="qr-title" class="text-base font-black text-slate-900 uppercase tracking-wide">Scannez le QR Code</h3>
                 <p id="qr-subtitle" class="text-xs text-slate-500">Scannez ce code avec votre smartphone pour accéder directement à la page.</p>
             </div>
-
-            <!-- Image QR Code dynamique -->
             <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-center justify-center">
                 <img id="qr-img" src="" alt="QR Code" class="w-56 h-56 object-contain rounded-lg shadow-sm">
             </div>
-
             <div class="pt-2 flex flex-col gap-2">
                 <a id="qr-link" href="#" target="_blank" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow flex items-center justify-center gap-1.5">
                     🔗 Ouvrir le lien directement
@@ -210,7 +226,6 @@
                 </div>
                 <button onclick="fermerModalExplicationPartenaires()" class="text-slate-400 hover:text-white text-2xl font-bold transition">✕</button>
             </div>
-
             <div class="p-6 sm:p-8 overflow-y-auto space-y-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
                 <div class="bg-slate-800/80 rounded-2xl p-5 border border-slate-700/60 text-center space-y-2">
                     <h4 class="text-lg font-black text-white uppercase tracking-wide text-amber-300">Soutenez le dynamisme du Billard Club Segréen</h4>
@@ -218,13 +233,11 @@
                         Particuliers ou entreprises, <strong>associez votre image à un club sportif engagé, convivial et formateur</strong>. En soutenant nos projets, vous contribuez directement au développement de notre école de billard, à la vie associative locale et à l'organisation de nos compétitions. Découvrez ci-dessous nos formules de mécénat et de partenariat, pensées pour conjuguer passion du sport et avantages concrets.
                     </p>
                 </div>
-
                 <div class="space-y-3">
                     <h5 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-2">
                         <span>🤝</span> Soutenir le Billard Club Segréen
                     </h5>
                     <p class="text-slate-400">Le club se développe et a besoin de vous ! <strong>Deux formules s'offrent à vous</strong> selon vos attentes :</p>
-                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                         <div class="bg-slate-800/50 rounded-2xl p-5 border border-amber-500/30 space-y-3">
                             <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
@@ -243,7 +256,6 @@
                                 </li>
                             </ul>
                         </div>
-
                         <div class="bg-slate-800/50 rounded-2xl p-5 border border-indigo-500/30 space-y-3">
                             <div class="flex items-center gap-2 text-indigo-400 font-bold text-sm">
                                 <span>🤝</span>
@@ -267,49 +279,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="space-y-3 pt-2">
-                    <h5 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-2">
-                        <span>📋</span> Nos Formules & Tarifs
-                    </h5>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="bg-slate-800/40 rounded-2xl p-5 border border-slate-700/80 flex flex-col justify-between text-center space-y-3">
-                            <div class="space-y-2">
-                                <span class="text-2xl">👕</span>
-                                <h6 class="font-bold text-white">Sponsoring Maillot</h6>
-                                <p class="text-xs text-slate-400">Visibilité sur la manche droite ou gauche de nos tenues officielles.</p>
-                            </div>
-                            <div class="pt-2 border-t border-slate-700/50">
-                                <span class="text-amber-400 font-black text-base">1 000 € min.</span>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-800/40 rounded-2xl p-5 border border-slate-700/80 flex flex-col justify-between text-center space-y-3">
-                            <div class="space-y-2">
-                                <span class="text-2xl">🎱</span>
-                                <h6 class="font-bold text-white">Sponsoring Table</h6>
-                                <p class="text-xs text-slate-400">Une table du club portera votre nom et logo toute la saison, vous assurant une visibilité lors de chaque manifestation.</p>
-                            </div>
-                            <div class="pt-2 border-t border-slate-700/50">
-                                <span class="text-amber-400 font-black text-base">400 € min.</span>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-800/40 rounded-2xl p-5 border border-slate-700/80 flex flex-col justify-between text-center space-y-3">
-                            <div class="space-y-2">
-                                <span class="text-2xl">🏆</span>
-                                <h6 class="font-bold text-white">Sponsoring TN & Mécénat</h6>
-                                <p class="text-xs text-slate-400">Mise en avant lors du Tournoi National (affichage + vin d'honneur) ou don libre par Mécénat.</p>
-                            </div>
-                            <div class="pt-2 border-t border-slate-700/50">
-                                <span class="text-amber-400 font-black text-base">TN : 350 € min.</span>
-                                <p class="text-[10px] text-slate-400">Ou don Mécénat libre</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="pt-4 flex flex-wrap justify-center gap-3">
                     <a href="contacts.html" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2.5 rounded-xl transition shadow text-xs flex items-center gap-2">
                         📞 Nous contacter pour devenir partenaire
@@ -318,7 +287,6 @@
                         Fermer
                     </button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -332,9 +300,7 @@
                 <h3 class="text-lg font-black text-slate-900">Billard Club Segréen</h3>
                 <p class="text-xs text-slate-500" id="modal-subtitle">Accès sécurisé par e-mail</p>
             </div>
-
             <div id="modal-message" class="hidden p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5"></div>
-
             <form id="form-email" onsubmit="demanderCodeAdmin(event)" class="space-y-4 text-left text-xs">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Votre adresse e-mail :</label>
@@ -345,7 +311,6 @@
                     <button type="submit" id="btn-envoyer-code" class="w-1/2 bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl transition shadow-md">Recevoir mon code</button>
                 </div>
             </form>
-
             <form id="form-code" onsubmit="verifierCodeAdmin(event)" class="space-y-4 text-left text-xs hidden">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Entrez le code à 6 chiffres reçu par e-mail :</label>
@@ -368,11 +333,9 @@
                 <h3 class="text-lg font-black text-slate-900">Générateur de Publications Facebook</h3>
                 <p class="text-xs text-slate-500">Idées et phrases aléatoires pour alimenter la page du club</p>
             </div>
-
             <div id="box-phrase-fb" class="bg-slate-50 border border-slate-200 p-4 rounded-2xl text-xs text-slate-700 min-h-[100px] flex items-center justify-center font-medium italic">
                 Cliquez sur le bouton ci-dessous pour générer une publication...
             </div>
-
             <div class="flex gap-2 pt-2">
                 <button type="button" onclick="genererPhraseAleatoire()" class="w-1/2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow">🎲 Autre phrase</button>
                 <button type="button" onclick="copierPhraseFacebook()" class="w-1/2 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition shadow">📋 Copier le texte</button>
@@ -398,9 +361,21 @@
         
         var URL_SAISIE_JOUEUR = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=saisiejoueur";
         var URL_CARTESIEN = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=cartesien";
+        var URL_GAZETTE_ADMIN = "https://script.google.com/macros/s/AKfycbzbbjS49aQsSqp5PgOfr9HIWod4BsS0JJe_V4m05u47CP4AA-1XHGOUn1xxmVq5e_j9/exec?action=admin";
 
         var emailEnCours = "";
         var phrasesFacebookCache = [];
+
+        // GESTION MODALE EDITION GAZETTE ADMIN
+        function ouvrirModalGazetteAdmin() {
+            document.getElementById('iframe-gazette-admin').src = URL_GAZETTE_ADMIN;
+            document.getElementById('modal-gazette-admin').classList.remove('hidden');
+        }
+
+        function fermerModalGazetteAdmin() {
+            document.getElementById('modal-gazette-admin').classList.add('hidden');
+            document.getElementById('iframe-gazette-admin').src = "";
+        }
 
         // GESTION MODALE QR CODE
         function ouvrirModalQRCode(type) {
@@ -413,7 +388,6 @@
             document.getElementById('qr-title').innerText = titre;
             document.getElementById('qr-subtitle').innerText = sousTitre;
             
-            // Génération de l'image QR Code en direct
             var qrApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + encodeURIComponent(urlTarget);
             document.getElementById('qr-img').src = qrApiUrl;
             document.getElementById('qr-link').href = urlTarget;
@@ -556,8 +530,18 @@
             var sheetId = "1YljRU6tETc5YOfwnJQ4PARoDtldHofg8lBHTWRntZC8";
             var urlCSV = "https://docs.google.com/spreadsheets/d/" + sheetId + "/export?format=csv";
 
+            var phrasesSecours = [
+                "🎱 [VIE DU CLUB] Retrouvez toutes les actualités et les résultats des derniers matchs sur notre site web officiel !",
+                "🏆 [COMPÉTITION] Nos joueurs sont sur les tables ce week-end. Venez les encourager au club !",
+                "🤝 [PARTENAIRES] Un grand merci à nos partenaires locaux pour leur précieux soutien au Billard Club Segréen.",
+                "🎯 [ENTRAÎNEMENT] L'école de billard accueille les jeunes et les adultes. N'hésitez pas à venir découvrir le billard !"
+            ];
+
             fetch(urlCSV)
-                .then(response => response.text())
+                .then(response => {
+                    if (!response.ok) throw new Error("Accès refusé au fichier");
+                    return response.text();
+                })
                 .then(data => {
                     var lignes = data.split("\n");
                     phrasesFacebookCache = [];
@@ -571,11 +555,13 @@
                     if (phrasesFacebookCache.length > 0) {
                         genererPhraseAleatoire();
                     } else {
-                        box.innerText = "Aucune phrase trouvée dans le tableur.";
+                        phrasesFacebookCache = phrasesSecours;
+                        genererPhraseAleatoire();
                     }
                 })
                 .catch(err => {
-                    box.innerText = "Erreur de chargement du fichier Google Sheets.";
+                    phrasesFacebookCache = phrasesSecours;
+                    genererPhraseAleatoire();
                 });
         }
 
