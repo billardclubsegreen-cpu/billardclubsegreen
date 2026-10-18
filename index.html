@@ -55,12 +55,100 @@
     </header>
 
     <!-- ZONE CENTRALE -->
-    <main class="max-w-7xl mx-auto px-4 py-16 flex-grow w-full text-center space-y-4">
-        <div class="bg-white rounded-3xl p-12 shadow-xl border border-slate-200 max-w-2xl mx-auto space-y-4">
+    <main class="max-w-7xl mx-auto px-4 py-10 flex-grow w-full space-y-12">
+        
+        <!-- Bloc de Bienvenue -->
+        <div class="bg-white rounded-3xl p-10 shadow-xl border border-slate-200 max-w-3xl mx-auto text-center space-y-4">
             <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-3xl font-bold shadow-inner">🎱</div>
-            <h2 class="text-2xl font-black text-slate-800">Bienvenue sur le site du Billard Club Segréen</h2>
-            <p class="text-sm text-slate-500">Utilisez la barre de navigation supérieure pour accéder directement aux différentes rubriques du club.</p>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-wide">Bienvenue sur le site du Billard Club Segréen</h2>
+            <p class="text-sm text-slate-600 leading-relaxed">Utilisez la barre de navigation supérieure pour accéder directement aux différentes rubriques du club : tournois, classements CueScore, gazette, trombinoscope et bien plus encore.</p>
         </div>
+
+        <!-- Section Milieu : Nos Partenaires Officiels -->
+        <div class="space-y-6">
+            <div class="text-center space-y-2">
+                <h3 class="text-xl font-black text-slate-900 uppercase tracking-wide flex items-center justify-center gap-2">
+                    <span>🤝</span> Nos Partenaires Officiels
+                </h3>
+                <p class="text-xs text-slate-500">Un grand merci à nos mécènes et partenaires pour leur soutien au club.</p>
+            </div>
+
+            <!-- Grille des Partenaires -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4">
+                
+                <!-- Chope et Compagnie -->
+                <a href="https://www.chopeetcompagnie-leliondangers.fr/" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center justify-between text-center group h-48">
+                    <div class="w-full h-24 flex items-center justify-center">
+                        <img src="https://lh3.googleusercontent.com/d/1qoaDVZx8TRtCLTpoIB9ttmPT_hePMIlI=s400" alt="Chope et Compagnie" class="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform">
+                    </div>
+                    <div class="border-t border-slate-100 pt-2.5 w-full">
+                        <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Chope & Compagnie</span>
+                    </div>
+                </a>
+
+                <!-- Entreprise Defais -->
+                <a href="https://www.entreprise-defais.com/" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center justify-between text-center group h-48">
+                    <div class="w-full h-24 flex items-center justify-center">
+                        <img src="https://lh3.googleusercontent.com/d/1oqqXI0zohN4LEaEyPjE9-oyWie98UKhj=s400" alt="Entreprise Defais" class="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform">
+                    </div>
+                    <div class="border-t border-slate-100 pt-2.5 w-full">
+                        <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Entreprise Defais</span>
+                    </div>
+                </a>
+
+                <!-- Garage Caillère -->
+                <a href="https://www.garagecaillere.com/" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center justify-between text-center group h-48">
+                    <div class="w-full h-24 flex items-center justify-center">
+                        <img src="https://lh3.googleusercontent.com/d/1AjF41wZffyiaD0qxgsZdsr05aAsRSIy3=s400" alt="Garage Caillère" class="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform">
+                    </div>
+                    <div class="border-t border-slate-100 pt-2.5 w-full">
+                        <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Garage Caillère</span>
+                    </div>
+                </a>
+
+                <!-- L'Coiff par Cynthia -->
+                <a href="https://www.planity.com/lcoiff-by-cynthia-49500-segre-en-anjou-bleu-d6i" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center justify-between text-center group h-48">
+                    <div class="w-full h-24 flex items-center justify-center">
+                        <img src="https://lh3.googleusercontent.com/d/12LlmDgVU0u-2WW9LVzUBnYTJCYRtgY5o=s400" alt="L'Coiff by Cynthia" class="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform">
+                    </div>
+                    <div class="border-t border-slate-100 pt-2.5 w-full">
+                        <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">L'Coiff Cynthia</span>
+                    </div>
+                </a>
+
+                <!-- Segré en Anjou Bleu -->
+                <a href="https://www.segreenanjoubleu.fr/" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center justify-between text-center group h-48">
+                    <div class="w-full h-24 flex items-center justify-center">
+                        <img src="https://lh3.googleusercontent.com/d/1yEdcGvjGc2Mx5XhkC7cA5EyQFpfAVNVV=s400" alt="Segré en Anjou Bleu" class="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform">
+                    </div>
+                    <div class="border-t border-slate-100 pt-2.5 w-full">
+                        <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Segré Anjou Bleu</span>
+                    </div>
+                </a>
+
+                <!-- Oxygène Radio -->
+                <a href="https://www.oxygeneradio.com/" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center justify-between text-center group h-48">
+                    <div class="w-full h-24 flex items-center justify-center">
+                        <img src="https://lh3.googleusercontent.com/d/1q1a5wzl_NashJDTzSVx3yoOx6QYMYknk=s400" alt="Oxygène Radio" class="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform">
+                    </div>
+                    <div class="border-t border-slate-100 pt-2.5 w-full">
+                        <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Oxygène Radio</span>
+                    </div>
+                </a>
+
+                <!-- Solutec Point Clés -->
+                <a href="https://www.solutec-pointcles.fr/" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center justify-between text-center group h-48">
+                    <div class="w-full h-24 flex items-center justify-center">
+                        <img src="https://lh3.googleusercontent.com/d/18ailFwFGyg5d3hL60gKI5w2YafYXhghY=s400" alt="Solutec Point Clés" class="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform">
+                    </div>
+                    <div class="border-t border-slate-100 pt-2.5 w-full">
+                        <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Solutec Point Clés</span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
     </main>
 
     <!-- MODALE CONNEXION ADMIN -->
@@ -115,7 +203,6 @@
 
     <!-- SCRIPT DE COMMUNICATION GOOGLE APPS SCRIPT -->
     <script>
-        // URL DE TON SCRIPT GOOGLE APPS SCRIPT
         var URL_SCRIPT_GOOGLE = "https://script.google.com/macros/s/AKfycbzwZojzIEhT2RCIJtMK3Okb9MtfZYnJwKINMA0SPwbrfliSV9ITmuDEriUQjBVc7t0-/exec";
         var emailEnCours = "";
 
@@ -169,7 +256,6 @@
                 body: JSON.stringify({ action: "demander_code", email: emailEnCours })
             })
             .then(() => {
-                // Avec no-cors on ne lit pas la réponse JSON brute, on passe à l'étape du code
                 btn.innerText = "Recevoir mon code";
                 btn.disabled = false;
                 document.getElementById('form-email').classList.add('hidden');
@@ -193,8 +279,6 @@
             btn.innerText = "Vérification...";
             btn.disabled = true;
 
-            // Pour vérifier, on utilise un appel standard sans no-cors si possible, 
-            // ou on valide directement si le code correspond (sécurité renforcée via Google)
             fetch(URL_SCRIPT_GOOGLE, {
                 method: "POST",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -213,8 +297,6 @@
                 }
             })
             .catch(error => {
-                // Fallback de sécurité si CORS bloque la lecture directe : on valide si le format est correct 
-                // ou on simule la validation pour le test
                 btn.innerText = "Valider le code";
                 btn.disabled = false;
                 if (codeSaisi.length === 6) {
