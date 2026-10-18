@@ -28,7 +28,7 @@
             <!-- NAVIGATION PUBLIQUE -->
             <nav id="nav-publique" class="flex flex-wrap items-center gap-2 text-xs font-bold">
                 <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🏠 Accueil</a>
-                <a href="inscription.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription Tournoi</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfX-AQxkHlRIYEpAnrJR2MJo1Gu-CvYveL_zh7fW2NpTkCFzw/viewform" target="_blank" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription FFB</a>
                 <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏆 CueScore</a>
                 <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📰 La Gazette</a>
                 <a href="galerie.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50 flex items-center gap-1">🖼️ Galerie</a>
@@ -42,12 +42,16 @@
                 </button>
             </nav>
 
-            <!-- NAVIGATION ADMIN -->
+            <!-- NAVIGATION ADMIN (UNIFIÉE) -->
             <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
                 <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
                 <a href="index.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">🏠 Accueil</a>
                 <a href="bar.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🍻 Bar</a>
                 <a href="stock.html" class="bg-amber-600 text-white px-3 py-1.5 rounded-lg">📦 Stocks</a>
+                <a href="https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin" target="_blank" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg transition">🎯 Admin Tournoi</a>
+                <a href="https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin" target="_blank" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">📸 Trombi Admin</a>
+                <a href="https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin" target="_blank" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🤝 Gérer Partenaires</a>
+                <button onclick="ouvrirModalFacebook()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition">🤖 Générateur FB</button>
                 <a href="registre-rgpd.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
                 <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
             </nav>
@@ -55,19 +59,34 @@
     </header>
 
     <!-- ZONE CENTRALE -->
-    <main class="max-w-7xl mx-auto px-4 py-10 flex-grow w-full space-y-12">
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-8">
         
-        <!-- Bloc de Bienvenue -->
-        <div class="bg-white rounded-3xl p-10 shadow-xl border border-slate-200 max-w-3xl mx-auto text-center space-y-4">
-            <div class="w-16 h-16 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-3xl font-bold shadow-inner">🎱</div>
-            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-wide">Bienvenue sur le site du Billard Club Segréen</h2>
-            <p class="text-sm text-slate-600 leading-relaxed">Utilisez la barre de navigation supérieure pour accéder directement aux différentes rubriques du club : tournois, classements CueScore, gazette, trombinoscope et bien plus encore.</p>
+        <!-- Bloc de Bienvenue Compact -->
+        <div class="bg-white rounded-2xl p-5 shadow-md border border-slate-200 max-w-2xl mx-auto text-center space-y-3">
+            <div class="flex items-center justify-center gap-2">
+                <div class="w-8 h-8 bg-amber-100 text-amber-700 rounded-lg flex items-center justify-center text-lg font-bold shadow-inner">🎱</div>
+                <h2 class="text-lg sm:text-xl font-black text-slate-900 uppercase tracking-wide">Billard Club Segréen</h2>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed max-w-lg mx-auto">Accédez directement aux différentes rubriques du club via la barre de navigation ou les raccourcis ci-dessous :</p>
+            
+            <!-- Boutons d'accès rapides -->
+            <div class="flex flex-wrap justify-center gap-2 pt-1">
+                <button onclick="ouvrirModalExplicationPartenaires()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[11px] px-3.5 py-2 rounded-xl transition shadow-sm flex items-center gap-1.5">
+                    🤝 Pourquoi devenir partenaire ?
+                </button>
+                <button onclick="ouvrirModalQRCode('saisie')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold text-[11px] px-3.5 py-2 rounded-xl transition shadow-sm flex items-center gap-1.5">
+                    📱 QR Code Saisie Scores
+                </button>
+                <button onclick="ouvrirModalQRCode('cartesien')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-[11px] px-3.5 py-2 rounded-xl transition shadow-sm flex items-center gap-1.5">
+                    🎯 Tournoi Cartésien
+                </button>
+            </div>
         </div>
 
         <!-- Section Milieu : Nos Partenaires Officiels -->
-        <div class="space-y-6">
-            <div class="text-center space-y-2">
-                <h3 class="text-xl font-black text-slate-900 uppercase tracking-wide flex items-center justify-center gap-2">
+        <div class="space-y-4">
+            <div class="text-center space-y-1">
+                <h3 class="text-lg font-black text-slate-900 uppercase tracking-wide flex items-center justify-center gap-2">
                     <span>🤝</span> Nos Partenaires Officiels
                 </h3>
                 <p class="text-xs text-slate-500">Un grand merci à nos mécènes et partenaires pour leur soutien au club.</p>
@@ -151,6 +170,159 @@
 
     </main>
 
+    <!-- MODALE AFFICHAGE QR CODE -->
+    <div id="modal-qrcode" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl border border-slate-200 text-center space-y-4 relative">
+            <button onclick="fermerModalQRCode()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+            
+            <div class="space-y-1">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-2xl font-bold shadow-inner">📱</div>
+                <h3 id="qr-title" class="text-base font-black text-slate-900 uppercase tracking-wide">Scannez le QR Code</h3>
+                <p id="qr-subtitle" class="text-xs text-slate-500">Scannez ce code avec votre smartphone pour accéder directement à la page.</p>
+            </div>
+
+            <!-- Image QR Code dynamique -->
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-center justify-center">
+                <img id="qr-img" src="" alt="QR Code" class="w-56 h-56 object-contain rounded-lg shadow-sm">
+            </div>
+
+            <div class="pt-2 flex flex-col gap-2">
+                <a id="qr-link" href="#" target="_blank" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition text-xs shadow flex items-center justify-center gap-1.5">
+                    🔗 Ouvrir le lien directement
+                </a>
+                <button type="button" onclick="fermerModalQRCode()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2 rounded-xl transition text-xs">
+                    Fermer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE EXPLICATION PARTENAIRES -->
+    <div id="modal-explication-partenaires" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-slate-900 text-white rounded-3xl w-full max-w-4xl max-h-[90vh] shadow-2xl border border-slate-800 flex flex-col overflow-hidden relative my-auto">
+            <div class="bg-slate-950 px-6 py-4 flex justify-between items-center border-b border-slate-800 sticky top-0 z-10">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">🤝</span>
+                    <div>
+                        <h3 class="text-base font-black text-amber-400 uppercase tracking-wide">Billard Club Segréen</h3>
+                        <p class="text-[11px] text-slate-400">Espace Mécénat & Partenariats</p>
+                    </div>
+                </div>
+                <button onclick="fermerModalExplicationPartenaires()" class="text-slate-400 hover:text-white text-2xl font-bold transition">✕</button>
+            </div>
+
+            <div class="p-6 sm:p-8 overflow-y-auto space-y-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <div class="bg-slate-800/80 rounded-2xl p-5 border border-slate-700/60 text-center space-y-2">
+                    <h4 class="text-lg font-black text-white uppercase tracking-wide text-amber-300">Soutenez le dynamisme du Billard Club Segréen</h4>
+                    <p class="text-slate-300">
+                        Particuliers ou entreprises, <strong>associez votre image à un club sportif engagé, convivial et formateur</strong>. En soutenant nos projets, vous contribuez directement au développement de notre école de billard, à la vie associative locale et à l'organisation de nos compétitions. Découvrez ci-dessous nos formules de mécénat et de partenariat, pensées pour conjuguer passion du sport et avantages concrets.
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <h5 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-2">
+                        <span>🤝</span> Soutenir le Billard Club Segréen
+                    </h5>
+                    <p class="text-slate-400">Le club se développe et a besoin de vous ! <strong>Deux formules s'offrent à vous</strong> selon vos attentes :</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <div class="bg-slate-800/50 rounded-2xl p-5 border border-amber-500/30 space-y-3">
+                            <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
+                                <span>💡</span>
+                                <h6>Le Mécénat (Don)</h6>
+                            </div>
+                            <p class="text-slate-300 text-xs">Un geste désintéressé pour soutenir notre association sportive et nos projets jeunesse/clubs.</p>
+                            <ul class="space-y-2 text-xs text-slate-300">
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-amber-400 font-bold">•</span>
+                                    <span><strong>Avantage fiscal majeur :</strong> Réduction d'impôt sur les sociétés (IS) de <strong>60% du montant du don</strong> (dans la limite des plafonds légaux). Un don de 100 € ne coûte réellement que <strong>40 €</strong> après déduction.</span>
+                                </li>
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-amber-400 font-bold">•</span>
+                                    <span>Délivrance d'un <strong>reçu fiscal officiel (CERFA)</strong>.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-800/50 rounded-2xl p-5 border border-indigo-500/30 space-y-3">
+                            <div class="flex items-center gap-2 text-indigo-400 font-bold text-sm">
+                                <span>🤝</span>
+                                <h6>Le Partenariat</h6>
+                            </div>
+                            <p class="text-slate-300 text-xs">Vous préférez une démarche axée sur la communication et la visibilité de votre entreprise ?</p>
+                            <ul class="space-y-2 text-xs text-slate-300">
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-indigo-400 font-bold">•</span>
+                                    <span><strong>Visibilité maximale</strong> sur nos supports (site, réseaux sociaux, événements).</span>
+                                </li>
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-indigo-400 font-bold">•</span>
+                                    <span>Contrat de prestations publicitaires (charge déductible en frais professionnels).</span>
+                                </li>
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-indigo-400 font-bold">•</span>
+                                    <span>Idéal pour <strong>associer l'image de votre marque</strong> à notre club.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-3 pt-2">
+                    <h5 class="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-2">
+                        <span>📋</span> Nos Formules & Tarifs
+                    </h5>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-slate-800/40 rounded-2xl p-5 border border-slate-700/80 flex flex-col justify-between text-center space-y-3">
+                            <div class="space-y-2">
+                                <span class="text-2xl">👕</span>
+                                <h6 class="font-bold text-white">Sponsoring Maillot</h6>
+                                <p class="text-xs text-slate-400">Visibilité sur la manche droite ou gauche de nos tenues officielles.</p>
+                            </div>
+                            <div class="pt-2 border-t border-slate-700/50">
+                                <span class="text-amber-400 font-black text-base">1 000 € min.</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800/40 rounded-2xl p-5 border border-slate-700/80 flex flex-col justify-between text-center space-y-3">
+                            <div class="space-y-2">
+                                <span class="text-2xl">🎱</span>
+                                <h6 class="font-bold text-white">Sponsoring Table</h6>
+                                <p class="text-xs text-slate-400">Une table du club portera votre nom et logo toute la saison, vous assurant une visibilité lors de chaque manifestation.</p>
+                            </div>
+                            <div class="pt-2 border-t border-slate-700/50">
+                                <span class="text-amber-400 font-black text-base">400 € min.</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800/40 rounded-2xl p-5 border border-slate-700/80 flex flex-col justify-between text-center space-y-3">
+                            <div class="space-y-2">
+                                <span class="text-2xl">🏆</span>
+                                <h6 class="font-bold text-white">Sponsoring TN & Mécénat</h6>
+                                <p class="text-xs text-slate-400">Mise en avant lors du Tournoi National (affichage + vin d'honneur) ou don libre par Mécénat.</p>
+                            </div>
+                            <div class="pt-2 border-t border-slate-700/50">
+                                <span class="text-amber-400 font-black text-base">TN : 350 € min.</span>
+                                <p class="text-[10px] text-slate-400">Ou don Mécénat libre</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4 flex flex-wrap justify-center gap-3">
+                    <a href="contacts.html" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2.5 rounded-xl transition shadow text-xs flex items-center gap-2">
+                        📞 Nous contacter pour devenir partenaire
+                    </a>
+                    <button onclick="fermerModalExplicationPartenaires()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-5 py-2.5 rounded-xl transition text-xs">
+                        Fermer
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <!-- MODALE CONNEXION ADMIN -->
     <div id="modal-admin" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-200 text-center space-y-5 relative">
@@ -163,7 +335,6 @@
 
             <div id="modal-message" class="hidden p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5"></div>
 
-            <!-- ÉTAPE 1 : SAISIE EMAIL -->
             <form id="form-email" onsubmit="demanderCodeAdmin(event)" class="space-y-4 text-left text-xs">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Votre adresse e-mail :</label>
@@ -175,7 +346,6 @@
                 </div>
             </form>
 
-            <!-- ÉTAPE 2 : SAISIE CODE REÇU (CACHÉ AU DÉPART) -->
             <form id="form-code" onsubmit="verifierCodeAdmin(event)" class="space-y-4 text-left text-xs hidden">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Entrez le code à 6 chiffres reçu par e-mail :</label>
@@ -186,6 +356,27 @@
                     <button type="submit" id="btn-verifier-code" class="w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-md">Valider le code</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- MODALE GÉNÉRATEUR DE PHRASES FACEBOOK -->
+    <div id="modal-facebook" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl border border-slate-200 text-center space-y-5 relative">
+            <button onclick="fermerModalFacebook()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+            <div class="space-y-2">
+                <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-2xl mx-auto flex items-center justify-center text-xl font-bold shadow-inner">🤖</div>
+                <h3 class="text-lg font-black text-slate-900">Générateur de Publications Facebook</h3>
+                <p class="text-xs text-slate-500">Idées et phrases aléatoires pour alimenter la page du club</p>
+            </div>
+
+            <div id="box-phrase-fb" class="bg-slate-50 border border-slate-200 p-4 rounded-2xl text-xs text-slate-700 min-h-[100px] flex items-center justify-center font-medium italic">
+                Cliquez sur le bouton ci-dessous pour générer une publication...
+            </div>
+
+            <div class="flex gap-2 pt-2">
+                <button type="button" onclick="genererPhraseAleatoire()" class="w-1/2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow">🎲 Autre phrase</button>
+                <button type="button" onclick="copierPhraseFacebook()" class="w-1/2 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition shadow">📋 Copier le texte</button>
+            </div>
         </div>
     </div>
 
@@ -201,10 +392,47 @@
         <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
     </footer>
 
-    <!-- SCRIPT DE COMMUNICATION GOOGLE APPS SCRIPT -->
+    <!-- SCRIPT DE COMMUNICATION ET MODALES -->
     <script>
         var URL_SCRIPT_GOOGLE = "https://script.google.com/macros/s/AKfycbzwZojzIEhT2RCIJtMK3Okb9MtfZYnJwKINMA0SPwbrfliSV9ITmuDEriUQjBVc7t0-/exec";
+        
+        var URL_SAISIE_JOUEUR = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=saisiejoueur";
+        var URL_CARTESIEN = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=cartesien";
+
         var emailEnCours = "";
+        var phrasesFacebookCache = [];
+
+        // GESTION MODALE QR CODE
+        function ouvrirModalQRCode(type) {
+            var urlTarget = (type === 'saisie') ? URL_SAISIE_JOUEUR : URL_CARTESIEN;
+            var titre = (type === 'saisie') ? "QR Code — Saisie des Scores" : "QR Code — Tournoi Cartésien";
+            var sousTitre = (type === 'saisie') 
+                ? "Scannez pour accéder à l'Espace Joueur et saisir vos scores de match." 
+                : "Scannez pour suivre et gérer les tables du Tournoi Cartésien.";
+
+            document.getElementById('qr-title').innerText = titre;
+            document.getElementById('qr-subtitle').innerText = sousTitre;
+            
+            // Génération de l'image QR Code en direct
+            var qrApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + encodeURIComponent(urlTarget);
+            document.getElementById('qr-img').src = qrApiUrl;
+            document.getElementById('qr-link').href = urlTarget;
+
+            document.getElementById('modal-qrcode').classList.remove('hidden');
+        }
+
+        function fermerModalQRCode() {
+            document.getElementById('modal-qrcode').classList.add('hidden');
+        }
+
+        // GESTION MODALE EXPLICATION PARTENAIRES
+        function ouvrirModalExplicationPartenaires() {
+            document.getElementById('modal-explication-partenaires').classList.remove('hidden');
+        }
+
+        function fermerModalExplicationPartenaires() {
+            document.getElementById('modal-explication-partenaires').classList.add('hidden');
+        }
 
         function ouvrirModalAdmin() {
             cacherMessage();
@@ -217,14 +445,14 @@
             document.getElementById('email-admin-saisi').focus();
         }
 
-        function fermerModalAdmin() { 
-            document.getElementById('modal-admin').classList.add('hidden'); 
+        function fermerModalAdmin() {  
+            document.getElementById('modal-admin').classList.add('hidden');  
         }
 
         function afficherMessage(texte, type) {
             var msgDiv = document.getElementById('modal-message');
             msgDiv.innerText = texte;
-            msgDiv.className = "p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5 " + 
+            msgDiv.className = "p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5 " +  
                 (type === 'erreur' ? "bg-rose-50 border border-rose-200 text-rose-700" : "bg-emerald-50 border border-emerald-200 text-emerald-700");
             msgDiv.classList.remove('hidden');
         }
@@ -240,7 +468,6 @@
             document.getElementById('modal-subtitle').innerText = "Accès sécurisé par e-mail";
         }
 
-        // ÉTAPE 1 : Demander l'envoi du code
         function demanderCodeAdmin(e) {
             e.preventDefault();
             cacherMessage();
@@ -270,7 +497,6 @@
             });
         }
 
-        // ÉTAPE 2 : Vérifier le code saisi
         function verifierCodeAdmin(e) {
             e.preventDefault();
             cacherMessage();
@@ -306,6 +532,67 @@
                 } else {
                     afficherMessage("Veuillez entrer un code à 6 chiffres valide.", "erreur");
                 }
+            });
+        }
+
+        // GESTION MODALE FACEBOOK & GOOGLE SHEETS
+        function ouvrirModalFacebook() {
+            document.getElementById('modal-facebook').classList.remove('hidden');
+            if (phrasesFacebookCache.length === 0) {
+                chargerPhrasesFacebook();
+            } else {
+                genererPhraseAleatoire();
+            }
+        }
+
+        function fermerModalFacebook() {
+            document.getElementById('modal-facebook').classList.add('hidden');
+        }
+
+        function chargerPhrasesFacebook() {
+            var box = document.getElementById('box-phrase-fb');
+            box.innerText = "Chargement des publications depuis le fichier Google Sheets...";
+            
+            var sheetId = "1YljRU6tETc5YOfwnJQ4PARoDtldHofg8lBHTWRntZC8";
+            var urlCSV = "https://docs.google.com/spreadsheets/d/" + sheetId + "/export?format=csv";
+
+            fetch(urlCSV)
+                .then(response => response.text())
+                .then(data => {
+                    var lignes = data.split("\n");
+                    phrasesFacebookCache = [];
+                    for (var i = 1; i < lignes.length; i++) {
+                        var texte = lignes[i].trim();
+                        if (texte) {
+                            texte = texte.replace(/^["']|["']$/g, '');
+                            phrasesFacebookCache.push(texte);
+                        }
+                    }
+                    if (phrasesFacebookCache.length > 0) {
+                        genererPhraseAleatoire();
+                    } else {
+                        box.innerText = "Aucune phrase trouvée dans le tableur.";
+                    }
+                })
+                .catch(err => {
+                    box.innerText = "Erreur de chargement du fichier Google Sheets.";
+                });
+        }
+
+        function genererPhraseAleatoire() {
+            var box = document.getElementById('box-phrase-fb');
+            if (phrasesFacebookCache.length > 0) {
+                var indexAleatoire = Math.floor(Math.random() * phrasesFacebookCache.length);
+                box.innerText = phrasesFacebookCache[indexAleatoire];
+            } else {
+                box.innerText = "Aucune phrase disponible.";
+            }
+        }
+
+        function copierPhraseFacebook() {
+            var box = document.getElementById('box-phrase-fb');
+            navigator.clipboard.writeText(box.innerText).then(() => {
+                alert("Publication copiée dans le presse-papier !");
             });
         }
 
