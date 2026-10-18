@@ -69,9 +69,12 @@
             </div>
             <div class="flex flex-wrap items-center gap-2">
                 <button onclick="ouvrirModalStats()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-xl shadow transition flex items-center gap-2 text-xs">
-                    📊 Statistiques Globales
+                    📊 Stats Équipes
                 </button>
-                <button onclick="partagerWhatsApp()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl shadow transition flex items-center gap-2 text-xs">
+                <button onclick="ouvrirModalIndiv()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded-xl shadow transition flex items-center gap-2 text-xs">
+                    👤 Stats Individuelles Détaillées
+                </button>
+                <button onclick="ouvrirModalWhatsApp()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl shadow transition flex items-center gap-2 text-xs">
                     💬 Résumé WhatsApp
                 </button>
             </div>
@@ -93,59 +96,164 @@
         </div>
     </main>
 
-    <!-- FENÊTRE MODALE DES STATISTIQUES & GRAPHIQUES -->
+    <!-- 1. MODALE STATISTIQUES GLOBALES ÉQUIPES -->
     <div id="modal-stats" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-slate-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
-            
             <button onclick="fermerModalStats()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
 
             <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
                 <div class="w-10 h-10 bg-indigo-100 text-indigo-700 rounded-2xl flex items-center justify-center text-xl font-bold">📊</div>
                 <div>
-                    <h3 class="text-lg font-black text-slate-900">Statistiques Globales de l'Effectif BCS</h3>
-                    <p class="text-xs text-slate-500">Bilan consolidé des équipes</p>
+                    <h3 class="text-lg font-black text-slate-900">Statistiques des Équipes BCS</h3>
+                    <p class="text-xs text-slate-500">Bilan récapitulatif du club</p>
                 </div>
             </div>
 
-            <!-- Cartes KPI / Chiffres Clés -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
                 <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100">
                     <div class="text-slate-500 font-bold">Matchs Joués</div>
-                    <div class="text-xl font-black text-slate-800 mt-1">121</div>
+                    <div class="text-xl font-black text-slate-800 mt-1">182</div>
                 </div>
                 <div class="bg-emerald-50 p-3 rounded-2xl border border-emerald-100">
                     <div class="text-emerald-600 font-bold">Victoires (MW)</div>
-                    <div class="text-xl font-black text-emerald-700 mt-1">69</div>
+                    <div class="text-xl font-black text-emerald-700 mt-1">100</div>
                 </div>
                 <div class="bg-rose-50 p-3 rounded-2xl border border-rose-100">
                     <div class="text-rose-600 font-bold">Défaites (PL)</div>
-                    <div class="text-xl font-black text-rose-700 mt-1">52</div>
+                    <div class="text-xl font-black text-rose-700 mt-1">82</div>
                 </div>
                 <div class="bg-indigo-50 p-3 rounded-2xl border border-indigo-100">
                     <div class="text-indigo-600 font-bold">Taux Victoire</div>
-                    <div class="text-xl font-black text-indigo-700 mt-1">57 %</div>
+                    <div class="text-xl font-black text-indigo-700 mt-1">55 %</div>
                 </div>
             </div>
 
-<!-- Graphiques Interactifs -->
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex flex-col items-center justify-center">
-        <h4 class="text-xs font-bold text-slate-700 mb-2">Victoires vs Défaites</h4>
-        <div class="w-40 h-40 relative">
-            <canvas id="chartVictoires"></canvas>
-        </div>
-    </div>
-    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex flex-col items-center justify-center">
-        <h4 class="text-xs font-bold text-slate-700 mb-2">Victoires par Équipe</h4>
-        <div class="w-full h-40 relative">
-            <canvas id="chartEquipes"></canvas>
-        </div>
-    </div>
-</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex flex-col items-center justify-center">
+                    <h4 class="text-xs font-bold text-slate-700 mb-2">Victoires vs Défaites</h4>
+                    <div class="w-40 h-40 relative">
+                        <canvas id="chartVictoires"></canvas>
+                    </div>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex flex-col items-center justify-center">
+                    <h4 class="text-xs font-bold text-slate-700 mb-2">Victoires par Équipe</h4>
+                    <div class="w-full h-40 relative">
+                        <canvas id="chartEquipes"></canvas>
+                    </div>
+                </div>
+            </div>
 
             <div class="pt-2 text-right">
                 <button onclick="fermerModalStats()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold py-2.5 px-5 rounded-xl transition">Fermer</button>
             </div>
+        </div>
+    </div>
+
+    <!-- 2. MODALE STATISTIQUES INDIVIDUELLES -->
+    <div id="modal-indiv" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-5xl w-full shadow-2xl border border-slate-200 space-y-6 relative max-h-[92vh] overflow-y-auto">
+            
+            <button onclick="fermerModalIndiv()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-800 rounded-2xl flex items-center justify-center text-2xl font-bold shadow-inner shrink-0">👤</div>
+                    <div>
+                        <h3 class="text-xl font-black text-slate-900">Analyse Détaillée des Performances Individuelles</h3>
+                        <p class="text-xs text-slate-500">Statistiques individuelles exhaustives des joueurs engagés en compétition</p>
+                    </div>
+                </div>
+                <input type="text" id="recherche-joueur" onkeyup="filtrerJoueurs()" placeholder="🔍 Rechercher un joueur ou une équipe..." class="bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs font-medium outline-none focus:border-indigo-600 focus:bg-white w-full sm:w-72 shadow-sm transition">
+            </div>
+
+            <div class="bg-indigo-50/60 border border-indigo-100 rounded-2xl p-4 text-xs space-y-2 text-indigo-950">
+                <div class="font-bold text-indigo-900 flex items-center gap-1.5 text-sm">
+                    <span>💡</span> Guide de lecture des données statistiques
+                </div>
+                <p class="leading-relaxed">
+                    Ce tableau récapitule l'ensemble des rencontres disputées par les joueurs du <b>Billard Club Segréen</b> au cours de la saison active.
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 pt-1 font-medium text-[11px]">
+                    <div class="bg-white/80 p-2 rounded-lg border border-indigo-100"><b>MP :</b> Matchs Joués</div>
+                    <div class="bg-white/80 p-2 rounded-lg border border-indigo-100 text-emerald-800"><b>MW :</b> Victoires Matchs</div>
+                    <div class="bg-white/80 p-2 rounded-lg border border-indigo-100 text-blue-800"><b>PW :</b> Pauses Gagnées</div>
+                    <div class="bg-white/80 p-2 rounded-lg border border-indigo-100 text-rose-800"><b>PL :</b> Défaites Matchs</div>
+                    <div class="bg-white/80 p-2 rounded-lg border border-indigo-100"><b>Run :</b> Fermetures / Runs</div>
+                    <div class="bg-white/80 p-2 rounded-lg border border-indigo-100"><b>Lags :</b> Tirs à la bande</div>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-slate-900 text-white uppercase text-[11px] tracking-wider">
+                            <th class="p-3.5">Joueur</th>
+                            <th class="p-3.5">Équipe Engagée</th>
+                            <th class="p-3.5 text-center">Bilan Général</th>
+                            <th class="p-3.5 text-center text-emerald-300">MW</th>
+                            <th class="p-3.5 text-center text-blue-300">PW</th>
+                            <th class="p-3.5 text-center text-rose-300">PL</th>
+                            <th class="p-3.5 text-center">Run</th>
+                            <th class="p-3.5 text-center">Lags</th>
+                            <th class="p-3.5 text-center">% Efficacité</th>
+                            <th class="p-3.5 text-center">État de forme</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corps-tableau-joueurs" class="divide-y divide-slate-100 font-medium bg-white">
+                        <!-- Généré dynamiquement en JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-slate-600">
+                <div class="space-y-1">
+                    <p class="font-bold text-slate-800">📌 Analyse synthétique du groupe :</p>
+                    <p class="text-[11px] leading-relaxed">Les statistiques sont mises à jour automatiquement selon les feuilles de match officielles remontées par le système.</p>
+                </div>
+                <button onclick="fermerModalIndiv()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-2.5 px-6 rounded-xl transition shadow shrink-0">
+                    Fermer la fenêtre
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 3. MODALE RÉSUMÉ WHATSAPP AVEC BOUTON DE COPIE FACILE -->
+    <div id="modal-whatsapp" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-2xl border border-slate-200 space-y-5 relative">
+            
+            <button onclick="fermerModalWhatsApp()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+
+            <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+                <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-xl font-bold">💬</div>
+                <div>
+                    <h3 class="text-lg font-black text-slate-900">Résumé Prêt à Copier pour WhatsApp</h3>
+                    <p class="text-xs text-slate-500">Copiez le texte ci-dessous et collez-le directement dans votre groupe</p>
+                </div>
+            </div>
+
+            <!-- Zone de texte pré-formatée -->
+            <div class="relative">
+                <textarea id="texte-whatsapp-resume" readonly class="w-full bg-slate-50 border border-slate-300 rounded-2xl p-4 text-xs font-mono text-slate-800 h-64 outline-none resize-none leading-relaxed shadow-inner"></textarea>
+            </div>
+
+            <div id="notification-copie" class="hidden bg-emerald-50 border border-emerald-200 text-emerald-800 p-3 rounded-xl text-xs font-bold text-center">
+                ✅ Le résumé a été copié dans votre presse-papiers ! Collez-le (Ctrl+V) dans WhatsApp.
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="flex flex-wrap gap-2 pt-1">
+                <button onclick="copierTexteWhatsApp()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl transition shadow flex items-center justify-center gap-2 text-xs">
+                    📋 Copier le texte
+                </button>
+                <a href="https://web.whatsapp.com/" target="_blank" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-4 rounded-xl transition shadow flex items-center justify-center gap-2 text-xs">
+                    🌐 Ouvrir WhatsApp Web
+                </a>
+                <button onclick="fermerModalWhatsApp()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-4 rounded-xl transition text-xs">
+                    Fermer
+                </button>
+            </div>
+
         </div>
     </div>
 
@@ -192,7 +300,7 @@
         <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
     </footer>
 
-    <!-- SCRIPT STATISTIQUES, WHATSAPP & AUTHENTIFICATION -->
+    <!-- SCRIPT COMPLET -->
     <script>
         var LISTE_ADMINS = [
             "franck.toupin@gmail.com",
@@ -204,37 +312,147 @@
             "frederikbrun007@gmail.com"
         ];
 
+        var DATA_JOUEURS = [
+            { nom: "Mathieu Poupart", equipe: "DN3 (SEGRÉ 1)", mp: 12, mw: 9, pw: 9, pl: 3, run: 3, lags: 4 },
+            { nom: "Elie Christidis", equipe: "DN3 (SEGRÉ 1)", mp: 11, mw: 9, pw: 9, pl: 2, run: 2, lags: 4 },
+            { nom: "Damien Ploquin", equipe: "DN3 (SEGRÉ 1)", mp: 9, mw: 4, pw: 4, pl: 5, run: 2, lags: 3 },
+            { nom: "Jeoffrey Mignonac", equipe: "DN3 (SEGRÉ 1)", mp: 9, mw: 3, pw: 3, pl: 6, run: 0, lags: 2 },
+            { nom: "Adnane Ainachi", equipe: "DN3 (SEGRÉ 1)", mp: 7, mw: 2, pw: 2, pl: 5, run: 0, lags: 3 },
+            { nom: "Nelly Fredoueil", equipe: "DR3 (SEGRÉ 2)", mp: 8, mw: 6, pw: 6, pl: 2, run: 0, lags: 4 },
+            { nom: "Franck Toupin", equipe: "DR3 (SEGRÉ 2)", mp: 8, mw: 5, pw: 5, pl: 3, run: 0, lags: 4 },
+            { nom: "Laurent Baniel", equipe: "DR3 (SEGRÉ 2)", mp: 8, mw: 3, pw: 3, pl: 5, run: 0, lags: 4 },
+            { nom: "Mattys Griener", equipe: "DR3 (SEGRÉ 2)", mp: 3, mw: 0, pw: 0, pl: 3, run: 0, lags: 1 },
+            { nom: "Christine Hen", equipe: "DR3 (SEGRÉ 2)", mp: 5, mw: 0, pw: 0, pl: 5, run: 0, lags: 3 },
+            { nom: "Jacques Brun", equipe: "SÉGRÉ 3 (DD1)", mp: 8, mw: 8, pw: 8, pl: 0, run: 0, lags: 6 },
+            { nom: "Stéphane Lamisse", equipe: "SÉGRÉ 3 (DD1)", mp: 12, mw: 7, pw: 7, pl: 5, run: 0, lags: 5 },
+            { nom: "Orline Saguerre", equipe: "SÉGRÉ 3 (DD1)", mp: 9, mw: 5, pw: 5, pl: 4, run: 0, lags: 5 },
+            { nom: "Frédérik Brun", equipe: "SÉGRÉ 3 (DD1)", mp: 6, mw: 4, pw: 4, pl: 2, run: 0, lags: 2 },
+            { nom: "Sébastien Challier", equipe: "SÉGRÉ 3 (DD1)", mp: 7, mw: 2, pw: 2, pl: 5, run: 0, lags: 4 },
+            { nom: "Alain Thierry", equipe: "SÉGRÉ 3 (DD1)", mp: 3, mw: 1, pw: 1, pl: 2, run: 0, lags: 0 },
+            { nom: "Christophe Challier", equipe: "SÉGRÉ 3 (DD1)", mp: 3, mw: 1, pw: 1, pl: 2, run: 0, lags: 1 },
+            { nom: "Stéphane Lefebvre", equipe: "SÉGRÉ 4 (DD1)", mp: 8, mw: 6, pw: 6, pl: 2, run: 0, lags: 2 },
+            { nom: "Eric Martin", equipe: "SÉGRÉ 4 (DD1)", mp: 8, mw: 5, pw: 5, pl: 3, run: 0, lags: 2 },
+            { nom: "Jean Marie Noyeau", equipe: "SÉGRÉ 4 (DD1)", mp: 12, mw: 4, pw: 4, pl: 8, run: 0, lags: 3 },
+            { nom: "Stéphane Corbin", equipe: "SÉGRÉ 4 (DD1)", mp: 12, mw: 4, pw: 4, pl: 8, run: 0, lags: 3 },
+            { nom: "Christophe Denieulle", equipe: "SÉGRÉ 4 (DD1)", mp: 4, mw: 2, pw: 2, pl: 2, run: 0, lags: 2 },
+            { nom: "Paul Le Coent", equipe: "SÉGRÉ 4 (DD1)", mp: 4, mw: 2, pw: 2, pl: 2, run: 0, lags: 3 }
+        ];
+
         let chartVictoiresInstance = null;
         let chartEquipesInstance = null;
 
         function ouvrirModalStats() {
             document.getElementById('modal-stats').classList.remove('hidden');
-            setTimeout(genererGraphiques, 150); // Laisse le temps à la modale de s'afficher pour dimensionner le canvas
+            setTimeout(genererGraphiques, 150);
+        }
+        function fermerModalStats() { document.getElementById('modal-stats').classList.add('hidden'); }
+
+        function ouvrirModalIndiv() {
+            document.getElementById('modal-indiv').classList.remove('hidden');
+            afficherTableauJoueurs(DATA_JOUEURS);
+        }
+        function fermerModalIndiv() { document.getElementById('modal-indiv').classList.add('hidden'); }
+
+        // MODALE WHATSAPP
+        function ouvrirModalWhatsApp() {
+            let txt = `🎱 RÉSUMÉ DÉTAILLÉ DU BILLARD CLUB SEGRÉEN 🎱\n`;
+            txt += `-----------------------------------\n`;
+            txt += `📊 Bilan global des rencontres :\n`;
+            txt += `✅ Victoires totales (MW) : 100\n`;
+            txt += `❌ Défaites totales (PL) : 82\n`;
+            txt += `📈 Taux d'efficacité global : 55%\n\n`;
+
+            txt += `🏆 Détail par équipes :\n`;
+            txt += `• DN3 (SEGRÉ 1) : 27 Victoires\n`;
+            txt += `• DR3 (SEGRÉ 2) : 14 Victoires\n`;
+            txt += `• SÉGRÉ 3 (DD1) : 28 Victoires\n`;
+            txt += `• SÉGRÉ 4 (DD1) : 23 Victoires\n\n`;
+
+            txt += `⭐ Top Performances Individuelles :\n`;
+            txt += `🥇 Jacques Brun : 100% (8 victoires / 8 matchs)\n`;
+            txt += `🥇 Elie Christidis : 82% (9 victoires / 11 matchs)\n`;
+            txt += `🥇 Mathieu Poupart : 75% (9 victoires / 12 matchs)\n`;
+            txt += `🥇 Nelly Fredoueil : 75% (6 victoires / 8 matchs)\n\n`;
+
+            txt += `🔗 Retrouvez toutes les statistiques en direct sur le site du BCS !`;
+
+            document.getElementById('texte-whatsapp-resume').value = txt;
+            document.getElementById('notification-copie').classList.add('hidden');
+            document.getElementById('modal-whatsapp').classList.remove('hidden');
         }
 
-        function fermerModalStats() {
-            document.getElementById('modal-stats').classList.add('hidden');
+        function fermerModalWhatsApp() {
+            document.getElementById('modal-whatsapp').classList.add('hidden');
+        }
+
+        function copierTexteWhatsApp() {
+            var zoneTexte = document.getElementById('texte-whatsapp-resume');
+            zoneTexte.select();
+            zoneTexte.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(zoneTexte.value).then(function() {
+                var notif = document.getElementById('notification-copie');
+                notif.classList.remove('hidden');
+            });
+        }
+
+        function afficherTableauJoueurs(liste) {
+            var tbody = document.getElementById('corps-tableau-joueurs');
+            tbody.innerHTML = "";
+
+            liste.forEach(function(j) {
+                var pct = j.mp > 0 ? Math.round((j.mw / j.mp) * 100) : 0;
+                var badgeCouleur = pct >= 75 ? 'bg-emerald-100 text-emerald-800 border-emerald-300 font-black' : (pct >= 50 ? 'bg-indigo-100 text-indigo-800 border-indigo-300 font-bold' : (pct >= 30 ? 'bg-amber-100 text-amber-800 border-amber-300 font-bold' : 'bg-rose-100 text-rose-800 border-rose-300 font-bold'));
+                var etatForme = pct >= 75 ? '<span class="text-emerald-700 font-bold flex items-center justify-center gap-1">🔥 Excellente forme</span>' : (pct >= 50 ? '<span class="text-indigo-700 font-medium flex items-center justify-center gap-1">👍 Joueur régulier</span>' : (pct >= 30 ? '<span class="text-amber-700 font-medium flex items-center justify-center gap-1">⚡ En progression</span>' : '<span class="text-rose-600 font-medium flex items-center justify-center gap-1">🎯 En recherche de rythme</span>'));
+
+                var tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
+                tr.innerHTML = `
+                    <td class="p-3.5 font-bold text-slate-800 flex items-center gap-2">
+                        <span>🎱</span> ${j.nom}
+                    </td>
+                    <td class="p-3.5 text-slate-600 text-[11px] font-semibold">${j.equipe}</td>
+                    <td class="p-3.5 text-center font-bold text-slate-700">${j.mw} victoires / ${j.mp} matchs</td>
+                    <td class="p-3.5 text-center text-emerald-600 font-black text-sm">${j.mw}</td>
+                    <td class="p-3.5 text-center text-blue-600 font-bold">${j.pw}</td>
+                    <td class="p-3.5 text-center text-rose-600 font-bold">${j.pl}</td>
+                    <td class="p-3.5 text-center font-mono font-bold">${j.run}</td>
+                    <td class="p-3.5 text-center font-mono font-bold">${j.lags}</td>
+                    <td class="p-3.5 text-center">
+                        <span class="px-3 py-1 rounded-full border text-[11px] ${badgeCouleur}">
+                            ${pct} %
+                        </span>
+                    </td>
+                    <td class="p-3.5 text-center text-[11px]">${etatForme}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filtrerJoueurs() {
+            var filtre = document.getElementById('recherche-joueur').value.toLowerCase();
+            var listeFiltree = DATA_JOUEURS.filter(function(j) {
+                return j.nom.toLowerCase().includes(filtre) || j.equipe.toLowerCase().includes(filtre);
+            });
+            afficherTableauJoueurs(listeFiltree);
         }
 
         function genererGraphiques() {
             if (chartVictoiresInstance) chartVictoiresInstance.destroy();
             if (chartEquipesInstance) chartEquipesInstance.destroy();
 
-            // Graphique Camembert Victoires / Défaites
             const ctx1 = document.getElementById('chartVictoires').getContext('2d');
             chartVictoiresInstance = new Chart(ctx1, {
                 type: 'doughnut',
                 data: {
                     labels: ['Victoires', 'Défaites'],
                     datasets: [{
-                        data: [69, 52],
+                        data: [100, 82],
                         backgroundColor: ['#10b981', '#f43f5e']
                     }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
             });
 
-            // Graphique en Barres par Équipe
             const ctx2 = document.getElementById('chartEquipes').getContext('2d');
             chartEquipesInstance = new Chart(ctx2, {
                 type: 'bar',
@@ -242,7 +460,7 @@
                     labels: ['SEGRÉ 1', 'SEGRÉ 2', 'SEGRÉ 3', 'SEGRÉ 4'],
                     datasets: [{
                         label: 'Victoires',
-                        data: [27, 14, 21, 25],
+                        data: [27, 14, 28, 23],
                         backgroundColor: '#4f46e5'
                     }]
                 },
@@ -255,41 +473,13 @@
             });
         }
 
-        function partagerWhatsApp() {
-            let texteWhatsApp = `🎱 *RÉSUMÉ DU BILLARD CLUB SEGRÉEN* 🎱\n`;
-            texteWhatsApp += `-----------------------------------\n`;
-            texteWhatsApp += `📊 *Bilan global de l'effectif :*\n`;
-            texteWhatsApp += `✅ Victoires totales (MW) : *69*\n`;
-            texteWhatsApp += `❌ Défaites totales (PL) : *52*\n`;
-            texteWhatsApp += `📈 Taux de réussite : *57%*\n\n`;
-
-            texteWhatsApp += `🏆 *Performances par équipe :*\n`;
-            texteWhatsApp += `• *DN3 (SEGRÉ 1) :* 27 Victoires\n`;
-            texteWhatsApp += `• *DR3 (SEGRÉ 2) :* 14 Victoires\n`;
-            texteWhatsApp += `• *SÉGRÉ 3 (DD1) :* 21 Victoires\n`;
-            texteWhatsApp += `• *SÉGRÉ 4 (DD1) :* 25 Victoires\n\n`;
-
-            texteWhatsApp += `⭐ *Tops Joueurs de la journée :*\n`;
-            texteWhatsApp += `🥇 Mathieu Poupart (9V / 3D)\n`;
-            texteWhatsApp += `🥇 Elie Christidis (9V / 2D)\n`;
-            texteWhatsApp += `🥇 Jacques Brun (8V / 0D)\n\n`;
-
-            texteWhatsApp += `🔗 Retrouvez tous les classements sur la plateforme officielle du BCS !`;
-
-            let urlWhatsApp = "https://api.whatsapp.com/send?text=" + encodeURIComponent(texteWhatsApp);
-            window.open(urlWhatsApp, '_blank');
-        }
-
         function ouvrirModalAdmin() {
             document.getElementById('modal-message-erreur').classList.add('hidden');
             document.getElementById('email-admin-saisi').value = '';
             document.getElementById('modal-admin').classList.remove('hidden');
             document.getElementById('email-admin-saisi').focus();
         }
-
-        function fermerModalAdmin() {
-            document.getElementById('modal-admin').classList.add('hidden');
-        }
+        function fermerModalAdmin() { document.getElementById('modal-admin').classList.add('hidden'); }
 
         function afficherErreur(message) {
             var boxErreur = document.getElementById('modal-message-erreur');
