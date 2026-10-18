@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billard Club Segréen — CueScore & Championnats</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inclusion de Chart.js pour les graphiques -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* Zoom uniforme à 85% pour toutes les pages */
         html {
@@ -59,6 +61,22 @@
 
     <!-- CONTENU PAGE CUESCORE -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full flex flex-col space-y-4">
+        
+        <!-- Barre d'outils statistiques et partage WhatsApp -->
+        <div class="flex flex-wrap justify-between items-center gap-3 bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+            <div class="text-xs font-bold text-slate-700 flex items-center gap-2">
+                <span>⚡ Actions Rapides :</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <button onclick="ouvrirModalStats()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-xl shadow transition flex items-center gap-2 text-xs">
+                    📊 Statistiques Globales
+                </button>
+                <button onclick="partagerWhatsApp()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl shadow transition flex items-center gap-2 text-xs">
+                    💬 Résumé WhatsApp
+                </button>
+            </div>
+        </div>
+
         <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden flex-grow flex flex-col min-h-[750px]">
             <div class="bg-[#0b1329] text-white px-6 py-4 flex justify-between items-center border-b border-slate-800">
                 <div class="flex items-center gap-2">
@@ -74,6 +92,62 @@
             <iframe src="https://script.google.com/macros/s/AKfycbzbbjS49aQsSqp5PgOfr9HIWod4BsS0JJe_V4m05u47CP4AA-1XHGOUn1xxmVq5e_j9/exec" class="w-full flex-grow border-0 min-h-[700px]"></iframe>
         </div>
     </main>
+
+    <!-- FENÊTRE MODALE DES STATISTIQUES & GRAPHIQUES -->
+    <div id="modal-stats" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-slate-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
+            
+            <button onclick="fermerModalStats()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+
+            <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+                <div class="w-10 h-10 bg-indigo-100 text-indigo-700 rounded-2xl flex items-center justify-center text-xl font-bold">📊</div>
+                <div>
+                    <h3 class="text-lg font-black text-slate-900">Statistiques Globales de l'Effectif BCS</h3>
+                    <p class="text-xs text-slate-500">Bilan consolidé des équipes</p>
+                </div>
+            </div>
+
+            <!-- Cartes KPI / Chiffres Clés -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
+                <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                    <div class="text-slate-500 font-bold">Matchs Joués</div>
+                    <div class="text-xl font-black text-slate-800 mt-1">121</div>
+                </div>
+                <div class="bg-emerald-50 p-3 rounded-2xl border border-emerald-100">
+                    <div class="text-emerald-600 font-bold">Victoires (MW)</div>
+                    <div class="text-xl font-black text-emerald-700 mt-1">69</div>
+                </div>
+                <div class="bg-rose-50 p-3 rounded-2xl border border-rose-100">
+                    <div class="text-rose-600 font-bold">Défaites (PL)</div>
+                    <div class="text-xl font-black text-rose-700 mt-1">52</div>
+                </div>
+                <div class="bg-indigo-50 p-3 rounded-2xl border border-indigo-100">
+                    <div class="text-indigo-600 font-bold">Taux Victoire</div>
+                    <div class="text-xl font-black text-indigo-700 mt-1">57 %</div>
+                </div>
+            </div>
+
+<!-- Graphiques Interactifs -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex flex-col items-center justify-center">
+        <h4 class="text-xs font-bold text-slate-700 mb-2">Victoires vs Défaites</h4>
+        <div class="w-40 h-40 relative">
+            <canvas id="chartVictoires"></canvas>
+        </div>
+    </div>
+    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex flex-col items-center justify-center">
+        <h4 class="text-xs font-bold text-slate-700 mb-2">Victoires par Équipe</h4>
+        <div class="w-full h-40 relative">
+            <canvas id="chartEquipes"></canvas>
+        </div>
+    </div>
+</div>
+
+            <div class="pt-2 text-right">
+                <button onclick="fermerModalStats()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold py-2.5 px-5 rounded-xl transition">Fermer</button>
+            </div>
+        </div>
+    </div>
 
     <!-- FENÊTRE MODALE DE CONNEXION ADMIN -->
     <div id="modal-admin" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
@@ -118,7 +192,7 @@
         <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
     </footer>
 
-    <!-- SCRIPT AUTHENTIFICATION -->
+    <!-- SCRIPT STATISTIQUES, WHATSAPP & AUTHENTIFICATION -->
     <script>
         var LISTE_ADMINS = [
             "franck.toupin@gmail.com",
@@ -129,6 +203,82 @@
             "Djebmanu@orange.fr",
             "frederikbrun007@gmail.com"
         ];
+
+        let chartVictoiresInstance = null;
+        let chartEquipesInstance = null;
+
+        function ouvrirModalStats() {
+            document.getElementById('modal-stats').classList.remove('hidden');
+            setTimeout(genererGraphiques, 150); // Laisse le temps à la modale de s'afficher pour dimensionner le canvas
+        }
+
+        function fermerModalStats() {
+            document.getElementById('modal-stats').classList.add('hidden');
+        }
+
+        function genererGraphiques() {
+            if (chartVictoiresInstance) chartVictoiresInstance.destroy();
+            if (chartEquipesInstance) chartEquipesInstance.destroy();
+
+            // Graphique Camembert Victoires / Défaites
+            const ctx1 = document.getElementById('chartVictoires').getContext('2d');
+            chartVictoiresInstance = new Chart(ctx1, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Victoires', 'Défaites'],
+                    datasets: [{
+                        data: [69, 52],
+                        backgroundColor: ['#10b981', '#f43f5e']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Graphique en Barres par Équipe
+            const ctx2 = document.getElementById('chartEquipes').getContext('2d');
+            chartEquipesInstance = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['SEGRÉ 1', 'SEGRÉ 2', 'SEGRÉ 3', 'SEGRÉ 4'],
+                    datasets: [{
+                        label: 'Victoires',
+                        data: [27, 14, 21, 25],
+                        backgroundColor: '#4f46e5'
+                    }]
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+
+        function partagerWhatsApp() {
+            let texteWhatsApp = `🎱 *RÉSUMÉ DU BILLARD CLUB SEGRÉEN* 🎱\n`;
+            texteWhatsApp += `-----------------------------------\n`;
+            texteWhatsApp += `📊 *Bilan global de l'effectif :*\n`;
+            texteWhatsApp += `✅ Victoires totales (MW) : *69*\n`;
+            texteWhatsApp += `❌ Défaites totales (PL) : *52*\n`;
+            texteWhatsApp += `📈 Taux de réussite : *57%*\n\n`;
+
+            texteWhatsApp += `🏆 *Performances par équipe :*\n`;
+            texteWhatsApp += `• *DN3 (SEGRÉ 1) :* 27 Victoires\n`;
+            texteWhatsApp += `• *DR3 (SEGRÉ 2) :* 14 Victoires\n`;
+            texteWhatsApp += `• *SÉGRÉ 3 (DD1) :* 21 Victoires\n`;
+            texteWhatsApp += `• *SÉGRÉ 4 (DD1) :* 25 Victoires\n\n`;
+
+            texteWhatsApp += `⭐ *Tops Joueurs de la journée :*\n`;
+            texteWhatsApp += `🥇 Mathieu Poupart (9V / 3D)\n`;
+            texteWhatsApp += `🥇 Elie Christidis (9V / 2D)\n`;
+            texteWhatsApp += `🥇 Jacques Brun (8V / 0D)\n\n`;
+
+            texteWhatsApp += `🔗 Retrouvez tous les classements sur la plateforme officielle du BCS !`;
+
+            let urlWhatsApp = "https://api.whatsapp.com/send?text=" + encodeURIComponent(texteWhatsApp);
+            window.open(urlWhatsApp, '_blank');
+        }
 
         function ouvrirModalAdmin() {
             document.getElementById('modal-message-erreur').classList.add('hidden');
