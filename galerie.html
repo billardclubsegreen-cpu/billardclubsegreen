@@ -13,12 +13,11 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
-        .dropdown:hover .dropdown-menu { display: block; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen flex flex-col justify-between">
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between text-slate-800 pt-28 sm:pt-24">
 
-<!-- BARRE DE MENU FIXE ET IDENTIQUE SUR TOUTES LES PAGES -->
+    <!-- BARRE DE MENU FIXE ET IDENTIQUE SUR TOUTES LES PAGES -->
     <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col xl:flex-row justify-between items-center gap-3">
             <a href="index.html" class="flex items-center gap-3 shrink-0">
@@ -31,10 +30,11 @@
 
             <!-- Navigation Publique -->
             <nav id="nav-publique" class="flex flex-wrap items-center gap-2 text-xs font-bold">
-                <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🏠 Accueil</a>
+                <a href="index.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏠 Accueil</a>
                 <a href="inscription.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription Tournoi</a>
                 <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏆 CueScore</a>
                 <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📰 La Gazette</a>
+                <a href="galerie.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🖼️ Galerie</a>
                 <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📸 Trombinoscope</a>
                 <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🤝 Partenaires</a>
                 <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📺 Direct & TV</a>
@@ -48,7 +48,7 @@
             <!-- Navigation Admin -->
             <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
                 <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
-                <a href="index.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">🏠 Accueil</a>
+                <a href="index.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🏠 Accueil</a>
                 <a href="bar.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🍻 Bar</a>
                 <a href="stock.html" class="bg-amber-600 text-white px-3 py-1.5 rounded-lg">📦 Stocks</a>
                 <a href="registre-rgpd.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
@@ -102,7 +102,36 @@
 
     </main>
 
-  <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+    <!-- MODALE CONNEXION ADMIN -->
+    <div id="modal-admin" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-200 text-center space-y-5 relative">
+            <button onclick="fermerModalAdmin()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+            <div class="space-y-2">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-xl font-bold shadow-inner">🎱</div>
+                <h3 class="text-lg font-black text-slate-900">Billard Club Segréen</h3>
+                <p class="text-xs text-slate-500">Accès sécurisé</p>
+            </div>
+            <div id="modal-message-erreur" class="hidden bg-rose-50 border border-rose-200 text-rose-700 p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5">
+                <div class="flex items-start gap-2">
+                    <span class="text-base shrink-0">❌</span>
+                    <span id="texte-erreur">Accès refusé.</span>
+                </div>
+            </div>
+            <form onsubmit="validerConnexionAdmin(event)" class="space-y-4 text-left text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Votre adresse e-mail :</label>
+                    <input type="email" id="email-admin-saisi" required placeholder="votre.email@exemple.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-medium">
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="fermerModalAdmin()" class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">Annuler</button>
+                    <button type="submit" class="w-1/2 bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl transition shadow-md">Se connecter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
         <div class="flex flex-wrap justify-center gap-4 text-slate-300">
             <a href="contacts.html" class="hover:underline">Contacts</a>
             <span>•</span>
@@ -115,8 +144,18 @@
         <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
     </footer>
 
-    <!-- Script JavaScript Sécurisé & Autonome -->
+    <!-- Script JavaScript -->
     <script>
+        var LISTE_ADMINS = [
+            "franck.toupin@gmail.com",
+            "matpoupart@outlook.fr",
+            "martin.eric1@hotmail.fr",
+            "lefome2411@gmail.com",
+            "chc.chris.09@gmail.com",
+            "djebmanu@orange.fr",
+            "frederikbrun007@gmail.com"
+        ];
+
         var albumsFacebook = {
             septembre: '<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid02HPKuH3Q63ksnQErfFZHBr9QXEX9dQMZF3BS1EwnGKuQJXrPvnjyhtTZksZH5PxPVl&show_text=true&width=500" width="500" height="652" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>',
             octobre: '<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid02S7jVuaTw4DbArHiwsq2CGU2XQkfdjmxgFPJp2dEg2UGAR9a7nDZLFfUzdWkLV3vXl&show_text=true&width=500" width="500" height="569" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>',
@@ -141,41 +180,71 @@
             }
         }
 
-        // Mode Admin
-        function verifierMotDePasseAdmin() {
-            var saisie = prompt("Entrez le code secret administrateur :");
-            if (saisie === "bcs2026") {
-                try { localStorage.setItem("bcs_admin_connecte", "true"); } catch(e){}
-                afficherInterfaceAdmin();
-            } else if (saisie !== null) {
-                alert("Code secret incorrect ! ❌");
+        // Gestion Admin
+        function ouvrirModalAdmin() {
+            var msg = document.getElementById('modal-message-erreur');
+            if (msg) msg.classList.add('hidden');
+            var emailInput = document.getElementById('email-admin-saisi');
+            if (emailInput) emailInput.value = '';
+            var modal = document.getElementById('modal-admin');
+            if (modal) {
+                modal.classList.remove('hidden');
+                if (emailInput) emailInput.focus();
             }
         }
 
-        function afficherInterfaceAdmin() {
-            var np = document.getElementById('nav-publique');
-            var na = document.getElementById('nav-admin');
-            if (np) np.classList.add('hidden');
-            if (na) { na.classList.remove('hidden'); na.classList.add('flex'); }
+        function fermerModalAdmin() {
+            var modal = document.getElementById('modal-admin');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function afficherErreurAdmin(message) {
+            var boxErreur = document.getElementById('modal-message-erreur');
+            var texteErreur = document.getElementById('texte-erreur');
+            if (texteErreur) texteErreur.innerText = message;
+            if (boxErreur) boxErreur.classList.remove('hidden');
+        }
+
+        function validerConnexionAdmin(event) {
+            event.preventDefault();
+            var emailSaisi = document.getElementById('email-admin-saisi').value.trim().toLowerCase();
+
+            if (LISTE_ADMINS.includes(emailSaisi)) {
+                localStorage.setItem("bcs_admin_connecte", "true");
+                fermerModalAdmin();
+                activerInterfaceAdmin();
+            } else {
+                afficherErreurAdmin("Accès refusé : Cet e-mail ne fait pas partie des utilisateurs autorisés.");
+            }
+        }
+
+        function activerInterfaceAdmin() {
+            var navPub = document.getElementById('nav-publique');
+            var navAdmin = document.getElementById('nav-admin');
+            if (navPub) navPub.classList.add('hidden');
+            if (navAdmin) {
+                navAdmin.classList.remove('hidden');
+                navAdmin.classList.add('flex');
+            }
         }
 
         function deconnexionAdmin() {
-            try { localStorage.removeItem("bcs_admin_connecte"); } catch(e){}
-            var np = document.getElementById('nav-publique');
-            var na = document.getElementById('nav-admin');
-            if (na) { na.classList.add('hidden'); na.classList.remove('flex'); }
-            if (np) np.classList.remove('hidden');
+            localStorage.removeItem("bcs_admin_connecte");
+            var navPub = document.getElementById('nav-publique');
+            var navAdmin = document.getElementById('nav-admin');
+            if (navAdmin) {
+                navAdmin.classList.add('hidden');
+                navAdmin.classList.remove('flex');
+            }
+            if (navPub) navPub.classList.remove('hidden');
         }
 
         document.addEventListener("DOMContentLoaded", function() {
             afficherAlbum('septembre');
-            try {
-                if (localStorage.getItem("bcs_admin_connecte") === "true") {
-                    afficherInterfaceAdmin();
-                }
-            } catch(e){}
+            if (localStorage.getItem("bcs_admin_connecte") === "true") {
+                activerInterfaceAdmin();
+            }
         });
     </script>
-
 </body>
 </html>
