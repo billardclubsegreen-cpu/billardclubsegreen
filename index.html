@@ -50,7 +50,7 @@
                 <button onclick="ouvrirModalModuleAdmin('adherents')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg transition">👥 Gérer Adhérents</button>
                 <button onclick="ouvrirModalModuleAdmin('tournoi')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg transition">🎯 Admin Tournoi</button>
                 <button onclick="ouvrirModalModuleAdmin('trombi')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">📸 Trombi Admin</button>
-                <button onclick="ouvrirModalModuleAdmin('partenaires')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">🤝 Gérer Partenaires</button>
+                <button onclick="ouvrirModalModuleAdmin('partenaires')" class="bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-lg transition">🤝 Gérer Partenaires</button>
                 <button onclick="ouvrirModalModuleAdmin('gazette')" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg transition">📰 Éditer Gazette</button>
                 <button onclick="ouvrirModalFacebook()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition">🤖 Générateur FB</button>
                 <a href="comptes-rendus.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">📝 Comptes Rendus</a>
@@ -83,6 +83,21 @@
                     🎯 Tournoi Cartésien
                 </button>
             </div>
+        </div>
+
+        <!-- BLOC VIDÉO DE PRÉSENTATION (Lecture automatique) -->
+        <div class="bg-slate-900 rounded-2xl p-4 sm:p-6 shadow-xl border border-slate-800 max-w-4xl mx-auto space-y-3 text-center">
+            <div class="flex items-center justify-center gap-2 text-amber-400 font-bold text-sm">
+                <span>🎬</span> Découverte en Vidéo — Billard Club Segréen
+            </div>
+            <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-inner bg-black">
+                <iframe src="https://drive.google.com/file/d/1F5BwA69rFlharNNEalTfaM1h4coiBEJ8/preview?autoplay=1&mute=1" 
+                        class="w-full h-full border-0" 
+                        allow="autoplay" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+            <p class="text-[11px] text-slate-400">Si la lecture automatique est bloquée par votre navigateur, cliquez directement sur le lecteur pour lancer la vidéo.</p>
         </div>
 
         <!-- Section Milieu : Nos Partenaires Officiels -->
@@ -217,7 +232,7 @@
         </div>
     </div>
 
-    <!-- MODALE EXPLICATION PARTENAIRES (Intégralité du texte avec défilement fluide) -->
+    <!-- MODALE EXPLICATION PARTENAIRES -->
     <div id="modal-explication-partenaires" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
         <div class="bg-slate-900 text-white rounded-3xl w-full max-w-4xl h-[82vh] shadow-2xl border border-slate-800 flex flex-col overflow-hidden relative">
             <div class="bg-slate-950 px-6 py-4 flex justify-between items-center border-b border-slate-800 shrink-0">
@@ -378,7 +393,7 @@
         var URL_SCRIPT_GOOGLE = "https://script.google.com/macros/s/AKfycbzwZojzIEhT2RCIJtMK3Okb9MtfZYnJwKINMA0SPwbrfliSV9ITmuDEriUQjBVc7t0-/exec";
         
         var URL_SAISIE_JOUEUR = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=saisiejoueur";
-        var URL_CARTESIEN = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=cartesien";
+        var URL_CARTESIEN = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin";
 
         var URLS_MODULES_ADMIN = {
             adherents: "https://script.google.com/macros/s/1rQrXtdI-Aj-V_g90xKqBYvxncInlQj-nHhUTJ7Bavfk/exec?page=adherents",
