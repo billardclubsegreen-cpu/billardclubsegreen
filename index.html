@@ -217,7 +217,7 @@
         </div>
     </div>
 
-    <!-- MODALE EXPLICATION PARTENAIRES (Corrigée pour afficher tout le texte sans coupure) -->
+    <!-- MODALE EXPLICATION PARTENAIRES (Intégralité du texte avec défilement fluide) -->
     <div id="modal-explication-partenaires" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
         <div class="bg-slate-900 text-white rounded-3xl w-full max-w-4xl h-[82vh] shadow-2xl border border-slate-800 flex flex-col overflow-hidden relative">
             <div class="bg-slate-950 px-6 py-4 flex justify-between items-center border-b border-slate-800 shrink-0">
@@ -232,34 +232,72 @@
             </div>
 
             <div class="p-6 sm:p-8 overflow-y-auto flex-grow space-y-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <!-- Introduction -->
                 <div class="bg-slate-800/80 rounded-2xl p-5 border border-slate-700/60 text-center space-y-2">
                     <h4 class="text-lg font-black text-white uppercase tracking-wide text-amber-300">Soutenez le dynamisme du Billard Club Segréen</h4>
                     <p class="text-slate-300">
-                        Particuliers ou entreprises, <strong>associez votre image à un club sportif engagé, convivial et formateur</strong>. En soutenant nos projets, vous contribuez directement au développement de notre école de billard, à la vie associative locale et à l'organisation de nos compétitions.
+                        Particuliers ou entreprises, <strong>associez votre image à un club sportif engagé, convivial et formateur</strong>. En soutenant nos projets, vous contribuez directement au développement de notre école de billard, à la vie associative locale et à l'organisation de nos compétitions. Découvrez ci-dessous nos formules de mécénat et de partenariat, pensées pour conjuguer passion du sport et avantages concrets.
                     </p>
                 </div>
-                
+
+                <!-- Les 2 Formules -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/40 space-y-2">
-                        <div class="font-bold text-amber-400 flex items-center gap-2"><span>🎯</span> Pourquoi nous soutenir ?</div>
-                        <p class="text-slate-300">Aidez-nous à renouveler notre matériel, à accompagner nos joueurs en championnats officiels et à faire vivre la structure sur le territoire de Segré-en-Anjou Bleu.</p>
+                        <div class="font-bold text-amber-400 flex items-center gap-2 text-sm"><span>💡</span> Le Mécénat (Don)</div>
+                        <p class="text-slate-300">Un geste désintéressé pour soutenir notre association sportive et nos projets jeunesse/clubs.</p>
+                        <ul class="list-disc list-inside space-y-1 text-slate-300">
+                            <li><strong>Avantage fiscal majeur :</strong> Réduction d'impôt sur les sociétés (IS) de 60% du montant du don (dans la limite des plafonds légaux). Un don de 100 € ne coûte réellement que 40 € après déduction.</li>
+                            <li>Délivrance d'un reçu fiscal officiel (CERFA).</li>
+                        </ul>
                     </div>
                     <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/40 space-y-2">
-                        <div class="font-bold text-amber-400 flex items-center gap-2"><span>📈</span> Avantages & Visibilité</div>
-                        <p class="text-slate-300">Bénéficiez d'une visibilité accrue sur notre plateforme web officielle, lors de nos tournois locaux et sur notre chaîne de retransmission en direct (Streaming TV).</p>
+                        <div class="font-bold text-amber-400 flex items-center gap-2 text-sm"><span>🤝</span> Le Partenariat</div>
+                        <p class="text-slate-300">Vous préférez une démarche axée sur la communication et la visibilité de votre entreprise ?</p>
+                        <ul class="list-disc list-inside space-y-1 text-slate-300">
+                            <li>Visibilité maximale sur nos supports (site, réseaux sociaux, événements).</li>
+                            <li>Contrat de prestations publicitaires (charge déductible en frais professionnels).</li>
+                            <li>Idéal pour associer l'image de votre marque à notre club.</li>
+                        </ul>
                     </div>
                 </div>
 
+                <!-- Tarifs et Formules -->
+                <div class="space-y-3">
+                    <h5 class="font-black text-white uppercase tracking-wide text-amber-300 text-xs sm:text-sm">📋 Nos Formules & Tarifs</h5>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-slate-800/60 p-4 rounded-2xl border border-slate-700/50 space-y-2">
+                            <div class="font-bold text-white text-xs">👕 Sponsoring Maillot</div>
+                            <p class="text-slate-300 text-[11px]">Visibilité sur la manche droite ou gauche de nos tenues officielles.</p>
+                            <div class="text-amber-400 font-black text-xs">1 000 € minimum</div>
+                        </div>
+                        <div class="bg-slate-800/60 p-4 rounded-2xl border border-slate-700/50 space-y-2">
+                            <div class="font-bold text-white text-xs">🎱 Sponsoring Table</div>
+                            <p class="text-slate-300 text-[11px]">Une table du club portera votre nom et logo toute la saison, vous assurant une visibilité lors de chaque manifestation.</p>
+                            <div class="text-amber-400 font-black text-xs">400 € minimum</div>
+                        </div>
+                        <div class="bg-slate-800/60 p-4 rounded-2xl border border-slate-700/50 space-y-2">
+                            <div class="font-bold text-white text-xs">🏆 Sponsoring TN & Mécénat</div>
+                            <p class="text-slate-300 text-[11px]">Mise en avant lors du Tournoi National (affichage + vin d'honneur) ou don libre par Mécénat.</p>
+                            <div class="text-amber-400 font-black text-xs">TN : 350 € min.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Liens utiles -->
                 <div class="bg-indigo-950/40 border border-indigo-500/30 p-4 rounded-2xl text-center space-y-2">
                     <p class="text-indigo-200 font-medium">Vous souhaitez devenir partenaire ou mécène du club ? N'hésitez pas à nous contacter dès aujourd'hui pour en discuter.</p>
                 </div>
             </div>
 
-            <div class="bg-slate-950 px-6 py-4 border-t border-slate-800 shrink-0 flex justify-center gap-3">
-                <a href="contacts.html" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2.5 rounded-xl transition shadow text-xs flex items-center gap-2">
+            <div class="bg-slate-950 px-6 py-4 border-t border-slate-800 shrink-0 flex flex-wrap justify-center gap-3">
+                <a href="https://www.helloasso.com" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2.5 rounded-xl transition shadow text-xs flex items-center gap-2">
+                    💚 Faire un don (HelloAsso)
+                </a>
+                <a href="contacts.html" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-2.5 rounded-xl transition shadow text-xs flex items-center gap-2">
                     📞 Nous contacter pour devenir partenaire
                 </a>
-                <button onclick="fermerModalExplicationPartenaires()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-5 py-2.5 rounded-xl transition text-xs">
+                <button onclick="fermerModalExplicationPartenaires()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2.5 rounded-xl transition text-xs">
                     Fermer
                 </button>
             </div>
