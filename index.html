@@ -446,7 +446,7 @@
                 document.getElementById('form-email').classList.add('hidden');
                 document.getElementById('form-code').classList.remove('hidden');
                 document.getElementById('modal-subtitle').innerText = "Vérification pour " + emailEnCours;
-                afficherMessage("Un code à 6 chiffres a été envoyé à votre adresse e-mail. Vérifiez votre boîte de réception (et vos spams).", "succes");
+                afficherMessage("Un code a été envoyé à votre adresse e-mail. Vérifiez votre boîte de réception (et vos spams).", "succes");
             })
             .catch(error => {
                 btn.innerText = "Recevoir mon code";
