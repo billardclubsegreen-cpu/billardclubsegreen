@@ -105,7 +105,7 @@
     <!-- Script JavaScript -->
     <script>
         var URLS_MODULES_ADMIN = {
-            adherents: "https://script.google.com/macros/s/1rQrXtdI-Aj-V_g90xKqBYvxncInlQj-nHhUTJ7Bavfk/exec?page=adherents",
+            adherents: "adherent.html",
             tournoi: "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin",
             trombi: "https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin",
             partenaires: "https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin",
@@ -144,10 +144,12 @@
             navAdmin.classList.add('flex');
         }
 
-function deconnexionAdmin() {
-    localStorage.removeItem("bcs_admin_connecte");
-    window.location.href = "index.html";
-}
+        function deconnexionAdmin() {
+            localStorage.removeItem("bcs_admin_connecte");
+            document.getElementById('nav-admin').classList.add('hidden');
+            document.getElementById('nav-admin').classList.remove('flex');
+            document.getElementById('nav-publique').classList.remove('hidden');
+        }
 
         window.onload = function() {
             if (localStorage.getItem("bcs_admin_connecte") === "true") {
