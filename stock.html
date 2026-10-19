@@ -144,12 +144,10 @@
             navAdmin.classList.add('flex');
         }
 
-        function deconnexionAdmin() {
-            localStorage.removeItem("bcs_admin_connecte");
-            document.getElementById('nav-admin').classList.add('hidden');
-            document.getElementById('nav-admin').classList.remove('flex');
-            document.getElementById('nav-publique').classList.remove('hidden');
-        }
+function deconnexionAdmin() {
+    localStorage.removeItem("bcs_admin_connecte");
+    window.location.href = "index.html";
+}
 
         window.onload = function() {
             if (localStorage.getItem("bcs_admin_connecte") === "true") {
