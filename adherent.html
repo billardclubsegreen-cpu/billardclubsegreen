@@ -1,1 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Adhérents — Billard Club Segréen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Zoom uniforme à 85% pour l'harmonie visuelle */
+        html {
+            zoom: 0.85;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between text-slate-800 p-4 sm:p-8">
 
+    <main class="max-w-5xl mx-auto w-full space-y-6 flex-grow">
+        
+        <!-- En-tête de la page -->
+        <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col sm:flex-row justify-between items-center gap-4 border border-slate-800">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-slate-800 rounded-2xl flex items-center justify-center text-2xl shadow border border-slate-700">👥</div>
+                <div>
+                    <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest">Base de Données BCS</span>
+                    <h1 class="text-xl sm:text-2xl font-black mt-1 text-amber-400">Gestion des Adhérents</h1>
+                </div>
+            </div>
+            <!-- Navigation rapide inter-modules si nécessaire -->
+            <div class="flex items-center gap-2">
+                <button onclick="switchTab('formTab')" id="tabBtnForm" class="bg-indigo-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition">➕ Saisie / Fiche</button>
+                <button onclick="switchTab('searchTab')" id="tabBtnSearch" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl shadow transition border border-slate-700">🔍 Rechercher / Liste</button>
+            </div>
+        </div>
+
+        <!-- Zone de Notification / Message -->
+        <div id="message" class="hidden p-4 rounded-2xl text-xs font-bold shadow-sm transition-all"></div>
+
+        <!-- ONGLET 1 : FORMULAIRE (AJOUT / MODIFICATION) -->
+        <div id="formTab" class="tab-content bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                <h2 id="formTitle" class="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <span>📝</span> Nouvel Adhérent
+                </h2>
+                <span class="text-[11px] text-slate-400">* Champs obligatoires</span>
+            </div>
+
+            <input type="hidden" id="row" value="">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nom *</label>
+                    <input type="text" id="nom" required placeholder="Ex : DUPONT" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white font-medium uppercase">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Prénom *</label>
+                    <input type="text" id="prenom" required placeholder="Ex : Jean" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white font-medium">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Date de naissance</label>
+                    <input type="date" id="dateNaissance" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white font-medium">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Numéro de licence *</label>
+                    <input type="text" id="licence" required placeholder="Ex : 1234567A" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white font-mono font-bold">
+                </div>
+            </div>
+
+            <div class="text-xs">
+                <label class="block font-bold text-slate-700 mb-1">Adresse</label>
+                <input type="text" id="adresse" placeholder="Numéro et nom de rue" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Code Postal</label>
+                    <input type="text" id="cp" placeholder="49500" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white font-medium">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Ville</label>
+                    <input type="text" id="ville" placeholder="SEGRE EN ANJOU BLEU" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white font-medium uppercase">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">E-mail</label>
+                    <input type="email" id="email" placeholder="jean.dupont@exemple.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Téléphone</label>
+                    <input type="text" id="tel" placeholder="06 00 00 00 00" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Licence acquittée</label>
+                    <select id="acquittee" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white font-bold">
+                        <option value="NON">NON</option>
+                        <option value="OUI">OUI</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Type de licence</label>
+                    <input type="text" id="typeLicence" placeholder="Ex : Compétition / Loisir" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Accès compétition</label>
+                    <select id="competition" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white font-bold">
+                        <option value="NON">NON</option>
+                        <option value="OUI">OUI</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Membre bureau</label>
+                    <select id="bureau" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white font-bold">
+                        <option value="NON">NON</option>
+                        <option value="OUI">OUI</option>
+                    </select>
+                </div>
+                <div class="sm:col-span-2">
+                    <label class="block font-bold text-slate-700 mb-1">Fonction bureau</label>
+                    <input type="text" id="fonctionBureau" placeholder="Ex : Président, Trésorier..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 outline-none focus:border-indigo-600 focus:bg-white">
+                </div>
+            </div>
+
+            <!-- BARRE DES BOUTONS D'ACTION DEMANDÉS : AJOUTER / MODIFIER / SUPPRIMER -->
+            <div class="flex flex-wrap gap-3 pt-4 border-t border-slate-100 text-xs font-bold">
+                <button type="button" onclick="viderFormulaire()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-5 py-3 rounded-xl transition shadow-sm">
+                    🔄 Réinitialiser / Nouveau
+                </button>
+                
+                <!-- Bouton AJOUTER (affiché par défaut) -->
+                <button type="button" id="btnAjouter" onclick="enregistrerAdherent()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl transition shadow-md flex-grow">
+                    💾 Ajouter l'adhérent
+                </button>
+
+                <!-- Boutons MODIFIER & SUPPRIMER (masqués par défaut, affichés lors de la sélection d'un adhérent) -->
+                <div id="blocActionsModif" class="hidden flex gap-3 flex-grow">
+                    <button type="button" id="btnModifier" onclick="modifierAdherent()" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-xl transition shadow-md flex-1">
+                        ✏️ Modifier l'adhérent
+                    </button>
+                    <button type="button" id="btnSupprimer" onclick="supprimerAdherent()" class="bg-rose-600 hover:bg-rose-700 text-white px-6 py-3 rounded-xl transition shadow-md flex-1">
+                        🗑️ Supprimer l'adhérent
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET 2 : RECHERCHE ET LISTE -->
+        <div id="searchTab" class="tab-content hidden bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <span>🔍</span> Recherche & Sélection d'un Adhérent
+                </h2>
+                <span class="text-xs text-slate-500">Cliquez sur un profil pour le modifier ou le supprimer</span>
+            </div>
+
+            <div class="text-xs">
+                <input type="text" id="searchTerm" placeholder="Tapez un nom, prénom, numéro de licence, ville..." onkeyup="lancerRecherche()" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-indigo-600 focus:bg-white text-slate-800 font-medium">
+            </div>
+
+            <div id="resultatsRecherche" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[500px] overflow-y-auto pr-2">
+                <!-- Rempli dynamiquement par JS -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Pied de page -->
+    <footer class="mt-8 text-center text-xs text-slate-500 space-y-1">
+        <div>Billard Club Segréen • Plateforme de Gestion des Adhérents 🎱</div>
+    </footer>
+
+    <!-- Scripts de communication Google Apps Script -->
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById(tabId).classList.add('active');
+
+            const btnForm = document.getElementById('tabBtnForm');
+            const btnSearch = document.getElementById('tabBtnSearch');
+
+            if(tabId === 'formTab') {
+                btnForm.className = "bg-indigo-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition";
+                btnSearch.className = "bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl shadow transition border border-slate-700";
+            } else {
+                btnSearch.className = "bg-indigo-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition";
+                btnForm.className = "bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl shadow transition border border-slate-700";
+                lancerRecherche();
+            }
+        }
+
+        function afficherMessage(texte, type) {
+            const msg = document.getElementById('message');
+            msg.innerText = texte;
+            msg.className = `p-4 rounded-2xl text-xs font-bold shadow-sm transition-all ${type === 'success' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-rose-50 text-rose-800 border border-rose-200'}`;
+            msg.classList.remove('hidden');
+            setTimeout(() => { msg.classList.add('hidden'); }, 6000);
+        }
+
+        function viderFormulaire() {
+            document.getElementById('row').value = '';
+            document.getElementById('formTitle').innerHTML = '<span>📝</span> Nouvel Adhérent';
+            document.querySelectorAll('#formTab input[type="text"], #formTab input[type="date"], #formTab input[type="email"]').forEach(i => i.value = '');
+            document.getElementById('acquittee').value = 'NON';
+            document.getElementById('competition').value = 'NON';
+            document.getElementById('bureau').value = 'NON';
+            
+            // Gestion des boutons : Afficher Ajout, Masquer Modifier/Supprimer
+            document.getElementById('btnAjouter').classList.remove('hidden');
+            document.getElementById('blocActionsModif').classList.add('hidden');
+        }
+
+        function recupererDonneesFormulaire() {
+            return {
+                row: document.getElementById('row').value,
+                nom: document.getElementById('nom').value,
+                prenom: document.getElementById('prenom').value,
+                dateNaissance: document.getElementById('dateNaissance').value,
+                licence: document.getElementById('licence').value,
+                adresse: document.getElementById('adresse').value,
+                cp: document.getElementById('cp').value,
+                ville: document.getElementById('ville').value,
+                email: document.getElementById('email').value,
+                tel: document.getElementById('tel').value,
+                acquittee: document.getElementById('acquittee').value,
+                typeLicence: document.getElementById('typeLicence').value,
+                competition: document.getElementById('competition').value,
+                bureau: document.getElementById('bureau').value,
+                fonctionBureau: document.getElementById('fonctionBureau').value
+            };
+        }
+
+        function enregistrerAdherent() {
+            const data = recupererDonneesFormulaire();
+            google.script.run
+                .withSuccessHandler(res => {
+                    afficherMessage(res.message, 'success');
+                    viderFormulaire();
+                })
+                .withFailureHandler(e => afficherMessage(e.message, 'error'))
+                .ajouterAdherent(data);
+        }
+
+        function modifierAdherent() {
+            const data = recupererDonneesFormulaire();
+            google.script.run
+                .withSuccessHandler(res => {
+                    afficherMessage(res.message, 'success');
+                    viderFormulaire();
+                })
+                .withFailureHandler(e => afficherMessage(e.message, 'error'))
+                .modifierAdherent(data);
+        }
+
+        function supprimerAdherent() {
+            const row = document.getElementById('row').value;
+            const nomComplet = document.getElementById('nom').value + ' ' + document.getElementById('prenom').value;
+            if (confirm("Voulez-vous vraiment supprimer l'adhérent : " + nomComplet + " ?")) {
+                google.script.run
+                    .withSuccessHandler(res => {
+                        afficherMessage(res.message, 'success');
+                        viderFormulaire();
+                    })
+                    .withFailureHandler(e => afficherMessage(e.message, 'error'))
+                    .supprimerAdherent(row);
+            }
+        }
+
+        function lancerRecherche() {
+            const term = document.getElementById('searchTerm').value;
+            google.script.run
+                .withSuccessHandler(afficherResultats)
+                .withFailureHandler(e => console.error(e))
+                .rechercherAdherents(term);
+        }
+
+        function afficherResultats(liste) {
+            const container = document.getElementById('resultatsRecherche');
+            if (!liste || !liste.length) {
+                container.innerHTML = '<p class="text-slate-400 text-center col-span-2 py-6">Aucun adhérent trouvé.</p>';
+                return;
+            }
+            container.innerHTML = liste.map(a => `
+                <div onclick="chargerAdherent(${a._row})" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 hover:bg-white p-4 rounded-2xl cursor-pointer transition shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="font-black text-slate-900 text-sm">${a.NOM} ${a.PRENOM}</div>
+                        <div class="text-[11px] text-slate-500 mt-0.5">Licence : <span class="font-mono font-bold text-indigo-600">${a['NUMERO DE LICENCE'] || 'Non renseigné'}</span></div>
+                    </div>
+                    <div class="flex justify-between items-center text-[11px] text-slate-400 mt-3 pt-2 border-t border-slate-100">
+                        <span>Ville : ${a.VILLE || '-'}</span>
+                        <span class="text-indigo-600 font-bold hover:underline">Modifier / Supprimer ↗</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function chargerAdherent(row) {
+            google.script.run
+                .withSuccessHandler(remplirFormulairePourEdition)
+                .withFailureHandler(e => afficherMessage(e.message, 'error'))
+                .obtenirAdherentParLigne(row);
+        }
+
+        function remplirFormulairePourEdition(a) {
+            document.getElementById('row').value = a._row;
+            document.getElementById('formTitle').innerHTML = `<span>✏️</span> Modification : ${a.NOM} ${a.PRENOM}`;
+            document.getElementById('nom').value = a.NOM || '';
+            document.getElementById('prenom').value = a.PRENOM || '';
+            document.getElementById('dateNaissance').value = a['DATE DE NAISSANCE'] || '';
+            document.getElementById('licence').value = a['NUMERO DE LICENCE'] || '';
+            document.getElementById('adresse').value = a['ADRESSE ADHERENT'] || '';
+            document.getElementById('cp').value = a['CODE POSTAL'] || '';
+            document.getElementById('ville').value = a.VILLE || '';
+            document.getElementById('email').value = a.EMAIL || '';
+            document.getElementById('tel').value = a['NUMERO DE TELEPHONE'] || '';
+            document.getElementById('acquittee').value = a['LICENCE ACQUITTEE'] || 'NON';
+            document.getElementById('typeLicence').value = a['TYPEDE LICENCE'] || '';
+            document.getElementById('competition').value = a['ACCEDER AUX COMPETITION'] || 'NON';
+            document.getElementById('bureau').value = a['MEMBRE BUREAU'] || 'NON';
+            document.getElementById('fonctionBureau').value = a['FONCTION BUREAU'] || '';
+            
+            // Basculer l'affichage des boutons : Masquer l'ajout, Afficher Modifier et Supprimer
+            document.getElementById('btnAjouter').classList.add('hidden');
+            document.getElementById('blocActionsModif').classList.remove('hidden');
+
+            // Basculer vers l'onglet Formulaire
+            switchTab('formTab');
+        }
+
+        // Chargement initial des adhérents si besoin
+        document.addEventListener("DOMContentLoaded", function() {
+            // Prêt
+        });
+    </script>
+</body>
+</html>
