@@ -39,20 +39,19 @@
                 <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🤝 Partenaires</a>
                 <a href="streaming.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">📺 Direct & TV</a>
                 <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📞 Contacts</a>
-                
-
             </nav>
 
-           <!-- Navigation Admin (Unifiée) -->
+            <!-- Navigation Admin (Unifiée, sans Accueil, en Modales) -->
             <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
                 <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
-                <a href="index.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🏠 Accueil</a>
-                <a href="bar.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🍻 Bar</a>
-                <a href="stock.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">📦 Stocks</a>
-                <a href="https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin" target="_blank" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg transition">🎯 Admin Tournoi</a>
-                <a href="https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin" target="_blank" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">📸 Trombi Admin</a>
-                <a href="https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin" target="_blank" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🤝 Gérer Partenaires</a>
-                <a href="registre-rgpd.html" class="bg-slate-800 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
+                <a href="bar.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">🍻 Bar</a>
+                <a href="stock.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">📦 Stocks</a>
+                <button onclick="ouvrirModalModuleAdmin('tournoi')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg transition">🎯 Admin Tournoi</button>
+                <button onclick="ouvrirModalModuleAdmin('trombi')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">📸 Trombi Admin</button>
+                <button onclick="ouvrirModalModuleAdmin('partenaires')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">🤝 Gérer Partenaires</button>
+                <button onclick="ouvrirModalModuleAdmin('gazette')" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg transition">📰 Éditer Gazette</button>
+                <a href="comptes-rendus.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">📝 Comptes Rendus</a>
+                <a href="registre-rgpd.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">🔒 RGPD</a>
                 <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
             </nav>
         </div>
@@ -238,52 +237,22 @@
 
     </main>
 
-    <!-- FENÊTRE MODALE DE CONNEXION ADMIN (Gérée par Google Apps Script) -->
-    <div id="modal-admin" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-200 text-center space-y-5 relative">
-            <button onclick="fermerModalAdmin()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
-            <div class="space-y-2">
-                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-xl font-bold shadow-inner">🎱</div>
-                <h3 class="text-lg font-black text-slate-900">Billard Club Segréen</h3>
-                <p id="modal-subtitle" class="text-xs text-slate-500">Accès sécurisé par e-mail</p>
+    <!-- MODALE UNIVERSELLE POUR LES MODULES ADMIN -->
+    <div id="modal-module-admin" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-white rounded-3xl w-full max-w-6xl h-[90vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
+            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shrink-0 border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span id="modal-module-icon" class="text-xl">⚙️</span>
+                    <div>
+                        <h3 id="modal-module-title" class="font-bold text-sm sm:text-base text-amber-400">Administration</h3>
+                        <p id="modal-module-subtitle" class="text-[11px] text-slate-400">Espace de gestion sécurisé</p>
+                    </div>
+                </div>
+                <button onclick="fermerModalModuleAdmin()" class="text-slate-400 hover:text-white text-2xl font-bold transition">✕</button>
             </div>
-
-            <!-- Message d'alerte / erreur -->
-            <div id="modal-message-erreur" class="hidden bg-rose-50 border border-rose-200 text-rose-700 p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5">
-                <div class="flex items-start gap-2">
-                    <span class="text-base shrink-0">❌</span>
-                    <span id="texte-erreur">Accès refusé.</span>
-                </div>
+            <div class="flex-grow w-full bg-slate-100 overflow-hidden">
+                <iframe id="iframe-module-admin" src="" class="w-full h-full border-0"></iframe>
             </div>
-
-            <!-- Message de succès (code envoyé) -->
-            <div id="modal-message-succes" class="hidden bg-emerald-50 border border-emerald-200 text-emerald-800 p-3.5 rounded-xl text-xs font-medium text-left">
-                <span id="texte-succes">Un code à 6 chiffres a été envoyé à votre adresse e-mail.</span>
-            </div>
-
-            <!-- Étape 1 : Saisie de l'e-mail -->
-            <form id="form-step-email" onsubmit="envoyerCodeEmail(event)" class="space-y-4 text-left text-xs">
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Votre adresse e-mail :</label>
-                    <input type="email" id="email-admin-saisi" required placeholder="votre.email@exemple.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-medium">
-                </div>
-                <div class="flex gap-2 pt-2">
-                    <button type="button" onclick="fermerModalAdmin()" class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">Annuler</button>
-                    <button type="submit" id="btn-envoyer-code" class="w-1/2 bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl transition shadow-md">Recevoir mon code</button>
-                </div>
-            </form>
-
-            <!-- Étape 2 : Saisie du code à 6 chiffres -->
-            <form id="form-step-code" onsubmit="verifierCodeEmail(event)" class="space-y-4 text-left text-xs hidden">
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Entrez le code à 6 chiffres reçu par e-mail :</label>
-                    <input type="text" id="code-saisi" required maxlength="6" placeholder="123456" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-mono tracking-widest text-center text-lg font-bold">
-                </div>
-                <div class="flex gap-2 pt-2">
-                    <button type="button" onclick="revenirEtapeEmail()" class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">Retour</button>
-                    <button type="submit" id="btn-valider-code" class="w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-md">Valider le code</button>
-                </div>
-            </form>
         </div>
     </div>
 
@@ -303,103 +272,35 @@
 
     <!-- Script JavaScript -->
     <script>
-        var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec";
-        var emailEnCours = "";
+        var URLS_MODULES_ADMIN = {
+            tournoi: "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin",
+            trombi: "https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin",
+            partenaires: "https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin",
+            gazette: "https://script.google.com/macros/s/AKfycbzbbjS49aQsSqp5PgOfr9HIWod4BsS0JJe_V4m05u47CP4AA-1XHGOUn1xxmVq5e_j9/exec?action=admin"
+        };
 
-        function ouvrirModalAdmin() {
-            document.getElementById('modal-message-erreur').classList.add('hidden');
-            document.getElementById('modal-message-succes').classList.add('hidden');
-            document.getElementById('form-step-email').classList.remove('hidden');
-            document.getElementById('form-step-code').classList.add('hidden');
-            document.getElementById('email-admin-saisi').value = '';
-            document.getElementById('modal-subtitle').innerText = "Accès sécurisé par e-mail";
-            document.getElementById('modal-admin').classList.remove('hidden');
-            document.getElementById('email-admin-saisi').focus();
+        var INFOS_MODULES = {
+            tournoi: { icon: "🎯", title: "Administration — Tournoi", subtitle: "Gestion des inscriptions, poules et résultats" },
+            trombi: { icon: "📸", title: "Administration — Trombinoscope", subtitle: "Gestion des membres et photos" },
+            partenaires: { icon: "🤝", title: "Administration — Mécénat & Partenaires", subtitle: "Gestion des dons et contrats publicitaires" },
+            gazette: { icon: "📰", title: "Administration — Textes de la Gazette", subtitle: "Modification des articles et mot du président" }
+        };
+
+        function ouvrirModalModuleAdmin(cleModule) {
+            if (URLS_MODULES_ADMIN[cleModule]) {
+                var info = INFOS_MODULES[cleModule];
+                document.getElementById('modal-module-icon').innerText = info.icon;
+                document.getElementById('modal-module-title').innerText = info.title;
+                document.getElementById('modal-module-subtitle').innerText = info.subtitle;
+                
+                document.getElementById('iframe-module-admin').src = URLS_MODULES_ADMIN[cleModule];
+                document.getElementById('modal-module-admin').classList.remove('hidden');
+            }
         }
 
-        function fermerModalAdmin() {
-            document.getElementById('modal-admin').classList.add('hidden');
-        }
-
-        function revenirEtapeEmail() {
-            document.getElementById('modal-message-erreur').classList.add('hidden');
-            document.getElementById('modal-message-succes').classList.add('hidden');
-            document.getElementById('form-step-code').classList.add('hidden');
-            document.getElementById('form-step-email').classList.remove('hidden');
-            document.getElementById('modal-subtitle').innerText = "Accès sécurisé par e-mail";
-        }
-
-        function afficherErreur(message) {
-            var boxErreur = document.getElementById('modal-message-erreur');
-            var texteErreur = document.getElementById('texte-erreur');
-            texteErreur.innerText = message;
-            boxErreur.classList.remove('hidden');
-        }
-
-        function envoyerCodeEmail(event) {
-            event.preventDefault();
-            emailEnCours = document.getElementById('email-admin-saisi').value.trim().toLowerCase();
-            var btn = document.getElementById('btn-envoyer-code');
-
-            document.getElementById('modal-message-erreur').classList.add('hidden');
-            btn.innerText = "Envoi en cours...";
-            btn.disabled = true;
-
-            var url = SCRIPT_URL + "?action=sendCode&email=" + encodeURIComponent(emailEnCours);
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    btn.innerText = "Recevoir mon code";
-                    btn.disabled = false;
-                    if (data.success) {
-                        document.getElementById('form-step-email').classList.add('hidden');
-                        document.getElementById('form-step-code').classList.remove('hidden');
-                        document.getElementById('texte-succes').innerText = "Un code à 6 chiffres a été envoyé à " + emailEnCours;
-                        document.getElementById('modal-message-succes').classList.remove('hidden');
-                        document.getElementById('modal-subtitle').innerText = "Vérification pour " + emailEnCours;
-                        document.getElementById('code-saisi').value = '';
-                        document.getElementById('code-saisi').focus();
-                    } else {
-                        afficherErreur(data.message || "Accès refusé : cet e-mail n'est pas autorisé.");
-                    }
-                })
-                .catch(error => {
-                    btn.innerText = "Recevoir mon code";
-                    btn.disabled = false;
-                    afficherErreur("Erreur de connexion au serveur. Veuillez réessayer.");
-                });
-        }
-
-        function verifierCodeEmail(event) {
-            event.preventDefault();
-            var codeSaisi = document.getElementById('code-saisi').value.trim();
-            var btn = document.getElementById('btn-valider-code');
-
-            document.getElementById('modal-message-erreur').classList.add('hidden');
-            btn.innerText = "Vérification...";
-            btn.disabled = true;
-
-            var url = SCRIPT_URL + "?action=verifyCode&email=" + encodeURIComponent(emailEnCours) + "&code=" + encodeURIComponent(codeSaisi);
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    btn.innerText = "Valider le code";
-                    btn.disabled = false;
-                    if (data.success) {
-                        localStorage.setItem("bcs_admin_connecte", "true");
-                        fermerModalAdmin();
-                        activerInterfaceAdmin();
-                    } else {
-                        afficherErreur(data.message || "Code incorrect ou expiré.");
-                    }
-                })
-                .catch(error => {
-                    btn.innerText = "Valider le code";
-                    btn.disabled = false;
-                    afficherErreur("Erreur de vérification. Veuillez réessayer.");
-                });
+        function fermerModalModuleAdmin() {
+            document.getElementById('modal-module-admin').classList.add('hidden');
+            document.getElementById('iframe-module-admin').src = "";
         }
 
         // Fonction pour transformer une URL YouTube classique en URL Embed intégrable
