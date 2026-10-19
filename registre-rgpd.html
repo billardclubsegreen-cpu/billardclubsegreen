@@ -278,10 +278,10 @@
             chargerRegistres();
         }
 
-        function deconnexionAdmin() {
-            localStorage.removeItem("bcs_admin_connecte");
-            mettreAJourAffichageAdmin();
-        }
+function deconnexionAdmin() {
+    localStorage.removeItem("bcs_admin_connecte");
+    window.location.href = "index.html";
+}
 
         document.addEventListener("DOMContentLoaded", function() {
             mettreAJourAffichageAdmin();
