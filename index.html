@@ -49,8 +49,8 @@
                 <a href="stock.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">📦 Stocks</a>
                 <button onclick="ouvrirModalModuleAdmin('adherents')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg transition">👥 Gérer Adhérents</button>
                 <button onclick="ouvrirModalModuleAdmin('tournoi')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg transition">🎯 Admin Tournoi</button>
-                <button onclick="ouvrirModalModuleAdmin('trombi')" class="bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-lg transition">📸 Trombi Admin</button>
-                <button onclick="ouvrirModalModuleAdmin('partenaires')" class="bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-lg transition">🤝 Gérer Partenaires</button>
+                <button onclick="ouvrirModalModuleAdmin('trombi')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">📸 Trombi Admin</button>
+                <button onclick="ouvrirModalModuleAdmin('partenaires')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">🤝 Gérer Partenaires</button>
                 <button onclick="ouvrirModalModuleAdmin('gazette')" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg transition">📰 Éditer Gazette</button>
                 <button onclick="ouvrirModalFacebook()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition">🤖 Générateur FB</button>
                 <a href="comptes-rendus.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">📝 Comptes Rendus</a>
@@ -217,10 +217,10 @@
         </div>
     </div>
 
-    <!-- MODALE EXPLICATION PARTENAIRES -->
-    <div id="modal-explication-partenaires" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-        <div class="bg-slate-900 text-white rounded-3xl w-full max-w-4xl max-h-[90vh] shadow-2xl border border-slate-800 flex flex-col overflow-hidden relative my-auto">
-            <div class="bg-slate-950 px-6 py-4 flex justify-between items-center border-b border-slate-800 sticky top-0 z-10">
+    <!-- MODALE EXPLICATION PARTENAIRES (Corrigée pour afficher tout le texte sans coupure) -->
+    <div id="modal-explication-partenaires" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-slate-900 text-white rounded-3xl w-full max-w-4xl h-[82vh] shadow-2xl border border-slate-800 flex flex-col overflow-hidden relative">
+            <div class="bg-slate-950 px-6 py-4 flex justify-between items-center border-b border-slate-800 shrink-0">
                 <div class="flex items-center gap-2">
                     <span class="text-2xl">🤝</span>
                     <div>
@@ -231,22 +231,37 @@
                 <button onclick="fermerModalExplicationPartenaires()" class="text-slate-400 hover:text-white text-2xl font-bold transition">✕</button>
             </div>
 
-            <div class="p-6 sm:p-8 overflow-y-auto space-y-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <div class="p-6 sm:p-8 overflow-y-auto flex-grow space-y-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
                 <div class="bg-slate-800/80 rounded-2xl p-5 border border-slate-700/60 text-center space-y-2">
                     <h4 class="text-lg font-black text-white uppercase tracking-wide text-amber-300">Soutenez le dynamisme du Billard Club Segréen</h4>
                     <p class="text-slate-300">
                         Particuliers ou entreprises, <strong>associez votre image à un club sportif engagé, convivial et formateur</strong>. En soutenant nos projets, vous contribuez directement au développement de notre école de billard, à la vie associative locale et à l'organisation de nos compétitions.
                     </p>
                 </div>
-                <!-- ... contenu additionnel partenaires ... -->
-                <div class="pt-4 flex flex-wrap justify-center gap-3">
-                    <a href="contacts.html" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2.5 rounded-xl transition shadow text-xs flex items-center gap-2">
-                        📞 Nous contacter pour devenir partenaire
-                    </a>
-                    <button onclick="fermerModalExplicationPartenaires()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-5 py-2.5 rounded-xl transition text-xs">
-                        Fermer
-                    </button>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/40 space-y-2">
+                        <div class="font-bold text-amber-400 flex items-center gap-2"><span>🎯</span> Pourquoi nous soutenir ?</div>
+                        <p class="text-slate-300">Aidez-nous à renouveler notre matériel, à accompagner nos joueurs en championnats officiels et à faire vivre la structure sur le territoire de Segré-en-Anjou Bleu.</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/40 space-y-2">
+                        <div class="font-bold text-amber-400 flex items-center gap-2"><span>📈</span> Avantages & Visibilité</div>
+                        <p class="text-slate-300">Bénéficiez d'une visibilité accrue sur notre plateforme web officielle, lors de nos tournois locaux et sur notre chaîne de retransmission en direct (Streaming TV).</p>
+                    </div>
                 </div>
+
+                <div class="bg-indigo-950/40 border border-indigo-500/30 p-4 rounded-2xl text-center space-y-2">
+                    <p class="text-indigo-200 font-medium">Vous souhaitez devenir partenaire ou mécène du club ? N'hésitez pas à nous contacter dès aujourd'hui pour en discuter.</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-950 px-6 py-4 border-t border-slate-800 shrink-0 flex justify-center gap-3">
+                <a href="contacts.html" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2.5 rounded-xl transition shadow text-xs flex items-center gap-2">
+                    📞 Nous contacter pour devenir partenaire
+                </a>
+                <button onclick="fermerModalExplicationPartenaires()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-5 py-2.5 rounded-xl transition text-xs">
+                    Fermer
+                </button>
             </div>
         </div>
     </div>
