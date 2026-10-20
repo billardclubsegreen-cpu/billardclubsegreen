@@ -17,7 +17,7 @@
       .bcs-challenge-hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(18px,3vw,36px);align-items:center;overflow:hidden;padding:clamp(18px,2.5vw,32px);color:#fff;background:linear-gradient(135deg,#030916,#0b1930);border:1px solid #132744;border-radius:1.25rem;box-shadow:0 18px 40px rgba(2,6,23,.2);text-align:center}
       .bcs-challenge-content{min-width:0;width:100%;animation:bcsChallengeIn .7s ease-out both}
       .bcs-challenge-media{min-width:0;width:100%;overflow:hidden;border:1px solid rgba(255,255,255,.2);border-radius:1rem;background:#000;box-shadow:0 12px 30px rgba(0,0,0,.35)}
-      .bcs-challenge-media video{display:block;width:100%;aspect-ratio:16/10;max-height:360px;object-fit:cover;background:#000}
+      .bcs-challenge-media iframe{display:block;width:100%;aspect-ratio:16/10;max-height:360px;background:#000}
       .bcs-challenge-eyebrow{font-size:.72rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#fbbf24}
       .bcs-challenge-title{margin:.45rem 0 .25rem;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:1000;line-height:1.04;letter-spacing:-.035em;text-shadow:0 4px 18px #000}
       .bcs-challenge-edition{display:inline-block;margin:.4rem 0;padding:.25rem .85rem;border:2px solid #fbbf24;border-radius:.45rem;color:#fbbf24;font-size:clamp(1.05rem,2vw,1.55rem);font-weight:950;transform:skew(-4deg)}
@@ -30,7 +30,7 @@
       .bcs-challenge-button{display:inline-flex;align-items:center;justify-content:center;margin-top:.35rem;padding:.65rem 1rem;border-radius:.75rem;background:#fbbf24;color:#111827;text-decoration:none;font-weight:950;box-shadow:0 8px 20px rgba(0,0,0,.25);transition:transform .2s,background .2s}
       .bcs-challenge-button:hover{background:#fcd34d;transform:translateY(-2px)}
       @keyframes bcsChallengeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-      @media(max-width:760px){.bcs-challenge-hero{grid-template-columns:1fr;padding:18px 14px;gap:16px}.bcs-challenge-media{grid-row:1}.bcs-challenge-media video{aspect-ratio:16/9;max-height:260px}.bcs-challenge-content{grid-row:2}.bcs-challenge-eyebrow{letter-spacing:.1em}}
+      @media(max-width:760px){.bcs-challenge-hero{grid-template-columns:1fr;padding:18px 14px;gap:16px}.bcs-challenge-media{grid-row:1}.bcs-challenge-media iframe{aspect-ratio:16/9;max-height:260px}.bcs-challenge-content{grid-row:2}.bcs-challenge-eyebrow{letter-spacing:.1em}}
       @media(prefers-reduced-motion:reduce){.bcs-challenge-content{animation:none}.bcs-challenge-button{transition:none}}
     </style>
 
@@ -110,10 +110,11 @@
                 <a href="cuescore.html" class="bcs-challenge-button">🎱 Suivre le challenge</a>
             </div>
             <div class="bcs-challenge-media">
-                <video autoplay muted loop playsinline controls preload="metadata" aria-label="Vidéo de présentation du Billard Club Segréen">
-                    <source src="https://drive.google.com/uc?export=download&id=1bVt4Qiu3C3nXbcz3FvLFfxy3st6j9lpR" type="video/mp4">
-                    Votre navigateur ne peut pas lire cette vidéo.
-                </video>
+                <iframe src="https://drive.google.com/file/d/1bVt4Qiu3C3nXbcz3FvLFfxy3st6j9lpR/preview" 
+                        class="w-full h-full border-0" 
+                        allow="autoplay" 
+                        allowfullscreen>
+                </iframe>
             </div>
         </section>
         <!-- ===== FIN ANNONCE DU CHALLENGE BCS ===== -->
