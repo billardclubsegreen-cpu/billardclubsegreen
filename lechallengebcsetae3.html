@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Challenge BCS – 3e Tournoi (Auto)</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #090d16;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 6px;
+    }
+    
+    /* Conteneur compact et centré */
+    .presentation-container {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      height: 310px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide {
+      display: none;
+      padding: 16px 18px;
+      height: 100%;
+      overflow-y: auto;
+    }
+    
+    /* MODIFICATION : Centre verticalement pour aérer au milieu */
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Textes aérés */
+    h1 { font-size: 1.1rem; margin: 4px 0; color: #fbbf24; text-transform: uppercase; letter-spacing: 0.03em; }
+    h2 { font-size: 0.8rem; margin: 2px 0; color: #e2e8f0; font-weight: 700; }
+    p { margin: 6px 0; font-size: 0.76rem; line-height: 1.5; color: #cbd5e1; }
+
+    .footer {
+      margin-top: 8px;
+      font-size: 9px;
+      font-weight: 800;
+      color: #fde68a;
+      letter-spacing: 0.05em;
+    }
+
+    .images-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    .images-row img {
+      max-width: 110px;
+      max-height: 70px;
+      object-fit: contain;
+      border-radius: 5px;
+      background: #020617;
+      padding: 3px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .partner-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #1e293b;
+      border-radius: 8px;
+      padding: 8px;
+      border: 1px solid #334155;
+      margin-top: 6px;
+      max-width: 210px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .partner-card img {
+      max-height: 60px;
+      max-width: 100%;
+      object-fit: contain;
+      background: #ffffff;
+      padding: 4px;
+      border-radius: 6px;
+    }
+    .partner-name {
+      margin-top: 4px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #fbbf24;
+      text-align: center;
+    }
+
+    .caption {
+      font-size: 9px;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+
+    .notes {
+      position: absolute;
+      bottom: 4px;
+      left: 12px;
+      right: 12px;
+      padding-top: 4px;
+      font-size: 9px;
+      color: #94a3b8;
+      border-top: 1px solid #1e293b;
+      font-style: italic;
+      text-align: left;
+      background: #0f172a;
+    }
+
+    .slide-index {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 700;
+      color: #64748b;
+      background: rgba(2, 6, 23, 0.7);
+      padding: 2px 5px;
+      border-radius: 3px;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+
+<div class="presentation-container">
+  <div class="slide-index" id="slideIndex"></div>
+
+  <!-- Diapositive 1 -->
+  <section class="slide active" id="slide-1">
+    <h2>Billard Club Segréen présente</h2>
+    <h1>LE CHALLENGE BCS</h1>
+    <h2>3e TOURNOI</h2>
+
+    <div class="images-row">
+      <img src="logo_rond.png" alt="Logo Billard Club Segréen">
+      <img src="https://lh3.googleusercontent.com/d/1qoaDVZx8TRtCLTpoIB9ttmPT_hePMIlI=s400" alt="Logo Chope et Compagnie">
+    </div>
+
+    <div class="footer">PASSION • PARTAGE • PERFORMANCE</div>
+
+    <div class="notes">
+      <strong>Note :</strong> Bienvenue à tous. Le Billard Club Segréen vous présente la 3e étape du Challenge BCS avec Chope & Compagnie.
+    </div>
+  </section>
+
+  <!-- Diapositive 2 -->
+  <section class="slide" id="slide-2">
+    <h1>La Compétition Continue</h1>
+    <p>🎯 <strong>Précision & Fair-play :</strong> Chaque partie compte.</p>
+    <p>📈 <strong>Classement évolutif :</strong> Chaque victoire vous fait monter.</p>
+    <p>🏆 <strong>L'enjeu :</strong> Qui saura s'imposer lors de cette 3e étape ?</p>
+
+    <div class="notes">
+      <strong>Note :</strong> L'intensité monte d'un cran pour ce 3e tournoi.
+    </div>
+  </section>
+
+  <!-- Diapositive 3 -->
+  <section class="slide" id="slide-3">
+    <h1>Équipements & Salles de Jeu</h1>
+    <p>🎱 <strong>4 billards de compétition</strong> mis à disposition.</p>
+    <p>⚙️ <strong>2 salles :</strong> 2 billards dans chaque salle.</p>
+
+    <div class="images-row">
+      <div>
+        <img src="salle1.jpeg" alt="Salle 1">
+        <div class="caption">Salle 1 (2 billards)</div>
+      </div>
+      <div>
+        <img src="salle2.jpeg" alt="Salle 2">
+        <div class="caption">Salle 2 (2 billards)</div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <strong>Note :</strong> Des conditions idéales dans nos deux salles de jeu.
+    </div>
+  </section>
+
+  <!-- Diapositive 4 : Partenaire 1 -->
+  <section class="slide" id="slide-4">
+    <h2>Partenaire Officiel</h2>
+    <h1>Chope & Compagnie</h1>
+
+    <div class="partner-card">
+      <img src="https://lh3.googleusercontent.com/d/1qoaDVZx8TRtCLTpoIB9ttmPT_hePMIlI=s400" alt="Chope et Compagnie">
+      <div class="partner-name">Chope & Compagnie Le Lion-d'Angers</div>
+    </div>
+
+    <div class="notes">
+      <strong>Note :</strong> Merci à Chope & Compagnie pour son soutien majeur !
+    </div>
+  </section>
+
+  <!-- Diapositive 5 : Partenaire 2 -->
+  <section class="slide" id="slide-5">
+    <h2>Partenaire Officiel</h2>
+    <h1>Entreprise Defais</h1>
+
+    <div class="partner-card">
+      <img src="https://lh3.googleusercontent.com/d/1oqqXI0zohN4LEaEyPjE9-oyWie98UKhj=s400" alt="Entreprise Defais">
+      <div class="partner-name">Entreprise Defais</div>
+    </div>
+
+    <div class="notes">
+      <strong>Note :</strong> Merci à l'Entreprise Defais pour son soutien fidèle.
+    </div>
+  </section>
+
+  <!-- Diapositive 6 : Partenaire 3 -->
+  <section class="slide" id="slide-6">
+    <h2>Partenaire Officiel</h2>
+    <h1>Garage Caillère</h1>
+
+    <div class="partner-card">
+      <img src="https://lh3.googleusercontent.com/d/1AjF41wZffyiaD0qxgsZdsr05aAsRSIy3=s400" alt="Garage Caillère">
+      <div class="partner-name">Garage Caillère</div>
+    </div>
+
+    <div class="notes">
+      <strong>Note :</strong> Merci au Garage Caillère pour son engagement.
+    </div>
+  </section>
+
+  <!-- Diapositive 7 : Partenaire 4 -->
+  <section class="slide" id="slide-7">
+    <h2>Partenaire Officiel</h2>
+    <h1>L'Coiff par Cynthia</h1>
+
+    <div class="partner-card">
+      <img src="https://lh3.googleusercontent.com/d/12LlmDgVU0u-2WW9LVzUBnYTJCYRtgY5o=s400" alt="L'Coiff Cynthia">
+      <div class="partner-name">L'Coiff Cynthia</div>
+    </div>
+
+    <div class="notes">
+      <strong>Note :</strong> Merci à L'Coiff Cynthia pour son précieux soutien.
+    </div>
+  </section>
+
+  <!-- Diapositive 8 : Partenaire 5 -->
+  <section class="slide" id="slide-8">
+    <h2>Partenaire Officiel</h2>
+    <h1>Segré en Anjou Bleu</h1>
+
+    <div class="partner-card">
+      <img src="https://lh3.googleusercontent.com/d/1yEdcGvjGc2Mx5XhkC7cA5EyQFpfAVNVV=s400" alt="Segré en Anjou Bleu">
+      <div class="partner-name">Segré en Anjou Bleu</div>
+    </div>
+
+    <div class="notes">
+      <strong>Note :</strong> Merci à la commune de Segré en Anjou Bleu.
+    </div>
+  </section>
+
+  <!-- Diapositive 9 : Partenaire 6 -->
+  <section class="slide" id="slide-9">
+    <h2>Partenaire Officiel</h2>
+    <h1>Oxygène Radio</h1>
+
+    <div class="partner-card">
+      <img src="https://lh3.googleusercontent.com/d/1q1a5wzl_NashJDTzSVx3yoOx6QYMYknk=s400" alt="Oxygène Radio">
+      <div class="partner-name">Oxygène Radio</div>
+    </div>
+
+    <div class="notes">
+      <strong>Note :</strong> Merci à Oxygène Radio pour la visibilité.
+    </div>
+  </section>
+
+  <!-- Diapositive 10 : Partenaire 7 -->
+  <section class="slide" id="slide-10">
+    <h2>Partenaire Officiel</h2>
+    <h1>Solutec Point Clés</h1>
+
+    <div class="partner-card">
+      <img src="https://lh3.googleusercontent.com/d/18ailFwFGyg5d3hL60gKI5w2YafYXhghY=s400" alt="Solutec Point Clés">
+      <div class="partner-name">Solutec Point Clés</div>
+    </div>
+
+    <div class="notes">
+      <strong>Note :</strong> Merci à Solutec Point Clés.
+    </div>
+  </section>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  const intervalTime = 6000; // 6 secondes par diapositive
+
+  function updateSlideIndex() {
+    const el = document.getElementById('slideIndex');
+    el.textContent = `${current + 1}/${slides.length}`;
+  }
+
+  function nextSlide() {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+    updateSlideIndex();
+  }
+
+  updateSlideIndex();
+
+  setInterval(nextSlide, intervalTime);
+</script>
+
+</body>
+</html>
