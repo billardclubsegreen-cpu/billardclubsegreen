@@ -447,11 +447,11 @@
         </div>
         <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
         
-        <!-- Compteur de visiteurs -->
-<div class="pt-2 text-[11px] text-slate-500 flex items-center justify-center gap-1.5">
-    <span>👀 Visiteurs du site :</span>
-    <img src="https://hits.seeyoufarm.org/api/count/incr/badge.svg?url=https%3A%2F%2Fbillardclubsegreen-cpu.github.io%2Fbillardclubsegreen&count_bg=%233B82F6&title_bg=%231E293B&icon=&icon_color=%23E2E8F0&title=visites&edge_flat=false" alt="Compteur de visiteurs" class="inline-block h-4">
-</div>
+        <!-- Compteur de visiteurs (Corrigé sans image cassée) -->
+        <div class="pt-2 text-[11px] text-slate-500 flex items-center justify-center gap-1.5">
+            <span>👀 Visiteurs du site :</span>
+            <span id="compteur-visites" class="font-bold text-amber-400 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">...</span>
+        </div>
     </footer>
 
     <!-- SCRIPT DE COMMUNICATION ET MODALES -->
@@ -712,10 +712,21 @@
             window.location.href = "index.html";
         }
 
+        // Chargement automatique du compteur de visiteurs au chargement de la page
         window.onload = function() {
             if (localStorage.getItem("bcs_admin_connecte") === "true") {
                 activerInterfaceAdmin();
             }
+
+            // Appel API pour récupérer le compteur de visites
+            fetch('https://api.counterapi.dev/v1/billard-club-segreen/visites/up')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('compteur-visites').innerText = data.count || '1';
+                })
+                .catch(() => {
+                    document.getElementById('compteur-visites').innerText = '1';
+                });
         };
     </script>
 </body>
