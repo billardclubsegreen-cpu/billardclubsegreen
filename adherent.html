@@ -219,7 +219,6 @@
             document.getElementById('competition').value = 'NON';
             document.getElementById('bureau').value = 'NON';
             
-            // Gestion des boutons : Afficher Ajout, Masquer Modifier/Supprimer
             document.getElementById('btnAjouter').classList.remove('hidden');
             document.getElementById('blocActionsModif').classList.add('hidden');
         }
@@ -281,10 +280,13 @@
         }
 
         function lancerRecherche() {
-            const term = document.getElementById('searchTerm').value;
+            const term = document.getElementById('searchTerm').value.trim();
             google.script.run
                 .withSuccessHandler(afficherResultats)
-                .withFailureHandler(e => console.error(e))
+                .withFailureHandler(e => {
+                    console.error("Erreur recherche:", e);
+                    document.getElementById('resultatsRecherche').innerHTML = '<p class="text-rose-500 text-center col-span-2 py-6">Erreur de communication avec le serveur.</p>';
+                })
                 .rechercherAdherents(term);
         }
 
@@ -297,7 +299,7 @@
             container.innerHTML = liste.map(a => `
                 <div onclick="chargerAdherent(${a._row})" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 hover:bg-white p-4 rounded-2xl cursor-pointer transition shadow-sm flex flex-col justify-between">
                     <div>
-                        <div class="font-black text-slate-900 text-sm">${a.NOM} ${a.PRENOM}</div>
+                        <div class="font-black text-slate-900 text-sm">${a.NOM || ''} ${a.PRENOM || ''}</div>
                         <div class="text-[11px] text-slate-500 mt-0.5">Licence : <span class="font-mono font-bold text-indigo-600">${a['NUMERO DE LICENCE'] || 'Non renseigné'}</span></div>
                     </div>
                     <div class="flex justify-between items-center text-[11px] text-slate-400 mt-3 pt-2 border-t border-slate-100">
@@ -333,17 +335,15 @@
             document.getElementById('bureau').value = a['MEMBRE BUREAU'] || 'NON';
             document.getElementById('fonctionBureau').value = a['FONCTION BUREAU'] || '';
             
-            // Basculer l'affichage des boutons : Masquer l'ajout, Afficher Modifier et Supprimer
             document.getElementById('btnAjouter').classList.add('hidden');
             document.getElementById('blocActionsModif').classList.remove('hidden');
 
-            // Basculer vers l'onglet Formulaire
             switchTab('formTab');
         }
 
-        // Chargement initial des adhérents si besoin
+        // Charger la liste automatiquement au démarrage de la page
         document.addEventListener("DOMContentLoaded", function() {
-            // Prêt
+            lancerRecherche();
         });
     </script>
 </body>
