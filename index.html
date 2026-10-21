@@ -127,37 +127,37 @@
         </section>
         <!-- ===== FIN ANNONCE DU CHALLENGE BCS ===== -->
 
-        <!-- Grille 2 Colonnes : Bienvenue & Vidéo -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+        <!-- Grille 2 Colonnes Réduite : Bienvenue & Vidéo -->
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
             
-            <!-- Colonne 1 : Bloc de Bienvenue Compact -->
-            <div class="bg-white rounded-2xl p-5 shadow-md border border-slate-200 text-center space-y-3 h-full flex flex-col justify-center">
+            <!-- Colonne 1 : Bloc de Bienvenue Très Compact -->
+            <div class="bg-white rounded-2xl p-3 sm:p-4 shadow-sm border border-slate-200 text-center space-y-2 h-full flex flex-col justify-center">
                 <div class="flex items-center justify-center gap-2">
-                    <div class="w-8 h-8 bg-amber-100 text-amber-700 rounded-lg flex items-center justify-center text-lg font-bold shadow-inner">🎱</div>
-                    <h2 class="text-lg sm:text-xl font-black text-slate-900 uppercase tracking-wide">Billard Club Segréen</h2>
+                    <div class="w-7 h-7 bg-amber-100 text-amber-700 rounded-lg flex items-center justify-center text-base font-bold shadow-inner">🎱</div>
+                    <h2 class="text-sm sm:text-base font-black text-slate-900 uppercase tracking-wide">Billard Club Segréen</h2>
                 </div>
-                <p class="text-xs text-slate-600 leading-relaxed max-w-lg mx-auto">Accédez directement aux différentes rubriques du club via la barre de navigation ou les raccourcis ci-dessous :</p>
+                <p class="text-[11px] text-slate-600 leading-tight max-w-xs mx-auto">Accédez directement aux rubriques clés via les raccourcis ci-dessous :</p>
                 
-                <!-- Boutons d'accès rapides -->
-                <div class="flex flex-wrap justify-center gap-2 pt-1">
-                    <button onclick="ouvrirModalExplicationPartenaires()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[11px] px-3.5 py-2 rounded-xl transition shadow-sm flex items-center gap-1.5">
+                <!-- Boutons d'accès rapides compacts -->
+                <div class="flex flex-wrap justify-center gap-1.5 pt-0.5">
+                    <button onclick="ouvrirModalExplicationPartenaires()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[10px] px-2.5 py-1.5 rounded-lg transition shadow-sm flex items-center gap-1">
                         🤝 Pourquoi devenir partenaire ?
                     </button>
-                    <button onclick="ouvrirModalQRCode('saisie')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold text-[11px] px-3.5 py-2 rounded-xl transition shadow-sm flex items-center gap-1.5">
+                    <button onclick="ouvrirModalQRCode('saisie')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold text-[10px] px-2.5 py-1.5 rounded-lg transition shadow-sm flex items-center gap-1">
                         📱 QR Code Saisie Scores
                     </button>
-                    <button onclick="ouvrirModalQRCode('cartesien')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-[11px] px-3.5 py-2 rounded-xl transition shadow-sm flex items-center gap-1.5">
+                    <button onclick="ouvrirModalQRCode('cartesien')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-[10px] px-2.5 py-1.5 rounded-lg transition shadow-sm flex items-center gap-1">
                         🎯 Tournoi Cartésien
                     </button>
                 </div>
             </div>
 
-            <!-- Colonne 2 : Bloc Vidéo de Présentation -->
-            <div class="bg-slate-900 rounded-2xl p-4 shadow-xl border border-slate-800 space-y-2 text-center h-full flex flex-col justify-center">
-                <div class="flex items-center justify-center gap-2 text-amber-400 font-bold text-xs">
-                    <span>🎬</span> Découverte en Vidéo — Billard Club Segréen
+            <!-- Colonne 2 : Bloc Vidéo de Présentation Compact -->
+            <div class="bg-slate-900 rounded-2xl p-3 shadow-lg border border-slate-800 space-y-1.5 text-center h-full flex flex-col justify-center">
+                <div class="flex items-center justify-center gap-1.5 text-amber-400 font-bold text-[11px]">
+                    <span>🎬</span> Découverte en Vidéo — BCS
                 </div>
-                <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-inner bg-black">
+                <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-inner bg-black max-h-[180px]">
                     <iframe src="https://drive.google.com/file/d/1F5BwA69rFlharNNEalTfaM1h4coiBEJ8/preview?autoplay=1&mute=1" 
                             class="w-full h-full border-0" 
                             allow="autoplay" 
@@ -223,7 +223,7 @@
                 <!-- Segré en Anjou Bleu -->
                 <a href="https://www.segreenanjoubleu.fr/" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center justify-between text-center group h-48">
                     <div class="w-full h-24 flex items-center justify-center">
-                        <img src="https://lh3.googleusercontent.com/d/1yEdcGvjGc2Mx5XhkC7cA5EyQFpfAVNVV=s400" alt="Segré en Anjou Bleu" class="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        <img src="https://lh3.googleusercontent.com/d/1yEdcGvjGc2Mx5XhkC7cA5EyQFpfAVNVV=s400" alt="Segré Anjou Bleu" class="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform">
                     </div>
                     <div class="border-t border-slate-100 pt-2.5 w-full">
                         <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Segré Anjou Bleu</span>
