@@ -87,7 +87,7 @@
     <!-- ZONE CENTRALE -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-8">
 
-        <!-- ===== ANNONCE DU 3e TOURNOI DU CHALLENGE BCS (AVEC LE DIAPORAMA INTÉGRÉ) ===== -->
+        <!-- ===== ANNONCE DU 3e TOURNOI DU CHALLENGE BCS ===== -->
         <section class="bcs-challenge-hero" aria-labelledby="bcs-challenge-title">
             <div class="bcs-challenge-content">
                 <div class="bcs-challenge-eyebrow">Billard Club Segréen présente</div>
@@ -108,10 +108,15 @@
                     </div>
                 </div>
                 <p class="bcs-challenge-tags">PASSION <span aria-hidden="true">•</span> PARTAGE <span aria-hidden="true">•</span> PERFORMANCE</p>
-                <a href="streaming.html" class="bcs-challenge-button">🎱 Suivre le challenge</a>
+                
+                <!-- BOUTONS D'ACTION CÔTE À CÔTE -->
+                <div class="flex flex-wrap justify-center gap-3 mt-3">
+                    <a href="streaming.html" class="bcs-challenge-button">🎱 Suivre le challenge</a>
+                    <button onclick="ouvrirModalInscription()" class="bcs-challenge-button bg-indigo-600 hover:bg-indigo-500 cursor-pointer">🎯 Inscription au challenge</button>
+                </div>
             </div>
             
-            <!-- REMPLACEMENT DE LA VIDÉO PAR LE DIAPORAMA INTERACTIF -->
+            <!-- DIAPORAMA INTERACTIF -->
             <div class="bcs-challenge-media">
                 <iframe src="lechallengebcsetae3.html" 
                         class="w-full h-full border-0" 
@@ -217,7 +222,7 @@
                 <!-- Segré en Anjou Bleu -->
                 <a href="https://www.segreenanjoubleu.fr/" target="_blank" class="bg-white border border-slate-200 hover:border-indigo-500 rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all flex flex-col items-center justify-between text-center group h-48">
                     <div class="w-full h-24 flex items-center justify-center">
-                        <img src="https://lh3.googleusercontent.com/d/1yEdcGvjGc2Mx5XhkC7cA5EyQFpfAVNVV=s400" alt="Segré en Anjou Bleu" class="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        <img src="https://lh3.googleusercontent.com/d/1yEdcGvjGc2Mx5XhkC7cA5EyQFpfAVNVV=s400" alt="Segré Anjou Bleu" class="max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform">
                     </div>
                     <div class="border-t border-slate-100 pt-2.5 w-full">
                         <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">Segré Anjou Bleu</span>
