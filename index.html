@@ -51,6 +51,7 @@
             <!-- NAVIGATION PUBLIQUE -->
             <nav id="nav-publique" class="flex flex-wrap items-center gap-2 text-xs font-bold">
                 <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🏠 Accueil</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfX-AQxkHlRIYEpAnrJR2MJo1Gu-CvYveL_zh7fW2NpTkCFzw/viewform" target="_blank" class="bg-amber-600 hover:bg-amber-500 text-white px-3.5 py-2 rounded-xl transition shadow border border-amber-500">🎯 Inscription Challenge</a>
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfX-AQxkHlRIYEpAnrJR2MJo1Gu-CvYveL_zh7fW2NpTkCFzw/viewform" target="_blank" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription FFB</a>
                 <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏆 CueScore</a>
                 <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📰 La Gazette</a>
@@ -65,7 +66,7 @@
                 </button>
             </nav>
 
-            <!-- NAVIGATION ADMIN (UNIFIÉE, SANS ACCUEIL, EN MODALES) -->
+            <!-- NAVIGATION ADMIN -->
             <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
                 <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
                 <a href="bar.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">🍻 Bar</a>
@@ -83,7 +84,7 @@
         </div>
     </header>
 
-    <!-- ZONE CENTRALE (ORGANISÉE EN 2 COLONNES POUR ACCUEIL + VIDÉO) -->
+    <!-- ZONE CENTRALE -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-8">
 
         <!-- ===== ANNONCE DU 3e TOURNOI DU CHALLENGE BCS ===== -->
@@ -247,7 +248,7 @@
 
     </main>
 
-    <!-- MODALE UNIVERSELLE POUR LES MODULES ADMIN (Taille Réduite) -->
+    <!-- MODALE UNIVERSELLE POUR LES MODULES ADMIN -->
     <div id="modal-module-admin" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
         <div class="bg-white rounded-3xl w-full max-w-4xl h-[78vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
             <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shrink-0 border-b border-slate-800">
@@ -447,7 +448,7 @@
         </div>
         <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
         
-        <!-- Compteur de visiteurs (Corrigé sans image cassée) -->
+        <!-- Compteur de visiteurs -->
         <div class="pt-2 text-[11px] text-slate-500 flex items-center justify-center gap-1.5">
             <span>👀 Visiteurs du site :</span>
             <span id="compteur-visites" class="font-bold text-amber-400 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">...</span>
@@ -712,13 +713,11 @@
             window.location.href = "index.html";
         }
 
-        // Chargement automatique du compteur de visiteurs au chargement de la page
         window.onload = function() {
             if (localStorage.getItem("bcs_admin_connecte") === "true") {
                 activerInterfaceAdmin();
             }
 
-            // Appel API pour récupérer le compteur de visites
             fetch('https://api.counterapi.dev/v1/billard-club-segreen/visites/up')
                 .then(res => res.json())
                 .then(data => {
