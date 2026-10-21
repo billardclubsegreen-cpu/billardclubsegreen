@@ -184,6 +184,8 @@
 
     <!-- Scripts de communication Google Apps Script -->
     <script>
+        var URL_SCRIPT_GOOGLE = "https://script.google.com/macros/s/AKfycbx96B0mp61zUFaSXr6C25BnEgxxEOxIUvyP-BnQ9OHOGI9zAvfKkhunNj8jU8OFaDBX/exec";
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -245,49 +247,60 @@
 
         function enregistrerAdherent() {
             const data = recupererDonneesFormulaire();
-            google.script.run
-                .withSuccessHandler(res => {
-                    afficherMessage(res.message, 'success');
-                    viderFormulaire();
-                })
-                .withFailureHandler(e => afficherMessage(e.message, 'error'))
-                .ajouterAdherent(data);
+            fetch(URL_SCRIPT_GOOGLE, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "ajouter", ...data })
+            })
+            .then(() => {
+                afficherMessage("Adhérent enregistré avec succès", 'success');
+                viderFormulaire();
+            })
+            .catch(e => afficherMessage("Erreur lors de l'enregistrement", 'error'));
         }
 
         function modifierAdherent() {
             const data = recupererDonneesFormulaire();
-            google.script.run
-                .withSuccessHandler(res => {
-                    afficherMessage(res.message, 'success');
-                    viderFormulaire();
-                })
-                .withFailureHandler(e => afficherMessage(e.message, 'error'))
-                .modifierAdherent(data);
+            fetch(URL_SCRIPT_GOOGLE, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "modifier", ...data })
+            })
+            .then(() => {
+                afficherMessage("Adhérent modifié avec succès", 'success');
+                viderFormulaire();
+            })
+            .catch(e => afficherMessage("Erreur lors de la modification", 'error'));
         }
 
         function supprimerAdherent() {
             const row = document.getElementById('row').value;
             const nomComplet = document.getElementById('nom').value + ' ' + document.getElementById('prenom').value;
             if (confirm("Voulez-vous vraiment supprimer l'adhérent : " + nomComplet + " ?")) {
-                google.script.run
-                    .withSuccessHandler(res => {
-                        afficherMessage(res.message, 'success');
-                        viderFormulaire();
-                    })
-                    .withFailureHandler(e => afficherMessage(e.message, 'error'))
-                    .supprimerAdherent(row);
+                fetch(URL_SCRIPT_GOOGLE, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ action: "supprimer", row: row })
+                })
+                .then(() => {
+                    afficherMessage("Adhérent supprimé", 'success');
+                    viderFormulaire();
+                })
+                .catch(e => afficherMessage("Erreur lors de la suppression", 'error'));
             }
         }
 
         function lancerRecherche() {
-            const term = document.getElementById('searchTerm').value.trim();
-            google.script.run
-                .withSuccessHandler(afficherResultats)
-                .withFailureHandler(e => {
-                    console.error("Erreur recherche:", e);
-                    document.getElementById('resultatsRecherche').innerHTML = '<p class="text-rose-500 text-center col-span-2 py-6">Erreur de communication avec le serveur.</p>';
+            const term = document.getElementById('searchTerm').value;
+            fetch(URL_SCRIPT_GOOGLE + "?action=rechercher&term=" + encodeURIComponent(term))
+                .then(response => response.json())
+                .then(liste => {
+                    afficherResultats(liste);
                 })
-                .rechercherAdherents(term);
+                .catch(e => console.error("Erreur de recherche :", e));
         }
 
         function afficherResultats(liste) {
@@ -299,7 +312,7 @@
             container.innerHTML = liste.map(a => `
                 <div onclick="chargerAdherent(${a._row})" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 hover:bg-white p-4 rounded-2xl cursor-pointer transition shadow-sm flex flex-col justify-between">
                     <div>
-                        <div class="font-black text-slate-900 text-sm">${a.NOM || ''} ${a.PRENOM || ''}</div>
+                        <div class="font-black text-slate-900 text-sm">${a.NOM} ${a.PRENOM}</div>
                         <div class="text-[11px] text-slate-500 mt-0.5">Licence : <span class="font-mono font-bold text-indigo-600">${a['NUMERO DE LICENCE'] || 'Non renseigné'}</span></div>
                     </div>
                     <div class="flex justify-between items-center text-[11px] text-slate-400 mt-3 pt-2 border-t border-slate-100">
@@ -311,10 +324,12 @@
         }
 
         function chargerAdherent(row) {
-            google.script.run
-                .withSuccessHandler(remplirFormulairePourEdition)
-                .withFailureHandler(e => afficherMessage(e.message, 'error'))
-                .obtenirAdherentParLigne(row);
+            fetch(URL_SCRIPT_GOOGLE + "?action=obtenir&row=" + row)
+                .then(response => response.json())
+                .then(adherent => {
+                    remplirFormulairePourEdition(adherent);
+                })
+                .catch(e => afficherMessage("Erreur lors du chargement de l'adhérent", 'error'));
         }
 
         function remplirFormulairePourEdition(a) {
@@ -341,9 +356,8 @@
             switchTab('formTab');
         }
 
-        // Charger la liste automatiquement au démarrage de la page
         document.addEventListener("DOMContentLoaded", function() {
-            lancerRecherche();
+            // Prêt
         });
     </script>
 </body>
