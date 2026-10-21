@@ -51,7 +51,7 @@
             <!-- NAVIGATION PUBLIQUE -->
             <nav id="nav-publique" class="flex flex-wrap items-center gap-2 text-xs font-bold">
                 <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">🏠 Accueil</a>
-                <a href="https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=inscription" class="bg-amber-600 hover:bg-amber-500 text-white px-3.5 py-2 rounded-xl transition shadow border border-amber-500">🎯 Inscription Challenge</a>
+                <button onclick="ouvrirModalInscription()" class="bg-amber-600 hover:bg-amber-500 text-white px-3.5 py-2 rounded-xl transition shadow border border-amber-500 cursor-pointer">🎯 Inscription Challenge</button>
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfX-AQxkHlRIYEpAnrJR2MJo1Gu-CvYveL_zh7fW2NpTkCFzw/viewform" target="_blank" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription FFB</a>
                 <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏆 CueScore</a>
                 <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📰 La Gazette</a>
@@ -247,6 +247,25 @@
         </div>
 
     </main>
+
+    <!-- MODALE INSCRIPTION CHALLENGE (IFRAME) -->
+    <div id="modal-inscription" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-white rounded-3xl w-full max-w-4xl h-[85vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
+            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shrink-0 border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">🎯</span>
+                    <div>
+                        <h3 class="font-bold text-sm sm:text-base text-amber-400">Challenge BCS — Inscription</h3>
+                        <p class="text-[11px] text-slate-400">Formulaire d'inscription au tournoi</p>
+                    </div>
+                </div>
+                <button onclick="fermerModalInscription()" class="text-slate-400 hover:text-white text-2xl font-bold transition cursor-pointer">✕</button>
+            </div>
+            <div class="flex-grow w-full bg-slate-100 overflow-hidden">
+                <iframe id="iframe-inscription" src="" class="w-full h-full border-0"></iframe>
+            </div>
+        </div>
+    </div>
 
     <!-- MODALE UNIVERSELLE POUR LES MODULES ADMIN -->
     <div id="modal-module-admin" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
@@ -459,6 +478,7 @@
     <script>
         var URL_SCRIPT_GOOGLE = "https://script.google.com/macros/s/AKfycbzwZojzIEhT2RCIJtMK3Okb9MtfZYnJwKINMA0SPwbrfliSV9ITmuDEriUQjBVc7t0-/exec";
         
+        var URL_INSCRIPTION = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=inscription";
         var URL_SAISIE_JOUEUR = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=saisiejoueur";
         var URL_CARTESIEN = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin";
 
@@ -478,6 +498,16 @@
             partenaires: { icon: "🤝", title: "Administration — Mécénat & Partenaires", subtitle: "Gestion des dons et contrats publicitaires" },
             gazette: { icon: "📰", title: "Administration — Textes de la Gazette", subtitle: "Modification des articles et mot du président" }
         };
+
+        function ouvrirModalInscription() {
+            document.getElementById('iframe-inscription').src = URL_INSCRIPTION;
+            document.getElementById('modal-inscription').classList.remove('hidden');
+        }
+
+        function fermerModalInscription() {
+            document.getElementById('modal-inscription').classList.add('hidden');
+            document.getElementById('iframe-inscription').src = "";
+        }
 
         function ouvrirModalModuleAdmin(cleModule) {
             if (URLS_MODULES_ADMIN[cleModule]) {
