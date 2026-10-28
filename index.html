@@ -5,7 +5,7 @@
     <meta name="description" content="Site officiel du Billard Club Segréen (BCS). Retrouvez les inscriptions au Challenge BCS, les résultats CueScore, la Gazette du club et nos événements à Segré-en-Anjou Bleu.">
     
     <title>Billard Club Segréen — Accueil</title>
-<script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         html { zoom: 0.85; }
         ::-webkit-scrollbar { width: 6px; }
@@ -312,6 +312,116 @@
         </div>
     </div>
 
+    <!-- MODALE COMPLÈTE - GESTION DES ADHÉRENTS (NATIVE) -->
+    <div id="modal-adherents-native" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-slate-900 text-slate-100 rounded-3xl w-full max-w-6xl h-[92vh] shadow-2xl border border-slate-800 flex flex-col overflow-hidden relative">
+            
+            <!-- HEADER MODALE -->
+            <div class="bg-slate-950 px-6 py-4 flex justify-between items-center border-b border-slate-800 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-indigo-600/20 text-indigo-400 rounded-xl flex items-center justify-center text-xl border border-indigo-500/30">👥</div>
+                    <div>
+                        <h3 class="font-black text-base text-white uppercase tracking-wide">Administration — Gestion des Adhérents</h3>
+                        <p class="text-[11px] text-slate-400">Base de données, licences FFB et suivi des membres</p>
+                    </div>
+                </div>
+                <button onclick="fermerGestionAdherents()" class="text-slate-400 hover:text-white text-2xl font-bold transition">✕</button>
+            </div>
+
+            <!-- CONTENU DE L'APPLICATION -->
+            <div class="p-4 sm:p-6 overflow-y-auto flex-grow space-y-4 text-xs text-slate-300">
+                
+                <!-- BARRE D'ACTIONS ET RECHERCHE -->
+                <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/60 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex flex-wrap items-center gap-2 flex-grow">
+                        <input type="text" id="adh-search" oninput="filtrerAdherents()" placeholder="🔍 Rechercher par nom, prénom, licence..." class="bg-slate-900 border border-slate-700 text-white rounded-xl px-3.5 py-2 text-xs outline-none focus:border-indigo-500 min-w-[220px]">
+                        <select id="adh-filter-licence" onchange="filtrerAdherents()" class="bg-slate-900 border border-slate-700 text-slate-200 rounded-xl px-3 py-2 text-xs outline-none focus:border-indigo-500">
+                            <option value="">Toutes les licences</option>
+                            <option value="payee">Licence Payée</option>
+                            <option value="non_payee">Licence Non Payée</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="ouvrirFormulaireAdherent()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                            ➕ Nouvel Adhérent
+                        </button>
+                        <button onclick="sauvegarderAdherentsVersGoogleSheets()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                            💾 Enregistrer Google Sheets
+                        </button>
+                    </div>
+                </div>
+
+                <!-- FORMULAIRE DE SAISIE / ÉDITION (MASQUÉ PAR DÉFAUT) -->
+                <div id="adh-form-container" class="hidden bg-slate-950 border border-indigo-500/40 p-5 rounded-2xl space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <h4 id="adh-form-title" class="font-bold text-indigo-400 text-sm">Ajouter / Modifier un membre</h4>
+                        <button onclick="fermerFormulaireAdherent()" class="text-slate-400 hover:text-white">✕ Annuler</button>
+                    </div>
+
+                    <form id="adh-form" onsubmit="enregistrerLocalAdherent(event)" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        <input type="hidden" id="adh-id">
+                        <div>
+                            <label class="block font-semibold mb-1 text-slate-300">Nom :</label>
+                            <input type="text" id="adh-nom" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1 text-slate-300">Prénom :</label>
+                            <input type="text" id="adh-prenom" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1 text-slate-300">N° Licence FFB :</label>
+                            <input type="text" id="adh-licenceFFB" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1 text-slate-300">Email :</label>
+                            <input type="email" id="adh-email" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1 text-slate-300">Téléphone :</label>
+                            <input type="text" id="adh-telephone" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-1 text-slate-300">Licence Payée :</label>
+                            <select id="adh-licencePayee" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                                <option value="Oui">Oui</option>
+                                <option value="Non">Non</option>
+                            </select>
+                        </div>
+                        <div class="sm:col-span-2 md:col-span-3 flex justify-end gap-2 pt-2">
+                            <button type="button" onclick="fermerFormulaireAdherent()" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-xl text-slate-300 font-bold">Annuler</button>
+                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2 rounded-xl shadow">Valider les modifications</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- TABLEAU DES ADHÉRENTS -->
+                <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-950 text-slate-400 uppercase border-b border-slate-700/80">
+                                <th class="p-3">Adhérent</th>
+                                <th class="p-3">Contact</th>
+                                <th class="p-3">Licence FFB</th>
+                                <th class="p-3 text-center">Statut Licence</th>
+                                <th class="p-3 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adh-table-body" class="divide-y divide-slate-800">
+                            <!-- Rempli en JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- FOOTER MODALE -->
+            <div class="bg-slate-950 px-6 py-3 border-t border-slate-800 shrink-0 flex justify-between items-center text-xs text-slate-400">
+                <span>Total adhérents : <strong id="adh-count" class="text-white">0</strong></span>
+                <button onclick="fermerGestionAdherents()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2 rounded-xl">Fermer</button>
+            </div>
+        </div>
+    </div>
+
     <!-- MODALE AFFICHAGE QR CODE -->
     <div id="modal-qrcode" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl border border-slate-200 text-center space-y-4 relative">
@@ -450,7 +560,7 @@
 
             <form id="form-code" onsubmit="verifierCodeAdmin(event)" class="space-y-4 text-left text-xs hidden">
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Entrez le code reçu par e-mail :</label>
+                    <label class="block font-bold text-slate-700 mb-1">Entrez le code à 6 chiffres reçu par e-mail :</label>
                     <input type="text" id="code-saisi" maxlength="6" required placeholder="" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-mono text-center text-lg tracking-widest">
                 </div>
                 <div class="flex gap-2 pt-2">
@@ -509,8 +619,146 @@
         var URL_SAISIE_JOUEUR = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=saisiejoueur";
         var URL_CARTESIEN = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin";
 
+        var listeAdherents = [];
+
+        function ouvrirGestionAdherents() {
+            document.getElementById('modal-adherents-native').classList.remove('hidden');
+            chargerAdherentsDepuisScript();
+        }
+
+        function fermerGestionAdherents() {
+            document.getElementById('modal-adherents-native').classList.add('hidden');
+        }
+
+        function chargerAdherentsDepuisScript() {
+            if (typeof google !== 'undefined' && typeof google.script !== 'undefined' && google.script.run) {
+                google.script.run.withSuccessHandler(function(data) {
+                    listeAdherents = data || [];
+                    afficherTableauAdherents(listeAdherents);
+                }).getMembersData();
+            } else {
+                fetch(URL_SCRIPT_GOOGLE, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ action: 'get_members' })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    listeAdherents = data || [];
+                    afficherTableauAdherents(listeAdherents);
+                })
+                .catch(() => {
+                    afficherTableauAdherents(listeAdherents);
+                });
+            }
+        }
+
+        function afficherTableauAdherents(liste) {
+            var tbody = document.getElementById('adh-table-body');
+            document.getElementById('adh-count').innerText = liste.length;
+            tbody.innerHTML = '';
+
+            if (liste.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-slate-500">Aucun adhérent trouvé.</td></tr>';
+                return;
+            }
+
+            liste.forEach(function(m, idx) {
+                var tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-800/60 transition";
+                
+                var statutPaye = m.licencePayee === 'Oui' 
+                    ? '<span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full text-[10px] font-bold">Payée 🟢</span>' 
+                    : '<span class="bg-rose-500/20 text-rose-400 border border-rose-500/30 px-2 py-0.5 rounded-full text-[10px] font-bold">Non Payée 🔴</span>';
+
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-white">${m.nom || ''} ${m.prenom || ''}</td>
+                    <td class="p-3 text-slate-400">${m.email || 'N/A'}<br><span class="text-[10px] text-slate-500">${m.telephone || ''}</span></td>
+                    <td class="p-3 font-mono text-amber-400">${m.licenceFFB || 'Non renseigné'}</td>
+                    <td class="p-3 text-center">${statutPaye}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="editerAdherent(${idx})" class="bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-lg text-[11px] font-bold">Éditer</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filtrerAdherents() {
+            var q = document.getElementById('adh-search').value.toLowerCase();
+            var licFilter = document.getElementById('adh-filter-licence').value;
+
+            var filtrés = listeAdherents.filter(function(m) {
+                var matchQ = (m.nom + ' ' + m.prenom + ' ' + m.licenceFFB + ' ' + m.email).toLowerCase().includes(q);
+                var matchLic = true;
+                if (licFilter === 'payee') matchLic = (m.licencePayee === 'Oui');
+                if (licFilter === 'non_payee') matchLic = (m.licencePayee !== 'Oui');
+                return matchQ && matchLic;
+            });
+            afficherTableauAdherents(filtrés);
+        }
+
+        function ouvrirFormulaireAdherent() {
+            document.getElementById('adh-form').reset();
+            document.getElementById('adh-id').value = '';
+            document.getElementById('adh-form-title').innerText = "Ajouter un adhérent";
+            document.getElementById('adh-form-container').classList.remove('hidden');
+        }
+
+        function fermerFormulaireAdherent() {
+            document.getElementById('adh-form-container').classList.add('hidden');
+        }
+
+        function editerAdherent(index) {
+            var m = listeAdherents[index];
+            if (!m) return;
+            document.getElementById('adh-id').value = index;
+            document.getElementById('adh-nom').value = m.nom || '';
+            document.getElementById('adh-prenom').value = m.prenom || '';
+            document.getElementById('adh-licenceFFB').value = m.licenceFFB || '';
+            document.getElementById('adh-email').value = m.email || '';
+            document.getElementById('adh-telephone').value = m.telephone || '';
+            document.getElementById('adh-licencePayee').value = m.licencePayee || 'Non';
+            
+            document.getElementById('adh-form-title').innerText = "Modifier l'adhérent : " + (m.nom || '') + " " + (m.prenom || '');
+            document.getElementById('adh-form-container').classList.remove('hidden');
+        }
+
+        function enregistrerLocalAdherent(e) {
+            e.preventDefault();
+            var idx = document.getElementById('adh-id').value;
+            var obj = {
+                id: idx !== '' ? listeAdherents[idx].id : Date.now().toString(),
+                nom: document.getElementById('adh-nom').value.trim(),
+                prenom: document.getElementById('adh-prenom').value.trim(),
+                licenceFFB: document.getElementById('adh-licenceFFB').value.trim(),
+                email: document.getElementById('adh-email').value.trim(),
+                telephone: document.getElementById('adh-telephone').value.trim(),
+                licencePayee: document.getElementById('adh-licencePayee').value
+            };
+
+            if (idx !== '') {
+                listeAdherents[idx] = Object.assign({}, listeAdherents[idx], obj);
+            } else {
+                listeAdherents.push(obj);
+            }
+
+            fermerFormulaireAdherent();
+            afficherTableauAdherents(listeAdherents);
+        }
+
+        function sauvegarderAdherentsVersGoogleSheets() {
+            if (typeof google !== 'undefined' && typeof google.script !== 'undefined' && google.script.run) {
+                google.script.run.withSuccessHandler(function(res) {
+                    alert("Adhérents enregistrés dans Google Sheets avec succès !");
+                }).saveMembersData(listeAdherents);
+            } else {
+                alert("Mode démonstration : Données mises à jour localement.");
+            }
+        }
+
         var URLS_MODULES_ADMIN = {
-            adherents: "adherent.html",
+            adherents: "https://script.google.com/macros/s/AKfycbwK1wRE7_ksmrSv9jhC-dZg1DjLkZ840Of5VtbaVsOCvjZQdrVr_MlFMW65eoIT6Lg/exec",
             stock: "https://script.google.com/macros/s/AKfycbzdIAL8DNCHeXOXpyEYsCV7-iLO7CE5_nBpRChrWpYyzZ2TQLcgnSx37QKpqRBaps0d/exec",
             tournoi: "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin",
             trombi: "https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin",
@@ -549,9 +797,11 @@
         function ouvrirModalModuleAdmin(cleModule) {
             if (URLS_MODULES_ADMIN[cleModule]) {
                 var info = INFOS_MODULES[cleModule];
-                document.getElementById('modal-module-icon').innerText = info.icon;
-                document.getElementById('modal-module-title').innerText = info.title;
-                document.getElementById('modal-module-subtitle').innerText = info.subtitle;
+                if (info) {
+                    document.getElementById('modal-module-icon').innerText = info.icon;
+                    document.getElementById('modal-module-title').innerText = info.title;
+                    document.getElementById('modal-module-subtitle').innerText = info.subtitle;
+                }
                 
                 document.getElementById('iframe-module-admin').src = URLS_MODULES_ADMIN[cleModule];
                 document.getElementById('modal-module-admin').classList.remove('hidden');
@@ -696,6 +946,19 @@
             });
         }
 
+        function activerInterfaceAdmin() {
+            document.getElementById('nav-publique').classList.add('hidden');
+            document.getElementById('nav-admin').classList.remove('hidden');
+            document.getElementById('nav-admin').classList.add('flex');
+        }
+
+        function deconnexionAdmin() {
+            localStorage.removeItem("bcs_admin_connecte");
+            document.getElementById('nav-admin').classList.add('hidden');
+            document.getElementById('nav-admin').classList.remove('flex');
+            document.getElementById('nav-publique').classList.remove('hidden');
+        }
+
         function ouvrirModalFacebook() {
             document.getElementById('modal-facebook').classList.remove('hidden');
             if (phrasesFacebookCache.length === 0) {
@@ -729,70 +992,42 @@
                     return response.text();
                 })
                 .then(data => {
-                    var lignes = data.split("\n");
-                    phrasesFacebookCache = [];
-                    for (var i = 1; i < lignes.length; i++) {
-                        var texte = lignes[i].trim();
-                        if (texte) {
-                            texte = texte.replace(/^["']|["']$/g, '');
-                            phrasesFacebookCache.push(texte);
-                        }
-                    }
-                    if (phrasesFacebookCache.length > 0) {
-                        genererPhraseAleatoire();
-                    } else {
-                        phrasesFacebookCache = phrasesSecours;
-                        genererPhraseAleatoire();
-                    }
+                    var lines = data.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                    phrasesFacebookCache = lines.map(line => line.replace(/^"|"$/g, '').trim());
+                    genererPhraseAleatoire();
                 })
-                .catch(err => {
+                .catch(() => {
                     phrasesFacebookCache = phrasesSecours;
                     genererPhraseAleatoire();
                 });
         }
 
         function genererPhraseAleatoire() {
-            var box = document.getElementById('box-phrase-fb');
-            if (phrasesFacebookCache.length > 0) {
-                var indexAleatoire = Math.floor(Math.random() * phrasesFacebookCache.length);
-                box.innerText = phrasesFacebookCache[indexAleatoire];
-            } else {
-                box.innerText = "Aucune phrase disponible.";
-            }
+            if (phrasesFacebookCache.length === 0) return;
+            var index = Math.floor(Math.random() * phrasesFacebookCache.length);
+            document.getElementById('box-phrase-fb').innerText = phrasesFacebookCache[index];
         }
 
         function copierPhraseFacebook() {
-            var box = document.getElementById('box-phrase-fb');
-            navigator.clipboard.writeText(box.innerText).then(() => {
-                alert("Publication copiée dans le presse-papier !");
+            var texte = document.getElementById('box-phrase-fb').innerText;
+            navigator.clipboard.writeText(texte).then(() => {
+                alert("Texte copié dans le presse-papier !");
             });
         }
 
-        function activerInterfaceAdmin() {
-            document.getElementById('nav-publique').classList.add('hidden');
-            var nav = document.getElementById('nav-admin');
-            nav.classList.remove('hidden');
-            nav.classList.add('flex');
-        }
-
-        function deconnexionAdmin() {
-            localStorage.removeItem("bcs_admin_connecte");
-            window.location.href = "index.html";
+        function mettreAJourCompteurVisites() {
+            var count = localStorage.getItem("bcs_visites") || 0;
+            count++;
+            localStorage.setItem("bcs_visites", count);
+            var el = document.getElementById('compteur-visites');
+            if (el) el.innerText = count;
         }
 
         window.onload = function() {
             if (localStorage.getItem("bcs_admin_connecte") === "true") {
                 activerInterfaceAdmin();
             }
-
-            fetch('https://api.counterapi.dev/v1/billard-club-segreen/visites/up')
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById('compteur-visites').innerText = data.count || '1';
-                })
-                .catch(() => {
-                    document.getElementById('compteur-visites').innerText = '1';
-                });
+            mettreAJourCompteurVisites();
         };
     </script>
 </body>
