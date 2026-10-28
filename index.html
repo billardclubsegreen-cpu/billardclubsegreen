@@ -5,7 +5,7 @@
     <meta name="description" content="Site officiel du Billard Club Segréen (BCS). Retrouvez les inscriptions au Challenge BCS, les résultats CueScore, la Gazette du club et nos événements à Segré-en-Anjou Bleu.">
     
     <title>Billard Club Segréen — Accueil</title>
-<script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         html { zoom: 0.85; }
         ::-webkit-scrollbar { width: 6px; }
@@ -294,8 +294,8 @@
     </div>
 
     <!-- MODALE UNIVERSELLE POUR LES MODULES ADMIN -->
-    <div id="modal-module-admin" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
-        <div class="bg-white rounded-3xl w-full max-w-4xl h-[78vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
+    <div id="modal-module-admin" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-2 sm:p-3">
+        <div class="bg-white rounded-3xl w-[96vw] max-w-7xl h-[94vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
             <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shrink-0 border-b border-slate-800">
                 <div class="flex items-center gap-2">
                     <span id="modal-module-icon" class="text-xl">⚙️</span>
@@ -308,6 +308,262 @@
             </div>
             <div class="flex-grow w-full bg-slate-100 overflow-hidden">
                 <iframe id="iframe-module-admin" src="" class="w-full h-full border-0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE COMPLÈTE - GESTION DES ADHÉRENTS (NATIVE) -->
+    <div id="modal-adherents-native" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-2 sm:p-3">
+        <div class="bg-[#0b1329] text-slate-100 rounded-3xl w-[96vw] max-w-7xl h-[94vh] shadow-2xl border border-slate-800 flex flex-col overflow-hidden relative">
+            
+            <!-- HEADER MODALE -->
+            <div class="bg-[#070d1e] px-6 py-4 flex justify-between items-center border-b border-slate-800/80 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-indigo-600/20 text-indigo-400 rounded-xl flex items-center justify-center text-xl border border-indigo-500/30">👥</div>
+                    <div>
+                        <h3 class="font-black text-base text-amber-400 uppercase tracking-wide">Administration — Gestion des Adhérents</h3>
+                        <p class="text-[11px] text-slate-400">Base de données et suivi des licences</p>
+                    </div>
+                </div>
+                <button onclick="fermerGestionAdherents()" class="text-slate-400 hover:text-white text-2xl font-bold transition">✕</button>
+            </div>
+
+            <!-- NOUVELLE BARRE SUPÉRIEURE DE SESSIONS / ONGLETS MODERNE -->
+            <div class="bg-[#0d1835] px-6 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-xs">🎱</div>
+                    <div>
+                        <span class="font-black text-white text-xs tracking-wide block leading-none">Billard Club Pro</span>
+                        <span class="text-[9px] uppercase tracking-wider text-slate-400 font-semibold">Gestion & Compétitions</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    <button id="tab-btn-adherents" onclick="basculerOngletAdmin('adherents')" class="bg-emerald-600 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs transition flex items-center gap-1.5 shadow">
+                        👥 Adhérents
+                    </button>
+                    <button id="tab-btn-cotisations" onclick="basculerOngletAdmin('cotisations')" class="bg-slate-800/90 text-slate-300 hover:bg-slate-700 font-bold px-3.5 py-1.5 rounded-xl text-xs transition flex items-center gap-1.5 border border-slate-700/50">
+                        🎫 Cotisations
+                    </button>
+                    <button onclick="alert('Fonctionnalité Classements à venir')" class="bg-slate-800/90 text-slate-300 hover:bg-slate-700 font-bold px-3.5 py-1.5 rounded-xl text-xs transition flex items-center gap-1.5 border border-slate-700/50">
+                        🏆 Classements
+                    </button>
+                    <button onclick="alert('Module Import/Export CSV')" class="bg-slate-800/90 text-slate-300 hover:bg-slate-700 font-bold px-3.5 py-1.5 rounded-xl text-xs transition flex items-center gap-1.5 border border-slate-700/50">
+                        📁 Import / Export CSV
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="alert('Logo du club')" class="bg-slate-800/90 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl text-xs border border-slate-700/50 font-semibold flex items-center gap-1">
+                        🖼️ Logo du Club
+                    </button>
+                    <span id="adh-save-status" class="bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[10px] uppercase px-3 py-1.5 rounded-xl flex items-center gap-1">
+                        🔄 Sauvegarde en cours...
+                    </span>
+                </div>
+            </div>
+
+            <!-- CONTENU DE L'APPLICATION -->
+            <div class="p-4 sm:p-6 overflow-y-auto flex-grow space-y-5 text-xs text-slate-300">
+                
+                <!-- KPI CARDS SUMMARY (STATISTIQUES D'ENSEMBLE) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-[#0f1d3e]/90 border border-indigo-500/20 p-4 rounded-2xl flex items-center justify-between shadow-sm">
+                        <div class="space-y-1">
+                            <span class="text-[11px] font-medium text-slate-400">Total Adhérents</span>
+                            <div id="kpi-total-adh" class="text-2xl font-black text-white font-mono">28</div>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-lg">👥</div>
+                    </div>
+
+                    <div class="bg-[#0f1d3e]/90 border border-emerald-500/20 p-4 rounded-2xl flex items-center justify-between shadow-sm">
+                        <div class="space-y-1">
+                            <span class="text-[11px] font-medium text-slate-400">Licences Payées</span>
+                            <div id="kpi-payees" class="text-2xl font-black text-emerald-400 font-mono">28</div>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">✔</div>
+                    </div>
+
+                    <div class="bg-[#0f1d3e]/90 border border-amber-500/20 p-4 rounded-2xl flex items-center justify-between shadow-sm">
+                        <div class="space-y-1">
+                            <span class="text-[11px] font-medium text-slate-400">Non Payées</span>
+                            <div id="kpi-non-payees" class="text-2xl font-black text-amber-400 font-mono">0</div>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">🕒</div>
+                    </div>
+
+                    <div class="bg-[#0f1d3e]/90 border border-purple-500/20 p-4 rounded-2xl flex items-center justify-between shadow-sm">
+                        <div class="space-y-1">
+                            <span class="text-[11px] font-medium text-slate-400">Membres du Bureau</span>
+                            <div id="kpi-bureau" class="text-2xl font-black text-purple-400 font-mono">7</div>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-lg">👤</div>
+                    </div>
+                </div>
+
+                <!-- SECTION ADHÉRENTS -->
+                <div id="section-adherents-tab" class="space-y-4">
+                    <!-- BARRE D'ACTIONS ET RECHERCHE -->
+                    <div class="bg-[#0f1d3e]/60 p-3.5 rounded-2xl border border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex flex-wrap items-center gap-2 flex-grow">
+                            <div class="relative min-w-[260px] flex-grow sm:flex-grow-0">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500">🔍</span>
+                                <input type="text" id="adh-search" oninput="filtrerAdherents()" placeholder="Rechercher nom, prénom, licence FFB, email, v..." class="w-full bg-[#070d1e] border border-slate-700/80 text-white rounded-xl pl-9 pr-3 py-2 text-xs outline-none focus:border-indigo-500">
+                            </div>
+
+                            <select id="adh-filter-type-licence" onchange="filtrerAdherents()" class="bg-[#070d1e] border border-slate-700/80 text-slate-300 rounded-xl px-3 py-2 text-xs outline-none focus:border-indigo-500">
+                                <option value="">Tous les types de licence</option>
+                                <option value="Compétition">Compétition</option>
+                                <option value="Loisir">Loisir</option>
+                            </select>
+
+                            <select id="adh-filter-licence" onchange="filtrerAdherents()" class="bg-[#070d1e] border border-slate-700/80 text-slate-300 rounded-xl px-3 py-2 text-xs outline-none focus:border-indigo-500">
+                                <option value="">Tous les paiements</option>
+                                <option value="payee">Licence Payée</option>
+                                <option value="non_payee">Licence Non Payée</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="ouvrirFormulaireAdherent()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                                ➕ Ajouter un Adhérent
+                            </button>
+                            <button onclick="sauvegarderAdherentsVersGoogleSheets()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                                💾 Sauvegarder
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- FORMULAIRE DE SAISIE / ÉDITION -->
+                    <div id="adh-form-container" class="hidden bg-slate-950 border border-indigo-500/40 p-5 rounded-2xl space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                            <h4 id="adh-form-title" class="font-bold text-indigo-400 text-sm">Ajouter / Modifier un membre</h4>
+                            <button onclick="fermerFormulaireAdherent()" class="text-slate-400 hover:text-white">✕ Annuler</button>
+                        </div>
+
+                        <form id="adh-form" onsubmit="enregistrerLocalAdherent(event)" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                            <input type="hidden" id="adh-id">
+                            <div>
+                                <label class="block font-semibold mb-1 text-slate-300">Nom :</label>
+                                <input type="text" id="adh-nom" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                            </div>
+                            <div>
+                                <label class="block font-semibold mb-1 text-slate-300">Prénom :</label>
+                                <input type="text" id="adh-prenom" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                            </div>
+                            <div>
+                                <label class="block font-semibold mb-1 text-slate-300">N° Licence FFB :</label>
+                                <input type="text" id="adh-licenceFFB" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                            </div>
+                            <div>
+                                <label class="block font-semibold mb-1 text-slate-300">Email :</label>
+                                <input type="email" id="adh-email" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                            </div>
+                            <div>
+                                <label class="block font-semibold mb-1 text-slate-300">Téléphone :</label>
+                                <input type="text" id="adh-telephone" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                            </div>
+                            <div>
+                                <label class="block font-semibold mb-1 text-slate-300">Licence Payée :</label>
+                                <select id="adh-licencePayee" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+                                    <option value="Oui">Oui</option>
+                                    <option value="Non">Non</option>
+                                </select>
+                            </div>
+                            <div class="sm:col-span-2 md:col-span-3 flex justify-end gap-2 pt-2">
+                                <button type="button" onclick="fermerFormulaireAdherent()" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-xl text-slate-300 font-bold">Annuler</button>
+                                <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2 rounded-xl shadow">Valider les modifications</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- TABLEAU DES ADHÉRENTS -->
+                    <div class="bg-[#091124] border border-slate-800/80 rounded-2xl overflow-x-auto min-h-[300px]">
+                        <table class="w-full text-left border-collapse text-[11px]">
+                            <thead>
+                                <tr class="bg-[#050a16] text-slate-400 uppercase border-b border-slate-800 text-[10px] tracking-wider">
+                                    <th class="p-3">Photo & Adhérent</th>
+                                    <th class="p-3">Âge / Naissance</th>
+                                    <th class="p-3">Téléphone & Email</th>
+                                    <th class="p-3">Adresse / Ville</th>
+                                    <th class="p-3">Licence FFB</th>
+                                    <th class="p-3">Type</th>
+                                    <th class="p-3">Modes de jeu</th>
+                                    <th class="p-3">Paiement</th>
+                                    <th class="p-3">Bureau</th>
+                                    <th class="p-3 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adh-table-body" class="divide-y divide-slate-800/60">
+                                <!-- Rempli en JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SECTION COTISATIONS -->
+                <div id="section-cotisations-tab" class="hidden space-y-4">
+                    <div class="bg-slate-800/80 p-5 rounded-2xl border border-slate-700/60 space-y-4">
+                        <div class="flex items-center gap-2 border-b border-slate-700 pb-3">
+                            <span class="text-xl">🎫</span>
+                            <div>
+                                <h4 class="font-bold text-sm text-emerald-400 uppercase">Gestion des Cotisations & Paiements</h4>
+                                <p class="text-[11px] text-slate-400">Enregistrez les paiements reçus par chèque, espèces ou virement pour valider la cotisation de chaque adhérent.</p>
+                            </div>
+                        </div>
+
+                        <form id="form-cotisation" onsubmit="enregistrerCotisation(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end">
+                            <div class="sm:col-span-2">
+                                <label class="block font-semibold mb-1 text-slate-300">SÉLECTIONNER ADHÉRENT *</label>
+                                <select id="cotisation-adherent-select" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white outline-none focus:border-emerald-500">
+                                    <option value="">-- Choisir un adhérent --</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block font-semibold mb-1 text-slate-300">MONTANT (€) *</label>
+                                <input type="number" id="cotisation-montant" value="120.00" step="0.01" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white outline-none focus:border-emerald-500 font-mono">
+                            </div>
+                            <div>
+                                <label class="block font-semibold mb-1 text-slate-300">MOYEN DE PAIEMENT</label>
+                                <select id="cotisation-moyen" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white outline-none focus:border-emerald-500">
+                                    <option value="Espèces">Espèces</option>
+                                    <option value="Chèque">Chèque</option>
+                                    <option value="Virement">Virement</option>
+                                    <option value="Carte Bancaire">Carte Bancaire</option>
+                                </select>
+                            </div>
+                            <div class="sm:col-span-4 flex justify-end">
+                                <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-2.5 rounded-xl transition shadow flex items-center gap-2">
+                                    <span>⚙️</span> Valider Cotisation
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- TABLEAU RECAPITULATIF COTISATIONS -->
+                    <div class="bg-slate-800/40 border border-slate-700/60 rounded-2xl overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-950 text-slate-400 uppercase border-b border-slate-700/80">
+                                    <th class="p-3">Adhérent</th>
+                                    <th class="p-3 text-right">Montant Cotisation</th>
+                                    <th class="p-3 text-center">Moyen de Paiement</th>
+                                    <th class="p-3 text-center">Statut</th>
+                                    <th class="p-3 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cotisations-table-body" class="divide-y divide-slate-800">
+                                <!-- Rempli en JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FOOTER MODALE -->
+            <div class="bg-[#070d1e] px-6 py-3 border-t border-slate-800/80 shrink-0 flex justify-between items-center text-xs text-slate-400">
+                <span>Total adhérents affichés : <strong id="adh-count" class="text-white">0</strong></span>
+                <button onclick="fermerGestionAdherents()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2 rounded-xl">Fermer</button>
             </div>
         </div>
     </div>
@@ -450,7 +706,7 @@
 
             <form id="form-code" onsubmit="verifierCodeAdmin(event)" class="space-y-4 text-left text-xs hidden">
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Entrez le code reçu par e-mail :</label>
+                    <label class="block font-bold text-slate-700 mb-1">Entrez le code à 6 chiffres reçu par e-mail :</label>
                     <input type="text" id="code-saisi" maxlength="6" required placeholder="" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-mono text-center text-lg tracking-widest">
                 </div>
                 <div class="flex gap-2 pt-2">
@@ -502,15 +758,223 @@
 
     <!-- SCRIPT DE COMMUNICATION ET MODALES -->
     <script>
-        var URL_SCRIPT_GOOGLE = "https://script.google.com/macros/s/AKfycbzwZojzIEhT2RCIJtMK3Okb9MtfZYnJwKINMA0SPwbrfliSV9ITmuDEriUQjBVc7t0-/exec";
-        
-        var URL_INSCRIPTION = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=inscription";
-        var URL_INSCRIPTION_FFB = "https://docs.google.com/forms/d/e/1FAIpQLSfX-AQxkHlRIYEpAnrJR2MJo1Gu-CvYveL_zh7fW2NpTkCFzw/viewform?embedded=true";
-        var URL_SAISIE_JOUEUR = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=saisiejoueur";
-        var URL_CARTESIEN = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin";
+        function basculerOngletAdmin(onglet) {
+            var tabAdh = document.getElementById('section-adherents-tab');
+            var tabCot = document.getElementById('section-cotisations-tab');
+            var btnAdh = document.getElementById('tab-btn-adherents');
+            var btnCot = document.getElementById('tab-btn-cotisations');
+
+            if (onglet === 'cotisations') {
+                tabAdh.classList.add('hidden');
+                tabCot.classList.remove('hidden');
+                btnAdh.className = "bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5";
+                btnCot.className = "bg-emerald-600 text-white font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5";
+                remplirSelecteurAdherentsCotisation();
+                afficherTableauCotisations();
+            } else {
+                tabCot.classList.add('hidden');
+                tabAdh.classList.remove('hidden');
+                btnCot.className = "bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5";
+                btnAdh.className = "bg-indigo-600 text-white font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5";
+            }
+        }
+
+        function remplirSelecteurAdherentsCotisation() {
+            var select = document.getElementById('cotisation-adherent-select');
+            select.innerHTML = '<option value="">-- Choisir un adhérent --</option>';
+            listeAdherents.forEach(function(m, idx) {
+                var opt = document.createElement('option');
+                opt.value = idx;
+                opt.textContent = (m.nom || '') + ' ' + (m.prenom || '') + (m.licencePayee === 'Oui' ? ' (Payé)' : ' (Non payé)');
+                select.appendChild(opt);
+            });
+        }
+
+        function enregistrerCotisation(e) {
+            e.preventDefault();
+            var idx = document.getElementById('cotisation-adherent-select').value;
+            if (idx === '') return;
+
+            var montant = document.getElementById('cotisation-montant').value;
+            var moyen = document.getElementById('cotisation-moyen').value;
+
+            listeAdherents[idx].montantCotisation = montant;
+            listeAdherents[idx].modePaiement = moyen;
+            listeAdherents[idx].licencePayee = "Oui";
+
+            afficherTableauAdherents(listeAdherents);
+            afficherTableauCotisations();
+            remplirSelecteurAdherentsCotisation();
+            alert("Cotisation enregistrée pour " + listeAdherents[idx].nom + " " + listeAdherents[idx].prenom);
+        }
+
+        function afficherTableauCotisations() {
+            var tbody = document.getElementById('cotisations-table-body');
+            tbody.innerHTML = '';
+
+            if (listeAdherents.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="p-4 text-center text-slate-500">Aucune donnée de cotisation.</td></tr>';
+                return;
+            }
+
+            listeAdherents.forEach(function(m, idx) {
+                var tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-800/60 transition";
+                
+                var statut = m.licencePayee === 'Oui'
+                    ? '<span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full text-[10px] font-bold">Validée 🟢</span>'
+                    : '<span class="bg-rose-500/20 text-rose-400 border border-rose-500/30 px-2 py-0.5 rounded-full text-[10px] font-bold">En attente 🔴</span>';
+
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-white">${m.nom || ''} ${m.prenom || ''}</td>
+                    <td class="p-3 text-right font-mono text-amber-400 font-bold">${m.montantCotisation ? m.montantCotisation + ' €' : '-'}</td>
+                    <td class="p-3 text-center text-slate-300">${m.modePaiement || '-'}</td>
+                    <td class="p-3 text-center">${statut}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="editerAdherent(${idx}); basculerOngletAdmin('adherents');" class="bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-lg text-[11px] font-bold">Éditer Fiche</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function afficherTableauAdherents(liste) {
+            var tbody = document.getElementById('adh-table-body');
+            document.getElementById('adh-count').innerText = liste.length;
+            
+            // Mettre à jour les KPI Cards
+            document.getElementById('kpi-total-adh').innerText = listeAdherents.length;
+            var payees = listeAdherents.filter(m => m.licencePayee === 'Oui').length;
+            document.getElementById('kpi-payees').innerText = payees;
+            document.getElementById('kpi-non-payees').innerText = listeAdherents.length - payees;
+            var bureauCount = listeAdherents.filter(m => m.membreBureau === 'Oui' || m.bureau === 'Oui').length;
+            document.getElementById('kpi-bureau').innerText = bureauCount;
+
+            tbody.innerHTML = '';
+
+            if (liste.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="10" class="p-8 text-center text-slate-500 font-medium">Aucun adhérent dans la liste.</td></tr>';
+                return;
+            }
+
+            liste.forEach(function(m, idx) {
+                var tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-800/40 transition border-b border-slate-800/40";
+                
+                var statutPaye = m.licencePayee === 'Oui' 
+                    ? '<span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full text-[10px] font-bold">Payée 🟢</span>' 
+                    : '<span class="bg-rose-500/20 text-rose-400 border border-rose-500/30 px-2 py-0.5 rounded-full text-[10px] font-bold">Non Payée 🔴</span>';
+
+                var nomComplet = (m.nom || '') + ' ' + (m.prenom || '');
+
+                tr.innerHTML = `
+                    <td class="p-3">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-7 h-7 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-indigo-400 text-xs">
+                                ${m.prenom ? m.prenom.charAt(0) : '👤'}
+                            </div>
+                            <span class="font-bold text-white">${nomComplet}</span>
+                        </div>
+                    </td>
+                    <td class="p-3 text-slate-400">${m.dateNaissance || '-'}</td>
+                    <td class="p-3 text-slate-300">
+                        <div>${m.email || 'N/A'}</div>
+                        <div class="text-[10px] text-slate-500">${m.telephone || m.tel || ''}</div>
+                    </td>
+                    <td class="p-3 text-slate-400">${m.ville || m.adresse || '-'}</td>
+                    <td class="p-3 font-mono text-amber-400">${m.licenceFFB || m.licence || 'N/A'}</td>
+                    <td class="p-3 text-slate-300">${m.typeLicence || 'Standard'}</td>
+                    <td class="p-3 text-slate-400">Blackball / Américain</td>
+                    <td class="p-3">${statutPaye}</td>
+                    <td class="p-3 text-slate-300">${m.membreBureau === 'Oui' ? 'Membre' : '-'}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="editerAdherent(${idx})" class="bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-lg text-[11px] font-bold">Éditer</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filtrerAdherents() {
+            var q = document.getElementById('adh-search').value.toLowerCase();
+            var licFilter = document.getElementById('adh-filter-licence').value;
+            var typeLicFilter = document.getElementById('adh-filter-type-licence') ? document.getElementById('adh-filter-type-licence').value : '';
+
+            var filtrés = listeAdherents.filter(function(m) {
+                var matchQ = (m.nom + ' ' + m.prenom + ' ' + (m.licenceFFB || m.licence || '') + ' ' + m.email + ' ' + m.ville).toLowerCase().includes(q);
+                var matchLic = true;
+                if (licFilter === 'payee') matchLic = (m.licencePayee === 'Oui');
+                if (licFilter === 'non_payee') matchLic = (m.licencePayee !== 'Oui');
+                
+                var matchType = true;
+                if (typeLicFilter) matchType = (m.typeLicence === typeLicFilter);
+
+                return matchQ && matchLic && matchType;
+            });
+            afficherTableauAdherents(filtrés);
+        }
+
+        function ouvrirFormulaireAdherent() {
+            document.getElementById('adh-form').reset();
+            document.getElementById('adh-id').value = '';
+            document.getElementById('adh-form-title').innerText = "Ajouter un adhérent";
+            document.getElementById('adh-form-container').classList.remove('hidden');
+        }
+
+        function fermerFormulaireAdherent() {
+            document.getElementById('adh-form-container').classList.add('hidden');
+        }
+
+        function editerAdherent(index) {
+            var m = listeAdherents[index];
+            if (!m) return;
+            document.getElementById('adh-id').value = index;
+            document.getElementById('adh-nom').value = m.nom || '';
+            document.getElementById('adh-prenom').value = m.prenom || '';
+            document.getElementById('adh-licenceFFB').value = m.licenceFFB || '';
+            document.getElementById('adh-email').value = m.email || '';
+            document.getElementById('adh-telephone').value = m.telephone || '';
+            document.getElementById('adh-licencePayee').value = m.licencePayee || 'Non';
+            
+            document.getElementById('adh-form-title').innerText = "Modifier l'adhérent : " + (m.nom || '') + " " + (m.prenom || '');
+            document.getElementById('adh-form-container').classList.remove('hidden');
+        }
+
+        function enregistrerLocalAdherent(e) {
+            e.preventDefault();
+            var idx = document.getElementById('adh-id').value;
+            var obj = {
+                id: idx !== '' ? listeAdherents[idx].id : Date.now().toString(),
+                nom: document.getElementById('adh-nom').value.trim(),
+                prenom: document.getElementById('adh-prenom').value.trim(),
+                licenceFFB: document.getElementById('adh-licenceFFB').value.trim(),
+                email: document.getElementById('adh-email').value.trim(),
+                telephone: document.getElementById('adh-telephone').value.trim(),
+                licencePayee: document.getElementById('adh-licencePayee').value
+            };
+
+            if (idx !== '') {
+                listeAdherents[idx] = Object.assign({}, listeAdherents[idx], obj);
+            } else {
+                listeAdherents.push(obj);
+            }
+
+            fermerFormulaireAdherent();
+            afficherTableauAdherents(listeAdherents);
+        }
+
+        function sauvegarderAdherentsVersGoogleSheets() {
+            if (typeof google !== 'undefined' && typeof google.script !== 'undefined' && google.script.run) {
+                google.script.run.withSuccessHandler(function(res) {
+                    alert("Adhérents enregistrés dans Google Sheets avec succès !");
+                }).saveMembersData(listeAdherents);
+            } else {
+                alert("Mode démonstration : Données mises à jour localement.");
+            }
+        }
 
         var URLS_MODULES_ADMIN = {
-            adherents: "adherent.html",
+            adherents: "https://script.google.com/macros/s/AKfycbwK1wRE7_ksmrSv9jhC-dZg1DjLkZ840Of5VtbaVsOCvjZQdrVr_MlFMW65eoIT6Lg/exec",
             stock: "https://script.google.com/macros/s/AKfycbzdIAL8DNCHeXOXpyEYsCV7-iLO7CE5_nBpRChrWpYyzZ2TQLcgnSx37QKpqRBaps0d/exec",
             tournoi: "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin",
             trombi: "https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin",
@@ -549,9 +1013,11 @@
         function ouvrirModalModuleAdmin(cleModule) {
             if (URLS_MODULES_ADMIN[cleModule]) {
                 var info = INFOS_MODULES[cleModule];
-                document.getElementById('modal-module-icon').innerText = info.icon;
-                document.getElementById('modal-module-title').innerText = info.title;
-                document.getElementById('modal-module-subtitle').innerText = info.subtitle;
+                if (info) {
+                    document.getElementById('modal-module-icon').innerText = info.icon;
+                    document.getElementById('modal-module-title').innerText = info.title;
+                    document.getElementById('modal-module-subtitle').innerText = info.subtitle;
+                }
                 
                 document.getElementById('iframe-module-admin').src = URLS_MODULES_ADMIN[cleModule];
                 document.getElementById('modal-module-admin').classList.remove('hidden');
@@ -696,6 +1162,19 @@
             });
         }
 
+        function activerInterfaceAdmin() {
+            document.getElementById('nav-publique').classList.add('hidden');
+            document.getElementById('nav-admin').classList.remove('hidden');
+            document.getElementById('nav-admin').classList.add('flex');
+        }
+
+        function deconnexionAdmin() {
+            localStorage.removeItem("bcs_admin_connecte");
+            document.getElementById('nav-admin').classList.add('hidden');
+            document.getElementById('nav-admin').classList.remove('flex');
+            document.getElementById('nav-publique').classList.remove('hidden');
+        }
+
         function ouvrirModalFacebook() {
             document.getElementById('modal-facebook').classList.remove('hidden');
             if (phrasesFacebookCache.length === 0) {
@@ -729,70 +1208,42 @@
                     return response.text();
                 })
                 .then(data => {
-                    var lignes = data.split("\n");
-                    phrasesFacebookCache = [];
-                    for (var i = 1; i < lignes.length; i++) {
-                        var texte = lignes[i].trim();
-                        if (texte) {
-                            texte = texte.replace(/^["']|["']$/g, '');
-                            phrasesFacebookCache.push(texte);
-                        }
-                    }
-                    if (phrasesFacebookCache.length > 0) {
-                        genererPhraseAleatoire();
-                    } else {
-                        phrasesFacebookCache = phrasesSecours;
-                        genererPhraseAleatoire();
-                    }
+                    var lines = data.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                    phrasesFacebookCache = lines.map(line => line.replace(/^"|"$/g, '').trim());
+                    genererPhraseAleatoire();
                 })
-                .catch(err => {
+                .catch(() => {
                     phrasesFacebookCache = phrasesSecours;
                     genererPhraseAleatoire();
                 });
         }
 
         function genererPhraseAleatoire() {
-            var box = document.getElementById('box-phrase-fb');
-            if (phrasesFacebookCache.length > 0) {
-                var indexAleatoire = Math.floor(Math.random() * phrasesFacebookCache.length);
-                box.innerText = phrasesFacebookCache[indexAleatoire];
-            } else {
-                box.innerText = "Aucune phrase disponible.";
-            }
+            if (phrasesFacebookCache.length === 0) return;
+            var index = Math.floor(Math.random() * phrasesFacebookCache.length);
+            document.getElementById('box-phrase-fb').innerText = phrasesFacebookCache[index];
         }
 
         function copierPhraseFacebook() {
-            var box = document.getElementById('box-phrase-fb');
-            navigator.clipboard.writeText(box.innerText).then(() => {
-                alert("Publication copiée dans le presse-papier !");
+            var texte = document.getElementById('box-phrase-fb').innerText;
+            navigator.clipboard.writeText(texte).then(() => {
+                alert("Texte copié dans le presse-papier !");
             });
         }
 
-        function activerInterfaceAdmin() {
-            document.getElementById('nav-publique').classList.add('hidden');
-            var nav = document.getElementById('nav-admin');
-            nav.classList.remove('hidden');
-            nav.classList.add('flex');
-        }
-
-        function deconnexionAdmin() {
-            localStorage.removeItem("bcs_admin_connecte");
-            window.location.href = "index.html";
+        function mettreAJourCompteurVisites() {
+            var count = localStorage.getItem("bcs_visites") || 0;
+            count++;
+            localStorage.setItem("bcs_visites", count);
+            var el = document.getElementById('compteur-visites');
+            if (el) el.innerText = count;
         }
 
         window.onload = function() {
             if (localStorage.getItem("bcs_admin_connecte") === "true") {
                 activerInterfaceAdmin();
             }
-
-            fetch('https://api.counterapi.dev/v1/billard-club-segreen/visites/up')
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById('compteur-visites').innerText = data.count || '1';
-                })
-                .catch(() => {
-                    document.getElementById('compteur-visites').innerText = '1';
-                });
+            mettreAJourCompteurVisites();
         };
     </script>
 </body>
