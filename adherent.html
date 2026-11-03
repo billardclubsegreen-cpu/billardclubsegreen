@@ -359,6 +359,16 @@
         document.addEventListener("DOMContentLoaded", function() {
             // Prêt
         });
+		
+		
+		
+		
+		
+			function deconnexionAdmin() {
+    localStorage.removeItem("bcs_admin_connecte");
+    // Force la redirection vers l'accueil du site
+    window.location.href = "index.html";
+}
     </script>
 </body>
 </html>

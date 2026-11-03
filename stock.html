@@ -395,10 +395,11 @@ var URLS_MODULES_ADMIN = {
             navAdmin.classList.add('flex');
         }
 
-        function deconnexionAdmin() {
-            localStorage.removeItem("bcs_admin_connecte");
-            window.location.href = "stock.html";
-        }
+	function deconnexionAdmin() {
+    localStorage.removeItem("bcs_admin_connecte");
+    // Force la redirection vers l'accueil du site
+    window.location.href = "index.html";
+}
 
         window.onload = function() {
             if (localStorage.getItem("bcs_admin_connecte") === "true") {

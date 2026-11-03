@@ -51,7 +51,7 @@
                 <nav id="nav-publique" class="flex flex-col gap-1.5 text-xs font-bold">
                     <a href="index.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🏠 Accueil</a>
                     <button onclick="ouvrirModalInscription()" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 cursor-pointer text-left flex items-center gap-2">🎯 Inscription Challenge</button>
-                    <button onclick="ouvrirModalFFB()" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 cursor-pointer text-left flex items-center gap-2">🎯 Inscription FFB</button>
+                    <a href="inscriptionffb.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🎯 Inscription FFB</a>
                     <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🏆 CueScore</a>
                     <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📰 La Gazette</a>
                     <a href="galerie.html" class="bg-indigo-600 text-white px-3.5 py-2.5 rounded-xl transition border border-indigo-500 flex items-center gap-2">🖼️ Galerie</a>
@@ -314,6 +314,8 @@
 
     <!-- SCRIPT -->
     <script>
+	
+	
         var URL_SCRIPT_GOOGLE = "https://script.google.com/macros/s/AKfycbzwZojzIEhT2RCIJtMK3Okb9MtfZYnJwKINMA0SPwbrfliSV9ITmuDEriUQjBVc7t0-/exec";
         var URL_INSCRIPTION = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=inscription";
         var URL_INSCRIPTION_FFB = "https://docs.google.com/forms/d/e/1FAIpQLSfX-AQxkHlRIYEpAnrJR2MJo1Gu-CvYveL_zh7fW2NpTkCFzw/viewform?embedded=true";
@@ -418,6 +420,13 @@ var URLS_MODULES_ADMIN = {
         function fermerModalAdmin() {
             document.getElementById('modal-admin').classList.add('hidden');
         }
+		
+		
+			function deconnexionAdmin() {
+    localStorage.removeItem("bcs_admin_connecte");
+    // Force la redirection vers l'accueil du site
+    window.location.href = "index.html";
+}
 
         function revenirEtapeEmail() {
             document.getElementById('form-code').classList.add('hidden');
