@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Publications Facebook — Billard Club Segréen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html { zoom: 0.85; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0b1329; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between text-slate-800">
+
+    <!-- BARRE EN-TÊTE FIXE EN HAUT -->
+    <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50 h-16 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 shrink-0">
+                <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-xl shadow border border-slate-700">🎱</div>
+                <div>
+                    <h1 class="text-xl font-black uppercase tracking-wider text-amber-400 leading-tight">BILLARD CLUB SEGRÉEN</h1>
+                    <p class="text-[11px] text-slate-400">Plateforme officielle BCS</p>
+                </div>
+            </a>
+
+            <div class="flex items-center gap-3">
+                <button onclick="ouvrirModalAdmin()" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-xl transition flex items-center gap-2 shadow font-bold text-xs cursor-pointer">
+                    🔒 Accès Administrateur
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- DISPOSITION 3 COLONNES -->
+    <div class="flex flex-col lg:flex-row max-w-[96rem] w-full mx-auto pt-20 px-4 gap-6 flex-grow">
+        
+        <!-- SIDEBAR GAUCHE (NAVIGATION) -->
+        <aside class="w-full lg:w-60 shrink-0">
+            <div class="bg-[#0b1329] rounded-2xl p-4 shadow-md border border-slate-800 sticky top-20 text-white space-y-3">
+                <div class="text-xs font-black uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>📑</span> Navigation Menu
+                </div>
+
+                <!-- NAVIGATION PUBLIQUE -->
+                <nav id="nav-publique" class="flex flex-col gap-1.5 text-xs font-bold">
+                    <a href="index.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🏠 Accueil</a>
+                    <a href="inscriptionchallenge.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🎯 Inscription Challenge</a>
+                    <a href="inscriptionffb.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🎯 Inscription FFB</a>
+                    <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🏆 CueScore</a>
+                    <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📰 La Gazette</a>
+                    <a href="galerie.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🖼️ Galerie</a>
+                    <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📸 Trombinoscope</a>
+                    <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🤝 Partenaires</a>
+                    <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📺 Direct & TV</a>
+                    <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📞 Contacts</a>
+                </nav>
+
+                <!-- NAVIGATION ADMIN -->
+                <nav id="nav-admin" class="hidden flex-col gap-1.5 text-xs font-bold pt-2 border-t border-slate-800">
+                    <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px] text-center">Admin 🟢</span>
+                    <a href="bar.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition">🍻 Bar</a>
+                    <a href="stock.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition">📦 Stocks</a>
+                    <button onclick="ouvrirModalModuleAdmin('adherents')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition text-left cursor-pointer">👥 Gérer Adhérents</button>
+                    <button onclick="ouvrirModalModuleAdmin('tournoi')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-lg transition text-left cursor-pointer">🎯 Admin Tournoi</button>
+                    <button onclick="ouvrirModalModuleAdmin('trombi')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition text-left cursor-pointer">📸 Trombi Admin</button>
+                    <button onclick="ouvrirModalModuleAdmin('partenaires')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition text-left cursor-pointer">🤝 Gérer Partenaires</button>
+                    <button onclick="ouvrirModalModuleAdmin('gazette')" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg transition text-left cursor-pointer">📰 Éditer Gazette</button>
+                    <a href="genererfb.html" class="bg-blue-600 text-white px-3 py-2 rounded-lg transition text-left">🤖 Générateur FB</a>
+                    <a href="comptes-rendus.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition">📝 Comptes Rendus</a>
+                    <a href="registre-rgpd.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition">🔒 RGPD</a>
+                    <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-2 rounded-lg transition mt-2 text-center cursor-pointer">Déconnexion</button>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- ZONE CENTRALE (GÉNÉRATEUR BLACKBALL & BILLARD) -->
+        <main class="flex-grow space-y-6 min-w-0">
+            <div class="bg-white rounded-3xl shadow-md border border-slate-200 p-6 sm:p-8 space-y-6">
+                
+                <div class="border-b border-slate-100 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div>
+                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Spécial Blackball & Billard</span>
+                        <h2 class="text-2xl font-black text-slate-900 mt-1">🤖 Générateur de Phrases Facebook BCS</h2>
+                        <p class="text-xs text-slate-500">Histoire du billard, conseils tactiques Blackball, entraînement & motivation du club.</p>
+                    </div>
+                </div>
+
+                <!-- FILTRES -->
+                <div class="flex flex-wrap gap-2 items-center text-xs">
+                    <span class="font-bold text-slate-600">Thématique :</span>
+                    <button onclick="filtrerCategorie('Toutes')" class="btn-cat bg-blue-600 text-white px-3.5 py-1.5 rounded-xl font-bold transition">🔥 Toutes</button>
+                    <button onclick="filtrerCategorie('Blackball & Technique')" class="btn-cat bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl font-bold transition">🎱 Blackball & Technique</button>
+                    <button onclick="filtrerCategorie('Histoire du Billard')" class="btn-cat bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl font-bold transition">🏛️ Histoire du Billard</button>
+                    <button onclick="filtrerCategorie('Motivation & Esprit Club')" class="btn-cat bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl font-bold transition">🚩 Motivation & Esprit Club</button>
+                    <button onclick="filtrerCategorie('Entraînement & Routine')" class="btn-cat bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl font-bold transition">🎯 Entraînement & Routine</button>
+                </div>
+
+                <!-- ZONE D'AFFICHAGE -->
+                <div class="bg-slate-900 text-white p-6 sm:p-8 rounded-2xl shadow-inner relative space-y-4 border border-slate-800">
+                    <div class="flex justify-between items-center text-xs text-slate-400">
+                        <span id="label-categorie" class="bg-slate-800 text-amber-400 border border-slate-700 px-3 py-1 rounded-lg font-mono">🎲 Thème : Aléatoire</span>
+                        <span class="text-[11px] text-slate-400">Billard Club Segréen</span>
+                    </div>
+
+                    <p id="texte-phrase" class="text-base sm:text-lg font-medium leading-relaxed italic text-slate-100">
+                        "Cliquez sur le bouton ci-dessous pour générer une accroche Facebook !"
+                    </p>
+
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <button onclick="genererNouvellePhrase()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-5 py-3 rounded-xl transition shadow flex items-center gap-2 cursor-pointer">
+                            🎲 Générer une nouvelle phrase
+                        </button>
+                        <button onclick="copierTexte()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-5 py-3 rounded-xl transition shadow flex items-center gap-2 cursor-pointer">
+                            📋 Copier pour Facebook
+                        </button>
+                    </div>
+                    <div id="notification-copie" class="hidden text-emerald-400 text-xs font-bold pt-1">✅ Publication copiée dans le presse-papier !</div>
+                </div>
+
+                <!-- HISTORIQUE RÉCENT -->
+                <div class="space-y-3 pt-4 border-t border-slate-100">
+                    <h3 class="text-sm font-bold text-slate-800">📜 Phrases générées récemment :</h3>
+                    <div id="historique-phrases" class="space-y-2 text-xs text-slate-600">
+                        <p class="italic text-slate-400">Aucune phrase dans l'historique pour l'instant.</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- SIDEBAR DROITE (PARTENAIRES) -->
+        <aside class="w-full lg:w-72 shrink-0 space-y-3">
+            <div class="bg-white rounded-2xl p-3 shadow-md border border-slate-200 sticky top-20 space-y-2">
+                <div class="text-center pb-1.5 border-b border-slate-100">
+                    <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide flex items-center justify-center gap-1.5">
+                        <span>🤝</span> Nos Partenaires
+                    </h3>
+                    <p class="text-[10px] text-slate-500">Soutiens officiels du club</p>
+                </div>
+
+                <div class="flex flex-col gap-1.5 max-h-[62vh] overflow-y-auto pr-1">
+                    <a href="https://www.chopeetcompagnie-leliondangers.fr/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1qoaDVZx8TRtCLTpoIB9ttmPT_hePMIlI=s400" alt="Chope" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Chope & Compagnie</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Le Lion-d'Angers</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.entreprise-defais.com/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1oqqXI0zohN4LEaEyPjE9-oyWie98UKhj=s400" alt="Defais" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Entreprise Defais</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Bâtiment / Maçonnerie</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.garagecaillere.com/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1AjF41wZffyiaD0qxgsZdsr05aAsRSIy3=s400" alt="Caillère" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Garage Caillère</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Mécanique Auto</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- MODALE UNIVERSELLE POUR LES MODULES ADMIN -->
+    <div id="modal-module-admin" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-white rounded-3xl w-full max-w-6xl h-[90vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
+            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shrink-0 border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span id="modal-module-icon" class="text-xl">⚙️</span>
+                    <div>
+                        <h3 id="modal-module-title" class="font-bold text-sm sm:text-base text-amber-400">Administration</h3>
+                        <p id="modal-module-subtitle" class="text-[11px] text-slate-400">Espace de gestion sécurisé</p>
+                    </div>
+                </div>
+                <button onclick="fermerModalModuleAdmin()" class="text-slate-400 hover:text-white text-2xl font-bold transition cursor-pointer">✕</button>
+            </div>
+            <div class="flex-grow w-full bg-slate-100 overflow-hidden">
+                <iframe id="iframe-module-admin" src="" class="w-full h-full border-0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#0b1329] text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2 mt-8">
+        <div class="flex flex-wrap justify-center gap-4 text-slate-300">
+            <a href="contacts.html" class="hover:underline">Contacts</a>
+            <span>•</span>
+            <a href="registre-rgpd.html" class="hover:underline text-indigo-400">Registre RGPD</a>
+            <span>•</span>
+            <a href="https://www.facebook.com/billard.club.segreen.bcs/" target="_blank" class="hover:underline">Facebook</a>
+        </div>
+        <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // DICTIONNAIRE DES URLS ADMIN
+        var URLS_MODULES_ADMIN = {
+            adherents: "https://script.google.com/macros/s/AKfycbwK1wRE7_ksmrSv9jhC-dZg1DjLkZ840Of5VtbaVsOCvJZQDrVr_MlFMW65eoIT6Lg/exec",
+            tournoi: "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin",
+            trombi: "https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin",
+            partenaires: "https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin",
+            gazette: "https://script.google.com/macros/s/AKfycbzbbjS49aQsSqp5PgOfr9HIWod4BsS0JJe_V4m05u47CP4AA-1XHGOUn1xxmVq5e_j9/exec?action=admin"
+        };
+
+        var INFOS_MODULES = {
+            adherents: { icon: "👥", title: "Administration — Gestion des Adhérents", subtitle: "Base de données et suivi des licences" },
+            tournoi: { icon: "🎯", title: "Administration — Tournoi", subtitle: "Gestion des inscriptions, poules et résultats" },
+            trombi: { icon: "📸", title: "Administration — Trombinoscope", subtitle: "Gestion des membres et photos" },
+            partenaires: { icon: "🤝", title: "Administration — Mécénat & Partenaires", subtitle: "Gestion des dons et contrats publicitaires" },
+            gazette: { icon: "📰", title: "Administration — Textes de la Gazette", subtitle: "Modification des articles et mot du président" }
+        };
+
+        function ouvrirModalModuleAdmin(cleModule) {
+            if (URLS_MODULES_ADMIN[cleModule]) {
+                var info = INFOS_MODULES[cleModule];
+                if (info) {
+                    document.getElementById('modal-module-icon').innerText = info.icon;
+                    document.getElementById('modal-module-title').innerText = info.title;
+                    document.getElementById('modal-module-subtitle').innerText = info.subtitle;
+                }
+                var iframe = document.getElementById('iframe-module-admin');
+                if (iframe) iframe.src = URLS_MODULES_ADMIN[cleModule];
+                document.getElementById('modal-module-admin').classList.remove('hidden');
+            }
+        }
+
+        function fermerModalModuleAdmin() {
+            document.getElementById('modal-module-admin').classList.add('hidden');
+            var iframe = document.getElementById('iframe-module-admin');
+            if (iframe) iframe.src = "";
+        }
+
+        // MOTEUR DU GÉNÉRATEUR DE PHRASES FACEBOOK
+        var AMORCES = {
+            "Blackball & Technique": [
+                "⚡ Au Blackball, la précision prime sur la puissance !",
+                "🎱 Tactique & Maîtrise au BCS :",
+                "🎯 Le conseil de l'entraîneur Blackball :",
+                "🔥 En compétition officielle 8-Pool :"
+            ],
+            "Histoire du Billard": [
+                "🏛️ Le saviez-vous ? L'histoire du billard passionne :",
+                "📜 Retour sur les origines de notre sport :",
+                "💡 Culture Billard au BCS :",
+                "🥇 Des tables royales à nos tapis verts modernes :"
+            ],
+            "Motivation & Esprit Club": [
+                "🚩 La philosophie du Billard Club Segréen :",
+                "🏆 L'esprit d'équipe et la passion avant tout :",
+                "💪 Chaque manche est un nouveau défi :",
+                "🤝 Fair-play, concentration et convivialité :"
+            ],
+            "Entraînement & Routine": [
+                "📐 La maîtrise repose sur la répétition du geste :",
+                "🏋️‍♂️ Entraînement hebdomadaire au club :",
+                "🧠 Travaillez votre routine de tir :",
+                "🎯 La clé de la régularité au billard :"
+            ]
+        };
+
+        var CORPS_TEXTES = {
+            "Blackball & Technique": [
+                "un placement millimétré sur la bille noire garantit la fermeture de la table. Pensez toujours à votre bille de replacement trois coups à l'avance.",
+                "l'application méthodique de la craie évite la fausse queue et préserve le procédé. Un geste simple qui fait la différence en fin de match.",
+                "la maîtrise du rétro exige du relâchement musculaire et une traversée fluide de la bille de choc plutôt qu'un coup sec.",
+                "un chevalet parfaitement ancré supprime les vibrations parasites lors des tirs décisifs sur la table.",
+                "savoir construire une fermeture méthodique des billes rouges ou jaunes est souvent plus payant que d'attaquer des empochages risqués."
+            ],
+            "Histoire du Billard": [
+                "le billard trouve ses racines au XVe siècle sous Louis XI, évoluant d'un jeu de croquet sur gazon vers nos tables garnies de drap vert.",
+                "la bille noire du Blackball symbolise le dénouement stratégique d'une partie passionnante codifiée pour le jeu rapide et spectaculaire.",
+                "les bandes en caoutchouc et le drap en laine peignée ont révolutionné la vitesse et la précision du jeu au XIXe siècle.",
+                "la craie bleue (ou 'bleu de billard') a été brevetée par William A. Spinks et a transformé à jamais la maîtrise des effets rétro et coulés."
+            ],
+            "Motivation & Esprit Club": [
+                "le respect strict des règles et de l'adversaire incarne l'excellence et les valeurs que nous transmettons à tous nos adhérents.",
+                "remporter un tournoi exige de la patience, de la rigueur et une gestion sans faille de la pression lors de la bille finale.",
+                "nos joueurs portent fièrement les couleurs du BCS lors de chaque compétition régionale et nationale.",
+                "la passion du billard rassemble toutes les générations autour des tapis dans une ambiance chaleureuse."
+            ],
+            "Entraînement & Routine": [
+                "l'analyse approfondie de la table avant le cassage et avant chaque coup permet de déceler immédiatement les billes bloquées.",
+                "stabilisez votre posture, contrôlez votre respiration et maintenez votre limage fluide avant de déclencher le tir.",
+                "venez tester et perfectionner vos fermetures de table lors des séances d'entraînement organisées au club.",
+                "la répétition des attaques de bandes et des billes collées améliore considérablement votre vision du jeu."
+            ]
+        };
+
+        var CHUTES = [
+            "! Rendez-vous au Billard Club Segréen. 🤝🎱",
+            "! La précision fait l'excellence. 🎯✨",
+            "! Restez appliqués jusqu'à la dernière bille. ⚫🔴🟡",
+            "! Retrouvez toutes nos séances d'entraînement au club. 🟢",
+            "! Bon jeu et bon entraînement à tous ! 🏆"
+        ];
+
+        var categorieActuelle = "Toutes";
+        var historique = [];
+
+        function filtrerCategorie(cat) {
+            categorieActuelle = cat;
+            document.querySelectorAll('.btn-cat').forEach(b => {
+                b.classList.remove('bg-blue-600', 'text-white');
+                b.classList.add('bg-slate-100', 'text-slate-700');
+            });
+            event.target.classList.remove('bg-slate-100', 'text-slate-700');
+            event.target.classList.add('bg-blue-600', 'text-white');
+            genererNouvellePhrase();
+        }
+
+        function genererNouvellePhrase() {
+            var categories = Object.keys(AMORCES);
+            var catSelected = categorieActuelle;
+
+            if (catSelected === "Toutes") {
+                catSelected = categories[Math.floor(Math.random() * categories.length)];
+            }
+
+            var listeAmorces = AMORCES[catSelected];
+            var listeCorps = CORPS_TEXTES[catSelected];
+
+            var amorce = listeAmorces[Math.floor(Math.random() * listeAmorces.length)];
+            var corps = listeCorps[Math.floor(Math.random() * listeCorps.length)];
+            var chute = CHUTES[Math.floor(Math.random() * CHUTES.length)];
+
+            var phraseComplete = amorce + " " + corps + " " + chute;
+
+            document.getElementById('label-categorie').innerText = "📌 Thème : " + catSelected;
+            document.getElementById('texte-phrase').innerText = '"' + phraseComplete + '"';
+
+            historique.unshift({ cat: catSelected, texte: phraseComplete });
+            if (historique.length > 5) historique.pop();
+            afficherHistorique();
+        }
+
+        function afficherHistorique() {
+            var container = document.getElementById('historique-phrases');
+            if (historique.length === 0) return;
+            var html = "";
+            historique.forEach(h => {
+                html += `<div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                    <span class="font-bold text-indigo-600">[${h.cat}]</span> ${h.texte}
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function copierTexte() {
+            var texte = document.getElementById('texte-phrase').innerText;
+            navigator.clipboard.writeText(texte).then(() => {
+                var notif = document.getElementById('notification-copie');
+                notif.classList.remove('hidden');
+                setTimeout(() => notif.classList.add('hidden'), 2500);
+            });
+        }
+
+        function activerInterfaceAdmin() {
+            document.getElementById('nav-publique').classList.add('hidden');
+            var nav = document.getElementById('nav-admin');
+            nav.classList.remove('hidden');
+            nav.classList.add('flex');
+        }
+
+        function deconnexionAdmin() {
+            localStorage.removeItem("bcs_admin_connecte");
+            window.location.href = "genererfb.html";
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem("bcs_admin_connecte") === "true") {
+                activerInterfaceAdmin();
+            }
+            genererNouvellePhrase();
+        };
+    </script>
+</body>
+</html>
