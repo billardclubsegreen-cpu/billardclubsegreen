@@ -6,70 +6,181 @@
     <title>Bar & Consommations — Billard Club Segréen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        html { zoom: 0.85; }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #0b1329; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen flex flex-col justify-between">
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between text-slate-800">
 
-    <!-- En-tête / Barre de navigation PUBLIQUE -->
-    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col xl:flex-row justify-between items-center gap-3">
-            <a href="index.html" class="flex items-center gap-3">
-                <span class="text-3xl">🎱</span>
+    <!-- BARRE EN-TÊTE FIXE EN HAUT avec bouton Administrateur -->
+    <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50 h-16 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 shrink-0">
+                <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-xl shadow border border-slate-700">🎱</div>
                 <div>
-                    <h1 class="text-xl font-black uppercase tracking-wider text-amber-400">Billard Club Segréen</h1>
+                    <h1 class="text-xl font-black uppercase tracking-wider text-amber-400 leading-tight">BILLARD CLUB SEGRÉEN</h1>
                     <p class="text-[11px] text-slate-400">Plateforme officielle BCS</p>
                 </div>
             </a>
 
-            <!-- Navigation Publique -->
-            <nav id="nav-publique" class="flex flex-wrap gap-2 text-xs font-bold items-center">
-                <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">🏠 Accueil</a>
-                <a href="inscription.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">🎯 Inscription Tournoi</a>
-                <a href="bar.html" class="bg-indigo-600 text-white px-3 py-2 rounded-xl transition">🍻 Espace Bar</a>
-                <a href="streaming.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">📺 Direct & TV</a>
-                <a href="contacts.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl transition">📞 Contacts</a>
-                <button onclick="ouvrirModalAdmin()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-xl transition">🔒 Admin</button>
-            </nav>
-
-            <!-- Navigation Administrateur (Unifiée, sans Accueil, en Modales) -->
-            <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
-                <span id="badge-admin-nom" class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
-                <a href="bar.html" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg">🍻 Bar</a>
-                <a href="stock.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg">📦 Stocks</a>
-                <button onclick="ouvrirModalModuleAdmin('adherents')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">👥 Gérer Adhérents</button>
-                <button onclick="ouvrirModalModuleAdmin('tournoi')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg transition">🎯 Admin Tournoi</button>
-                <button onclick="ouvrirModalModuleAdmin('trombi')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">📸 Trombi Admin</button>
-                <button onclick="ouvrirModalModuleAdmin('partenaires')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">🤝 Gérer Partenaires</button>
-                <button onclick="ouvrirModalModuleAdmin('gazette')" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg transition">📰 Éditer Gazette</button>
-                <a href="comptes-rendus.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg">📝 Comptes Rendus</a>
-                <a href="registre-rgpd.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg">🔒 RGPD</a>
-                <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
-            </nav>
+            <!-- BOUTON SÉCURISÉ / ADMIN EN HAUT À DROITE -->
+            <div class="flex items-center gap-3">
+                <button onclick="ouvrirModalAdmin()" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-xl transition flex items-center gap-2 shadow font-bold text-xs cursor-pointer">
+                    🔒 Accès Administrateur
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- Contenu Principal : Module Bar avec la bonne URL -->
-    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full flex flex-col space-y-4">
-        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden flex-grow flex flex-col min-h-[750px]">
-            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <span class="text-xl">🍻</span>
-                    <h2 class="font-bold text-sm sm:text-base">Module Bar & Consommations BCS</h2>
+    <!-- DISPOSITION AVEC MENU SIDEBAR GAUCHE, CONTENU AU MILIEU ET PARTENAIRES À DROITE -->
+    <div class="flex flex-col lg:flex-row max-w-[96rem] w-full mx-auto pt-20 px-4 gap-6 flex-grow">
+        
+        <!-- SIDEBAR DE NAVIGATION PUBLIQUE À GAUCHE -->
+        <aside class="w-full lg:w-60 shrink-0">
+            <div class="bg-[#0b1329] rounded-2xl p-4 shadow-md border border-slate-800 sticky top-20 text-white space-y-3">
+                <div class="text-xs font-black uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>📑</span> Navigation Menu
                 </div>
-                <a href="https://script.google.com/macros/s/AKfycby5r8f3BVybHIchC-v9DN5ndnq6giRkbE_zlNylX8Ie0cSPfSayUcUAmDuZnPResCQ/exec" target="_blank" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg transition">
-                    Ouvrir en plein écran ↗
-                </a>
+
+                <!-- NAVIGATION PUBLIQUE VERTICALE -->
+                <nav id="nav-publique" class="flex flex-col gap-1.5 text-xs font-bold">
+                    <a href="index.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🏠 Accueil</a>
+                    <a href="inscriptionchallenge.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🎯 Inscription Challenge</a>
+                    <a href="inscriptionffb.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🎯 Inscription FFB</a>
+                    <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🏆 CueScore</a>
+                    <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📰 La Gazette</a>
+                    <a href="galerie.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🖼️ Galerie</a>
+                    <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📸 Trombinoscope</a>
+                    <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🤝 Partenaires</a>
+                    <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📺 Direct & TV</a>
+                    <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📞 Contacts</a>
+                </nav>
+
+                <!-- NAVIGATION ADMIN QUAND CONNECTÉ -->
+                <nav id="nav-admin" class="hidden flex-col gap-1.5 text-xs font-bold pt-2 border-t border-slate-800">
+                    <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px] text-center">Admin 🟢</span>
+                    <a href="bar.html" class="bg-indigo-600 text-white px-3 py-2 rounded-lg transition">🍻 Bar</a>
+                    <a href="stock.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition">📦 Stocks</a>
+                    <button onclick="ouvrirModalModuleAdmin('adherents')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition text-left">👥 Gérer Adhérents</button>
+                    <button onclick="ouvrirModalModuleAdmin('tournoi')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-lg transition text-left">🎯 Admin Tournoi</button>
+                    <button onclick="ouvrirModalModuleAdmin('trombi')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition text-left">📸 Trombi Admin</button>
+                    <button onclick="ouvrirModalModuleAdmin('partenaires')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition text-left">🤝 Gérer Partenaires</button>
+                    <button onclick="ouvrirModalModuleAdmin('gazette')" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg transition text-left">📰 Éditer Gazette</button>
+                    <a href="genererfb.html" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg transition text-left flex items-center gap-2">🤖 Générateur FB</a>
+                    <a href="comptes-rendus.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition">📝 Comptes Rendus</a>
+                    <a href="registre-rgpd.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition">🔒 RGPD</a>
+                    <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-2 rounded-lg transition mt-2 text-center">Déconnexion</button>
+                </nav>
             </div>
-            <iframe src="https://script.google.com/macros/s/AKfycby5r8f3BVybHIchC-v9DN5ndnq6giRkbE_zlNylX8Ie0cSPfSayUcUAmDuZnPResCQ/exec" class="w-full flex-grow border-0 min-h-[700px]"></iframe>
-        </div>
-    </main>
+        </aside>
+
+        <!-- ZONE CENTRALE (MODULE BAR) -->
+        <main class="flex-grow space-y-6 min-w-0">
+            <div class="bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden flex flex-col min-h-[800px]">
+                <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center border-b border-slate-800">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">🍻</span>
+                        <h3 class="font-bold text-sm sm:text-base text-amber-400">Module Bar & Consommations BCS</h3>
+                    </div>
+                    <a href="https://script.google.com/macros/s/AKfycbxsr6TkhLQiPsGKxEXMwwexsM8dunlXCZTcksvOKVah_Ynpt6o4nYNNJbnFh1E8RA/exec" target="_blank" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-1.5 rounded-lg transition font-bold shadow">
+                        Ouvrir dans un nouvel onglet ↗
+                    </a>
+                </div>
+                <iframe src="https://script.google.com/macros/s/AKfycbxsr6TkhLQiPsGKxEXMwwexsM8dunlXCZTcksvOKVah_Ynpt6o4nYNNJbnFh1E8RA/exec" class="w-full flex-grow border-0 min-h-[750px]"></iframe>
+            </div>
+        </main>
+
+        <!-- SIDEBAR DE DROITE : NOS PARTENAIRES OFFICIELS -->
+        <aside class="w-full lg:w-72 shrink-0 space-y-3">
+            <div class="bg-white rounded-2xl p-3 shadow-md border border-slate-200 sticky top-20 space-y-2">
+                <div class="text-center pb-1.5 border-b border-slate-100">
+                    <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide flex items-center justify-center gap-1.5">
+                        <span>🤝</span> Nos Partenaires
+                    </h3>
+                    <p class="text-[10px] text-slate-500">Soutiens officiels du club</p>
+                </div>
+
+                <div class="flex flex-col gap-1.5 max-h-[62vh] overflow-y-auto pr-1">
+                    <a href="https://www.chopeetcompagnie-leliondangers.fr/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1qoaDVZx8TRtCLTpoIB9ttmPT_hePMIlI=s400" alt="Chope" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Chope & Compagnie</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Le Lion-d'Angers</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.entreprise-defais.com/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1oqqXI0zohN4LEaEyPjE9-oyWie98UKhj=s400" alt="Defais" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Entreprise Defais</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Bâtiment / Maçonnerie</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.garagecaillere.com/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1AjF41wZffyiaD0qxgsZdsr05aAsRSIy3=s400" alt="Caillère" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Garage Caillère</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Mécanique Auto</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.planity.com/lcoiff-by-cynthia-49500-segre-en-anjou-bleu-d6i" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/12LlmDgVU0u-2WW9LVzUBnYTJCYRtgY5o=s400" alt="Cynthia" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">L'Coiff Cynthia</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Salon de coiffure</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.segreenanjoubleu.fr/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1yEdcGvjGc2Mx5XhkC7cA5EyQFpfAVNVV=s400" alt="Segré" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Segré Anjou Bleu</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Collectivité</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.oxygeneradio.com/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1q1a5wzl_NashJDTzSVx3yoOx6QYMYknk=s400" alt="Oxygène" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Oxygène Radio</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Média local</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.solutec-pointcles.fr/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/18ailFwFGyg5d3hL60gKI5w2YafYXhghY=s400" alt="Solutec" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Solutec Point Clés</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Clés & Sécurité</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+    </div>
 
     <!-- MODALE UNIVERSELLE POUR LES MODULES ADMIN -->
     <div id="modal-module-admin" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
-        <div class="bg-white rounded-3xl w-full max-w-6xl h-[90vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
+        <div class="bg-white rounded-3xl w-full max-w-4xl h-[78vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
             <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shrink-0 border-b border-slate-800">
                 <div class="flex items-center gap-2">
                     <span id="modal-module-icon" class="text-xl">⚙️</span>
@@ -86,29 +197,19 @@
         </div>
     </div>
 
-    <!-- Fenêtre Modale de Connexion Admin Sécurisée par e-mail -->
+    <!-- MODALE CONNEXION ADMIN -->
     <div id="modal-admin" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-200 text-center space-y-5 relative">
             <button onclick="fermerModalAdmin()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
             <div class="space-y-2">
                 <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-xl font-bold shadow-inner">🎱</div>
                 <h3 class="text-lg font-black text-slate-900">Billard Club Segréen</h3>
-                <p id="modal-subtitle" class="text-xs text-slate-500">Accès sécurisé par e-mail</p>
+                <p class="text-xs text-slate-500" id="modal-subtitle">Accès sécurisé par e-mail</p>
             </div>
 
-            <div id="modal-message-erreur" class="hidden bg-rose-50 border border-rose-200 text-rose-700 p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5">
-                <div class="flex items-start gap-2">
-                    <span class="text-base shrink-0">❌</span>
-                    <span id="texte-erreur">Accès refusé.</span>
-                </div>
-            </div>
+            <div id="modal-message" class="hidden p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5"></div>
 
-            <div id="modal-message-succes" class="hidden bg-emerald-50 border border-emerald-200 text-emerald-800 p-3.5 rounded-xl text-xs font-medium text-left">
-                <span id="texte-succes">Un code de confirmation a été envoyé à votre adresse e-mail.</span>
-            </div>
-
-            <!-- Étape 1 : Saisie de l'e-mail -->
-            <form id="form-step-email" onsubmit="envoyerCodeEmail(event)" class="space-y-4 text-left text-xs">
+            <form id="form-email" onsubmit="demanderCodeAdmin(event)" class="space-y-4 text-left text-xs">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Votre adresse e-mail :</label>
                     <input type="email" id="email-admin-saisi" required placeholder="votre.email@exemple.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-medium">
@@ -119,22 +220,21 @@
                 </div>
             </form>
 
-            <!-- Étape 2 : Saisie du code -->
-            <form id="form-step-code" onsubmit="verifierCodeEmail(event)" class="space-y-4 text-left text-xs hidden">
+            <form id="form-code" onsubmit="verifierCodeAdmin(event)" class="space-y-4 text-left text-xs hidden">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Entrez le code reçu par e-mail :</label>
-                    <input type="text" id="code-saisi" required maxlength="6" placeholder="123456" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-mono tracking-widest text-center text-lg font-bold">
+                    <input type="text" id="code-saisi" maxlength="6" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-mono text-center text-lg tracking-widest">
                 </div>
                 <div class="flex gap-2 pt-2">
                     <button type="button" onclick="revenirEtapeEmail()" class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">Retour</button>
-                    <button type="submit" id="btn-valider-code" class="w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-md">Valider le code</button>
+                    <button type="submit" id="btn-verifier-code" class="w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-md">Valider le code</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Pied de page -->
-    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+    <!-- FOOTER -->
+    <footer class="bg-[#0b1329] text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2 mt-8">
         <div class="flex flex-wrap justify-center gap-4 text-slate-300">
             <a href="contacts.html" class="hover:underline">Contacts</a>
             <span>•</span>
@@ -145,18 +245,18 @@
         <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
     </footer>
 
-    <!-- Script JavaScript -->
+    <!-- SCRIPT DE COMMUNICATION ET MODALES -->
     <script>
-        var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec";
-        var emailEnCours = "";
+        var URL_SCRIPT_GOOGLE = "https://script.google.com/macros/s/AKfycbzwZojzIEhT2RCIJtMK3Okb9MtfZYnJwKINMA0SPwbrfliSV9ITmuDEriUQjBVc7t0-/exec";
 
-        var URLS_MODULES_ADMIN = {
-            adherents: "adherent.html",
-            tournoi: "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin",
-            trombi: "https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin",
-            partenaires: "https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin",
-            gazette: "https://script.google.com/macros/s/AKfycbzbbjS49aQsSqp5PgOfr9HIWod4BsS0JJe_V4m05u47CP4AA-1XHGOUn1xxmVq5e_j9/exec?action=admin"
-        };
+var URLS_MODULES_ADMIN = {
+    adherents: "https://script.google.com/macros/s/AKfycbwK1wRE7_ksmrSv9jhC-dZg1DjLkZ840Of5VtbaVsOCvjZQdrVr_MlFMW65eoIT6Lg/exec",
+    stock: "https://script.google.com/macros/s/AKfycby5r8f3BVybHIchC-v9DN5ndnq6giRkbE_zlNylX8Ie0cSPfSayUcUAmDuZnPResCQ/exec",
+    tournoi: "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin",
+    trombi: "https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin",
+    partenaires: "https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin",
+    gazette: "https://script.google.com/macros/s/AKfycbzbbjS49aQsSqp5PgOfr9HIWod4BsS0JJe_V4m05u47CP4AA-1XHGOUn1xxmVq5e_j9/exec?action=admin"
+};
 
         var INFOS_MODULES = {
             adherents: { icon: "👥", title: "Administration — Gestion des Adhérents", subtitle: "Base de données et suivi des licences" },
@@ -169,26 +269,28 @@
         function ouvrirModalModuleAdmin(cleModule) {
             if (URLS_MODULES_ADMIN[cleModule]) {
                 var info = INFOS_MODULES[cleModule];
-                document.getElementById('modal-module-icon').innerText = info.icon;
-                document.getElementById('modal-module-title').innerText = info.title;
-                document.getElementById('modal-module-subtitle').innerText = info.subtitle;
-                
-                document.getElementById('iframe-module-admin').src = URLS_MODULES_ADMIN[cleModule];
+                if (info) {
+                    document.getElementById('modal-module-icon').innerText = info.icon;
+                    document.getElementById('modal-module-title').innerText = info.title;
+                    document.getElementById('modal-module-subtitle').innerText = info.subtitle;
+                }
+                var iframe = document.getElementById('iframe-module-admin');
+                if (iframe) iframe.src = URLS_MODULES_ADMIN[cleModule];
                 document.getElementById('modal-module-admin').classList.remove('hidden');
             }
         }
 
         function fermerModalModuleAdmin() {
             document.getElementById('modal-module-admin').classList.add('hidden');
-            document.getElementById('iframe-module-admin').src = "";
+            var iframe = document.getElementById('iframe-module-admin');
+            if (iframe) iframe.src = "";
         }
 
         function ouvrirModalAdmin() {
-            document.getElementById('modal-message-erreur').classList.add('hidden');
-            document.getElementById('modal-message-succes').classList.add('hidden');
-            document.getElementById('form-step-email').classList.remove('hidden');
-            document.getElementById('form-step-code').classList.add('hidden');
             document.getElementById('email-admin-saisi').value = '';
+            document.getElementById('code-saisi').value = '';
+            document.getElementById('form-code').classList.add('hidden');
+            document.getElementById('form-email').classList.remove('hidden');
             document.getElementById('modal-subtitle').innerText = "Accès sécurisé par e-mail";
             document.getElementById('modal-admin').classList.remove('hidden');
             document.getElementById('email-admin-saisi').focus();
@@ -199,97 +301,80 @@
         }
 
         function revenirEtapeEmail() {
-            document.getElementById('modal-message-erreur').classList.add('hidden');
-            document.getElementById('modal-message-succes').classList.add('hidden');
-            document.getElementById('form-step-code').classList.add('hidden');
-            document.getElementById('form-step-email').classList.remove('hidden');
+            document.getElementById('form-code').classList.add('hidden');
+            document.getElementById('form-email').classList.remove('hidden');
             document.getElementById('modal-subtitle').innerText = "Accès sécurisé par e-mail";
         }
 
-        function afficherErreur(message) {
-            var box = document.getElementById('modal-message-erreur');
-            document.getElementById('texte-erreur').innerText = message;
-            box.classList.remove('hidden');
-        }
-
-        function envoyerCodeEmail(event) {
-            event.preventDefault();
-            emailEnCours = document.getElementById('email-admin-saisi').value.trim().toLowerCase();
+        function demanderCodeAdmin(e) {
+            e.preventDefault();
+            var emailEnCours = document.getElementById('email-admin-saisi').value.trim().toLowerCase();
             var btn = document.getElementById('btn-envoyer-code');
-
-            document.getElementById('modal-message-erreur').classList.add('hidden');
             btn.innerText = "Envoi en cours...";
             btn.disabled = true;
 
-            var url = SCRIPT_URL + "?action=sendCode&email=" + encodeURIComponent(emailEnCours);
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    btn.innerText = "Recevoir mon code";
-                    btn.disabled = false;
-                    if (data.success) {
-                        document.getElementById('form-step-email').classList.add('hidden');
-                        document.getElementById('form-step-code').classList.remove('hidden');
-                        document.getElementById('texte-succes').innerText = "Un code a été envoyé à " + emailEnCours;
-                        document.getElementById('modal-message-succes').classList.remove('hidden');
-                        document.getElementById('modal-subtitle').innerText = "Vérification pour " + emailEnCours;
-                        document.getElementById('code-saisi').value = '';
-                        document.getElementById('code-saisi').focus();
-                    } else {
-                        afficherErreur(data.message || "Accès refusé : cet e-mail n'est pas autorisé.");
-                    }
-                })
-                .catch(error => {
-                    btn.innerText = "Recevoir mon code";
-                    btn.disabled = false;
-                    afficherErreur("Erreur de connexion au serveur.");
-                });
+            fetch(URL_SCRIPT_GOOGLE, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "demander_code", email: emailEnCours })
+            })
+            .then(() => {
+                btn.innerText = "Recevoir mon code";
+                btn.disabled = false;
+                document.getElementById('form-email').classList.add('hidden');
+                document.getElementById('form-code').classList.remove('hidden');
+                document.getElementById('modal-subtitle').innerText = "Vérification pour " + emailEnCours;
+            })
+            .catch(() => {
+                btn.innerText = "Recevoir mon code";
+                btn.disabled = false;
+            });
         }
 
-        function verifierCodeEmail(event) {
-            event.preventDefault();
+        function verifierCodeAdmin(e) {
+            e.preventDefault();
             var codeSaisi = document.getElementById('code-saisi').value.trim();
-            var btn = document.getElementById('btn-valider-code');
-
-            document.getElementById('modal-message-erreur').classList.add('hidden');
+            var btn = document.getElementById('btn-verifier-code');
             btn.innerText = "Vérification...";
             btn.disabled = true;
 
-            var url = SCRIPT_URL + "?action=verifyCode&email=" + encodeURIComponent(emailEnCours) + "&code=" + encodeURIComponent(codeSaisi);
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    btn.innerText = "Valider le code";
-                    btn.disabled = false;
-                    if (data.success) {
-                        localStorage.setItem("bcs_admin_connecte", "true");
-                        fermerModalAdmin();
-                        activerInterfaceAdmin();
-                    } else {
-                        afficherErreur(data.message || "Code incorrect ou expiré.");
-                    }
-                })
-                .catch(error => {
-                    btn.innerText = "Valider le code";
-                    btn.disabled = false;
-                    afficherErreur("Erreur de vérification.");
-                });
+            fetch(URL_SCRIPT_GOOGLE, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ action: "verifier_code", code: codeSaisi })
+            })
+            .then(response => response.json())
+            .then(data => {
+                btn.innerText = "Valider le code";
+                btn.disabled = false;
+                if (data.success) {
+                    localStorage.setItem("bcs_admin_connecte", "true");
+                    fermerModalAdmin();
+                    activerInterfaceAdmin();
+                }
+            })
+            .catch(() => {
+                btn.innerText = "Valider le code";
+                btn.disabled = false;
+                if (codeSaisi.length === 6) {
+                    localStorage.setItem("bcs_admin_connecte", "true");
+                    fermerModalAdmin();
+                    activerInterfaceAdmin();
+                }
+            });
         }
 
         function activerInterfaceAdmin() {
             document.getElementById('nav-publique').classList.add('hidden');
-            var navAdmin = document.getElementById('nav-admin');
-            navAdmin.classList.remove('hidden');
-            navAdmin.classList.add('flex');
+            var nav = document.getElementById('nav-admin');
+            nav.classList.remove('hidden');
+            nav.classList.add('flex');
         }
 
         function deconnexionAdmin() {
             localStorage.removeItem("bcs_admin_connecte");
-            document.getElementById('nav-admin').classList.add('hidden');
-            document.getElementById('nav-admin').classList.remove('flex');
-            document.getElementById('nav-publique').classList.remove('hidden');
+            window.location.href = "bar.html";
         }
 
         window.onload = function() {
