@@ -158,10 +158,9 @@
                         <div class="w-8 h-8 bg-amber-100 text-amber-700 rounded-lg flex items-center justify-center text-lg font-bold shadow-inner">🎱</div>
                         <h2 class="text-base sm:text-lg font-black text-slate-900 uppercase tracking-wide">Billard Club Segréen</h2>
                     </div>
-                    <p class="text-xs text-slate-600 leading-relaxed max-w-md mx-auto">
-    <strong>Devenir partenaire du Billard Club Segréen, c'est associer l'image de votre entreprise à nos valeurs sportives tout en soutenant activement <strong class="text-indigo-600">le développement de notre club local</strong>.
-</strong></p>
-                    
+                   <p class="text-xs text-slate-600 leading-relaxed max-w-md mx-auto">
+    <strong>Devenir partenaire du Billard Club Segréen</strong>, c'est associer l'image de votre entreprise à nos valeurs sportives tout en soutenant activement <strong class="text-indigo-600">le développement de notre club local</strong>.
+</p>
                     <div class="flex flex-wrap justify-center gap-2 pt-1">
                         <button onclick="ouvrirModalExplicationPartenaires()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm flex items-center gap-1.5 cursor-pointer">
                             🤝 Renseignements ici.
@@ -1018,6 +1017,176 @@
                 if (label) label.textContent = 'Musique';
             }
         }
+		
+		
+		
+		
+		
+		
+		// URL du script Google Apps Script dédié au Chat
+var URL_CHAT_SCRIPT = "https://script.google.com/macros/s/AKfycbwT1sfOXnuycJEzYGQpP-9o1bK4RRz3FUC0lu-YoiL6k3jjEdmspbj3SEVvtyktHbw/exec";
+var intervalleChat = null;
+
+function toggleChatBCS() {
+    var modal = document.getElementById('chat-bcs-modal');
+    if (modal.classList.contains('hidden')) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        chargerMessagesChat();
+        // Rafraîchissement automatique toutes les 4 secondes quand le chat est ouvert
+        if (!intervalleChat) intervalleChat = setInterval(chargerMessagesChat, 4000);
+    } else {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        if (intervalleChat) {
+            clearInterval(intervalleChat);
+            intervalleChat = null;
+        }
+    }
+}
+
+function chargerMessagesChat() {
+    if (!URL_CHAT_SCRIPT || URL_CHAT_SCRIPT.includes("VOTRE_URL")) return;
+
+    fetch(URL_CHAT_SCRIPT)
+        .then(res => res.json())
+        .then(messages => {
+            var box = document.getElementById('chat-bcs-messages');
+            if (!box) return;
+            
+            if (messages.length === 0) {
+                box.innerHTML = '<div class="text-center text-[10px] text-slate-500">Aucun message pour le moment. Soyez le premier !</div>';
+                return;
+            }
+
+            box.innerHTML = messages.map(msg => {
+                var estAdmin = msg.auteur.toLowerCase().includes("admin") || msg.auteur.toLowerCase().includes("bcs");
+                return `
+                    <div class="rounded-xl p-2 max-w-[85%] ${estAdmin ? 'bg-amber-500/10 border border-amber-500/30 ml-auto text-right' : 'bg-slate-800 border border-slate-700 mr-auto text-left'}">
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <span class="font-bold text-[11px] ${estAdmin ? 'text-amber-400' : 'text-indigo-400'}">${msg.auteur}</span>
+                            <span class="text-[9px] text-slate-400">${msg.date ? msg.date.split(' ')[1] || '' : ''}</span>
+                        </div>
+                        <p class="text-slate-200 text-xs leading-snug break-words">${msg.texte}</p>
+                    </div>
+                `;
+            }).join('');
+            
+            box.scrollTop = box.scrollHeight;
+        })
+        .catch(err => console.error("Erreur chargement chat :", err));
+}
+
+function envoyerMessageChatBCS(e) {
+    e.preventDefault();
+    var inputAuteur = document.getElementById('chat-auteur');
+    var inputTexte = document.getElementById('chat-texte');
+    var btn = document.getElementById('chat-btn-submit');
+
+    var auteur = inputAuteur.value.trim();
+    var texte = inputTexte.value.trim();
+
+    if (!auteur || !texte) return;
+
+    btn.disabled = true;
+    btn.innerText = "...";
+
+    fetch(URL_CHAT_SCRIPT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ auteur: auteur, texte: texte })
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerText = "Envoyer";
+        inputTexte.value = "";
+        chargerMessagesChat();
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerText = "Envoyer";
+        // Si le mode no-cors est requis
+        chargerMessagesChat();
+    });
+}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
     </script>
+	
+	
+	
+	
+	
+	<!-- BOUTON FLOTTANT DU CHAT (EN BAS À DROITE) -->
+<button onclick="toggleChatBCS()" class="fixed bottom-5 right-5 z-50 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold p-3.5 rounded-full shadow-2xl border border-amber-300 flex items-center gap-2 transition-transform hover:scale-105 cursor-pointer">
+    <span class="text-xl">💬</span>
+    <span class="text-xs font-black uppercase tracking-wider hidden sm:inline">Chat BCS</span>
+</button>
+
+<!-- FENÊTRE DU CHAT -->
+<div id="chat-bcs-modal" class="fixed bottom-20 right-5 z-50 w-80 sm:w-96 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl hidden flex-col overflow-hidden text-slate-100 transition-all">
+    <!-- En-tête du Chat -->
+    <div class="bg-[#0b1329] p-3.5 border-b border-slate-800 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="w-7 h-7 bg-amber-400/20 text-amber-400 rounded-lg flex items-center justify-center font-bold text-sm">🎱</div>
+            <div>
+                <h4 class="text-xs font-black text-amber-400 uppercase tracking-wide">Discussion BCS</h4>
+                <p class="text-[10px] text-slate-400">Posez vos questions en direct</p>
+            </div>
+        </div>
+        <button onclick="toggleChatBCS()" class="text-slate-400 hover:text-white font-bold text-lg leading-none">✕</button>
+    </div>
+
+    <!-- Zone d'affichage des messages -->
+    <div id="chat-bcs-messages" class="p-3 h-64 overflow-y-auto space-y-2.5 text-xs bg-slate-950/50">
+        <div class="text-center text-[10px] text-slate-500">Chargement des discussions...</div>
+    </div>
+
+    <!-- Formulaire d'envoi -->
+    <form onsubmit="envoyerMessageChatBCS(event)" class="p-2.5 bg-slate-900 border-t border-slate-800 space-y-2">
+        <input type="text" id="chat-auteur" placeholder="Votre nom / pseudo" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-400 outline-none focus:border-amber-400">
+        <div class="flex gap-2">
+            <input type="text" id="chat-texte" placeholder="Votre message..." required class="flex-grow bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-400 outline-none focus:border-amber-400">
+            <button type="submit" id="chat-btn-submit" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs transition shrink-0 cursor-pointer">
+                Envoyer
+            </button>
+        </div>
+    </form>
+</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </body>
 </html>
