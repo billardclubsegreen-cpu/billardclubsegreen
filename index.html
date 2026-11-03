@@ -541,14 +541,15 @@
         var URL_SAISIE_JOUEUR = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=saisiejoueur";
         var URL_CARTESIEN = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin";
 
-        var URLS_MODULES_ADMIN = {
-            adherents: "https://script.google.com/macros/s/AKfycbwK1wRE7_ksmrSv9jhC-dZg1DjLkZ840Of5VtbaVsOCvjZQdrVr_MlFMW65eoIT6Lg/exec",
-            stock: "https://script.google.com/macros/s/AKfycby5r8f3BVybHIchC-v9DN5ndnq6giRkbE_zlNylX8Ie0cSPfSayUcUAmDuZnPResCQ/exec",
-            tournoi: "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin",
-            trombi: "https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin",
-            partenaires: "https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin",
-            gazette: "https://script.google.com/macros/s/AKfycbzbbjS49aQsSqp5PgOfr9HIWod4BsS0JJe_V4m05u47CP4AA-1XHGOUn1xxmVq5e_j9/exec?action=admin"
-        };
+     var URLS_MODULES_ADMIN = {
+        adherents: "https://script.google.com/macros/s/AKfycbwK1wRE7_ksmrSv9jhC-dZg1DjLkZ840Of5VtbaVsOCvjZQdrVr_MlFMW65eoIT6Lg/exec",
+        stock: "https://script.google.com/macros/s/AKfycby5r8f3BVybHIchC-v9DN5ndnq6giRkbE_zlNylX8Ie0cSPfSayUcUAmDuZnPResCQ/exec",
+        tournoi: "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin",
+        trombi: "https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin",
+        partenaires: "https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin",
+        gazette: "https://script.google.com/macros/s/AKfycbzbbjS49aQsSqp5PgOfr9HIWod4BsS0JJe_V4m05u47CP4AA-1XHGOUn1xxmVq5e_j9/exec?action=admin",
+        chat: "https://script.google.com/macros/s/AKfycbwT1sfOXnuycJEzYGQpP-9o1bK4RRz3FUC0lu-YoiL6k3jjEdmspbj3SEVvtyktHbw/exec"
+    };
 
         var INFOS_MODULES = {
             adherents: { icon: "👥", title: "Administration — Gestion des Adhérents", subtitle: "Base de données et suivi des licences" },
@@ -799,10 +800,19 @@
             var nav = document.getElementById('nav-admin');
             nav.classList.remove('hidden');
             nav.classList.add('flex');
+
+            // Afficher le bouton de réinitialisation du chat pour l'administrateur
+            var btnReset = document.getElementById('btn-reset-chat');
+            if (btnReset) btnReset.classList.remove('hidden');
         }
 
         function deconnexionAdmin() {
             localStorage.removeItem("bcs_admin_connecte");
+            
+            // Cacher le bouton de réinitialisation du chat
+            var btnReset = document.getElementById('btn-reset-chat');
+            if (btnReset) btnReset.classList.add('hidden');
+
             window.location.href = "index.html";
         }
 
@@ -1115,7 +1125,25 @@ function envoyerMessageChatBCS(e) {
 		
 		
 		
-		
+	// Fonction pour vider le chat via le script Google Apps Script
+function resetChatBCS() {
+    if (!confirm("Voulez-vous vraiment vider tout l'historique du chat ?")) return;
+
+    fetch("https://script.google.com/macros/s/AKfycbwT1sfOXnuycJEzYGQpP-9o1bK4RRz3FUC0lu-YoiL6k3jjEdmspbj3SEVvtyktHbw/exec", {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ action: "reset" })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("Le chat a été réinitialisé avec succès !");
+        chargerMessagesChat();
+    })
+    .catch(err => {
+        alert("Erreur lors de la réinitialisation.");
+        console.error(err);
+    });
+}	
 		
 		
 		
@@ -1143,7 +1171,10 @@ function envoyerMessageChatBCS(e) {
 
 <!-- FENÊTRE DU CHAT -->
 <div id="chat-bcs-modal" class="fixed bottom-20 right-5 z-50 w-80 sm:w-96 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl hidden flex-col overflow-hidden text-slate-100 transition-all">
-    <!-- En-tête du Chat -->
+   
+
+
+   <!-- En-tête du Chat -->
     <div class="bg-[#0b1329] p-3.5 border-b border-slate-800 flex justify-between items-center">
         <div class="flex items-center gap-2">
             <div class="w-7 h-7 bg-amber-400/20 text-amber-400 rounded-lg flex items-center justify-center font-bold text-sm">🎱</div>
@@ -1152,7 +1183,11 @@ function envoyerMessageChatBCS(e) {
                 <p class="text-[10px] text-slate-400">Posez vos questions en direct</p>
             </div>
         </div>
-        <button onclick="toggleChatBCS()" class="text-slate-400 hover:text-white font-bold text-lg leading-none">✕</button>
+        <div class="flex items-center gap-2">
+            <!-- Bouton Vider (invisible par défaut, visible seulement pour l'admin) -->
+            <button id="btn-reset-chat" onclick="resetChatBCS()" title="Vider l'historique" class="hidden text-slate-400 hover:text-rose-400 text-xs px-1.5 py-0.5 rounded transition bg-slate-800/60 border border-slate-700 cursor-pointer">🗑️ Vider</button>
+            <button onclick="toggleChatBCS()" class="text-slate-400 hover:text-white font-bold text-lg leading-none cursor-pointer">✕</button>
+        </div>
     </div>
 
     <!-- Zone d'affichage des messages -->
