@@ -11,15 +11,15 @@
             zoom: 0.85;
         }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #0b1329; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen flex flex-col justify-between text-slate-800 pt-28 sm:pt-24">
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between text-slate-800">
 
-   <!-- BARRE DE MENU FIXE ET IDENTIQUE SUR TOUTES LES PAGES -->
-    <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col xl:flex-row justify-between items-center gap-3">
+    <!-- BARRE EN-TÊTE FIXE EN HAUT avec bouton Administrateur -->
+    <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50 h-16 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3 shrink-0">
                 <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-xl shadow border border-slate-700">🎱</div>
                 <div>
@@ -28,217 +28,347 @@
                 </div>
             </a>
 
-            <!-- Navigation Publique -->
-            <nav id="nav-publique" class="flex flex-wrap items-center gap-2 text-xs font-bold">
-                <a href="index.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏠 Accueil</a>
-                <a href="inscription.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🎯 Inscription Tournoi</a>
-                <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🏆 CueScore</a>
-                <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📰 La Gazette</a>
-                <a href="galerie.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🖼️ Galerie</a>
-                <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📸 Trombinoscope</a>
-                <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">🤝 Partenaires</a>
-                <a href="streaming.html" class="bg-indigo-600 text-white px-3.5 py-2 rounded-xl transition border border-indigo-500">📺 Direct & TV</a>
-                <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl transition border border-slate-700/50">📞 Contacts</a>
-            </nav>
-
-            <!-- Navigation Admin (Unifiée, sans Accueil, en Modales) -->
-            <nav id="nav-admin" class="hidden flex-wrap items-center gap-1.5 text-xs font-bold">
-                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px]">Admin 🟢</span>
-                <a href="bar.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">🍻 Bar</a>
-                <a href="stock.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">📦 Stocks</a>
-                <button onclick="ouvrirModalModuleAdmin('adherents')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg transition">👥 Gérer Adhérents</button>
-                <button onclick="ouvrirModalModuleAdmin('tournoi')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg transition">🎯 Admin Tournoi</button>
-                <button onclick="ouvrirModalModuleAdmin('trombi')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">📸 Trombi Admin</button>
-                <button onclick="ouvrirModalModuleAdmin('partenaires')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">🤝 Gérer Partenaires</button>
-                <button onclick="ouvrirModalModuleAdmin('gazette')" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg transition">📰 Éditer Gazette</button>
-                <a href="comptes-rendus.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">📝 Comptes Rendus</a>
-                <a href="registre-rgpd.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg transition">🔒 RGPD</a>
-                <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg transition ml-2">Déconnexion</button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Contenu Principal -->
-    <main class="max-w-7xl mx-auto px-4 py-8 space-y-8 flex-grow w-full">
-
-        <!-- Banner de bienvenue -->
-        <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row justify-between items-center gap-4 border border-slate-800">
-            <div>
-                <div class="flex items-center gap-2">
-                    <span class="bg-rose-500/20 text-rose-400 border border-rose-500/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span> DIRECT TV BCS
-                    </span>
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-black mt-2">📺 Double Diffusion Live (2 Caméras)</h2>
-                <p class="text-xs sm:text-sm text-slate-300 mt-1">Suivez simultanément les flux des deux caméras du club en direct.</p>
-            </div>
-            <div class="flex items-center gap-2">
-                <button onclick="rafraichirDirect()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition flex items-center gap-2">
-                    🔄 Actualiser les scores
+            <!-- BOUTON SÉCURISÉ / ADMIN EN HAUT À DROITE -->
+            <div class="flex items-center gap-3">
+                <button onclick="ouvrirModalAdmin()" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-xl transition flex items-center gap-2 shadow font-bold text-xs cursor-pointer">
+                    🔒 Accès Administrateur
                 </button>
             </div>
         </div>
+    </header>
 
-        <!-- Panneau de Configuration Admin des Liens (Visible uniquement en mode Admin) -->
-        <div id="panel-admin-config" class="hidden bg-amber-50 border-2 border-amber-300 p-6 rounded-3xl shadow-sm space-y-4">
-            <h3 class="text-sm font-black text-amber-900 flex items-center gap-2">
-                ⚙️ Configuration Administrateur des Flux Vidéo YouTube
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                <div class="space-y-1">
-                    <label class="font-bold text-slate-700">Lien Caméra 1 (Tables 1 & 2) :</label>
-                    <div class="flex gap-2">
-                        <input type="text" id="input-url-cam1" placeholder="Coller le lien YouTube ici..." class="w-full bg-white border border-slate-300 rounded-xl p-2.5 outline-none focus:border-amber-500">
-                        <button onclick="sauvegarderFlux(1)" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-4 py-2.5 rounded-xl shadow transition">Appliquer</button>
-                    </div>
+    <!-- DISPOSITION SUR 3 COLONNES (MENU GAUCHE, CONTENU MILIEU, PARTENAIRES DROITE) -->
+    <div class="flex flex-col lg:flex-row max-w-[96rem] w-full mx-auto pt-20 px-4 gap-6 flex-grow">
+        
+        <!-- SIDEBAR DE NAVIGATION PUBLIQUE À GAUCHE -->
+        <aside class="w-full lg:w-60 shrink-0">
+            <div class="bg-[#0b1329] rounded-2xl p-4 shadow-md border border-slate-800 sticky top-20 text-white space-y-3">
+                <div class="text-xs font-black uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>📑</span> Navigation Menu
                 </div>
-                <div class="space-y-1">
-                    <label class="font-bold text-slate-700">Lien Caméra 2 (Tables 3 & 4) :</label>
-                    <div class="flex gap-2">
-                        <input type="text" id="input-url-cam2" placeholder="Coller le lien YouTube ici..." class="w-full bg-white border border-slate-300 rounded-xl p-2.5 outline-none focus:border-amber-500">
-                        <button onclick="sauvegarderFlux(2)" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-4 py-2.5 rounded-xl shadow transition">Appliquer</button>
+
+                <!-- NAVIGATION PUBLIQUE VERTICALE -->
+                <nav id="nav-publique" class="flex flex-col gap-1.5 text-xs font-bold">
+                    <a href="index.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🏠 Accueil</a>
+                    <button onclick="ouvrirModalInscription()" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 cursor-pointer text-left flex items-center gap-2">🎯 Inscription Challenge</button>
+                    <button onclick="ouvrirModalFFB()" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 cursor-pointer text-left flex items-center gap-2">🎯 Inscription FFB</button>
+                    <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🏆 CueScore</a>
+                    <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📰 La Gazette</a>
+                    <a href="galerie.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🖼️ Galerie</a>
+                    <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📸 Trombinoscope</a>
+                    <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🤝 Partenaires</a>
+                    <a href="streaming.html" class="bg-indigo-600 text-white px-3.5 py-2.5 rounded-xl transition border border-indigo-500 flex items-center gap-2">📺 Direct & TV</a>
+                    <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📞 Contacts</a>
+                </nav>
+
+                <!-- NAVIGATION ADMIN QUAND CONNECTÉ -->
+                <nav id="nav-admin" class="hidden flex-col gap-1.5 text-xs font-bold pt-2 border-t border-slate-800">
+                    <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-mono text-[11px] text-center">Admin 🟢</span>
+                    <a href="bar.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition">🍻 Bar</a>
+                    <button onclick="ouvrirModalModuleAdmin('stock')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition text-left">📦 Stocks</button>
+                    <button onclick="ouvrirModalModuleAdmin('adherents')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-lg transition text-left">👥 Gérer Adhérents</button>
+                    <button onclick="ouvrirModalModuleAdmin('tournoi')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-lg transition text-left">🎯 Admin Tournoi</button>
+                    <button onclick="ouvrirModalModuleAdmin('trombi')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition text-left">📸 Trombi Admin</button>
+                    <button onclick="ouvrirModalModuleAdmin('partenaires')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition text-left">🤝 Gérer Partenaires</button>
+                    <button onclick="ouvrirModalModuleAdmin('gazette')" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg transition text-left">📰 Éditer Gazette</button>
+                    <a href="genererfb.html" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg transition text-left flex items-center gap-2">🤖 Générateur FB</a>
+                    <a href="comptes-rendus.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition">📝 Comptes Rendus</a>
+                    <a href="registre-rgpd.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg transition">🔒 RGPD</a>
+                    <button onclick="deconnexionAdmin()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-2 rounded-lg transition mt-2 text-center">Déconnexion</button>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- ZONE CENTRALE (CONTENU STREAMING) -->
+        <main class="flex-grow space-y-6 min-w-0">
+
+            <!-- Banner de bienvenue -->
+            <div class="bg-slate-900 text-white rounded-2xl p-6 shadow-md border border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-rose-500/20 text-rose-400 border border-rose-500/30 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span> DIRECT TV BCS
+                        </span>
                     </div>
+                    <h2 class="text-xl sm:text-2xl font-black mt-2 text-amber-400">📺 Double Diffusion Live (2 Caméras)</h2>
+                    <p class="text-xs text-slate-300 mt-1">Suivez simultanément les flux des deux caméras du club en direct.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="rafraichirDirect()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                        🔄 Actualiser les scores
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Section Streaming Vidéo (Divisée en deux) + Suivi des Tables -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Section Streaming Vidéo (Divisée en deux) + Suivi des Tables -->
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
 
-            <!-- Zone Vidéo Double (Caméra 1 & Caméra 2) -->
-            <div class="lg:col-span-2 bg-slate-900 rounded-3xl p-4 sm:p-6 shadow-xl border border-slate-800 space-y-6">
-                
-                <div class="flex justify-between items-center text-xs font-bold text-slate-300 border-b border-slate-800 pb-3">
-                    <span>🎥 Les 2 flux simultanés en direct</span>
-                    <a href="https://www.youtube.com/@billardclubsegreen" target="_blank" class="text-rose-400 hover:underline flex items-center gap-1">
-                        Chaîne YouTube 🔴
-                    </a>
-                </div>
-
-                <!-- Grille divisée en deux lecteurs -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Zone Vidéo Double (Caméra 1 & Caméra 2) avec saisie intégrée -->
+                <div class="xl:col-span-2 bg-slate-900 rounded-2xl p-4 sm:p-6 shadow-xl border border-slate-800 space-y-6 text-white">
                     
-                    <!-- Caméra 1 -->
-                    <div class="space-y-2">
-                        <div class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
-                            <span>🎯</span> Caméra 1 (Tables 1 & 2)
-                        </div>
-                        <div class="relative w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-xl border border-slate-800 flex items-center justify-center" id="box-iframe-cam1">
-                            <!-- Injecté par JS -->
-                        </div>
+                    <div class="flex justify-between items-center text-xs font-bold text-slate-300 border-b border-slate-800 pb-3">
+                        <span>🎥 Studio de Diffusion Live (2 Caméras)</span>
+                        <a href="https://www.youtube.com/@billardclubsegreen" target="_blank" class="text-rose-400 hover:underline flex items-center gap-1">
+                            Chaîne YouTube 🔴
+                        </a>
                     </div>
 
-                    <!-- Caméra 2 -->
-                    <div class="space-y-2">
-                        <div class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
-                            <span>🎯</span> Caméra 2 (Tables 3 & 4)
+                    <!-- Grille divisée en deux lecteurs avec saisie de lien -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        
+                        <!-- Caméra 1 -->
+                        <div class="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <div class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                                <span>🎯</span> Téléphone 1 — TABLES 1 & 2
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" id="input-url-cam1" placeholder="Lien ou ID YouTube..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white outline-none focus:border-amber-500">
+                                <button onclick="sauvegarderFlux(1)" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow shrink-0">Activer Direct</button>
+                            </div>
+                            <div id="msg-statut-cam1" class="text-[11px] text-emerald-400 hidden">✅ Flux activé !</div>
+                            <div class="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-xl border border-slate-800 flex items-center justify-center" id="box-iframe-cam1">
+                                <!-- Injecté par JS -->
+                            </div>
                         </div>
-                        <div class="relative w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-xl border border-slate-800 flex items-center justify-center" id="box-iframe-cam2">
-                            <!-- Injecté par JS -->
+
+                        <!-- Caméra 2 -->
+                        <div class="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <div class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                                <span>🎯</span> Téléphone 2 — TABLES 3 & 4
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" id="input-url-cam2" placeholder="Lien ou ID YouTube..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white outline-none focus:border-amber-500">
+                                <button onclick="sauvegarderFlux(2)" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow shrink-0">Activer Direct</button>
+                            </div>
+                            <div id="msg-statut-cam2" class="text-[11px] text-emerald-400 hidden">✅ Flux activé !</div>
+                            <div class="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-xl border border-slate-800 flex items-center justify-center" id="box-iframe-cam2">
+                                <!-- Injecté par JS -->
+                            </div>
                         </div>
+
                     </div>
 
+                    <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/50 flex justify-between items-center text-[11px] text-slate-400">
+                        <span>💡 Rafraîchissement automatique des résultats des tables toutes les 30 sec.</span>
+                        <span id="heure-maj" class="font-mono text-slate-300">Mis à jour à --:--</span>
+                    </div>
                 </div>
 
-                <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/50 flex justify-between items-center text-[11px] text-slate-400">
-                    <span>💡 Rafraîchissement automatique des résultats des tables toutes les 30 sec.</span>
-                    <span id="heure-maj" class="font-mono text-slate-300">Mis à jour à --:--</span>
+                <!-- Panneau d'affichage des scores en direct -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide flex items-center justify-between">
+                        <span>🏆 Scores des Tables</span>
+                        <span class="text-[10px] font-normal text-slate-500 bg-slate-100 px-2 py-1 rounded-lg">En direct</span>
+                    </h3>
+
+                    <div class="space-y-3" id="liste-tables">
+                        <!-- Table 1 -->
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+                            <div class="flex justify-between items-center text-xs font-bold text-slate-700">
+                                <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">Table 1</span>
+                                <span class="text-emerald-600 font-mono text-[10px]">En cours</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs font-bold pt-1">
+                                <span class="text-slate-800 truncate max-w-[90px]">Joueur A</span>
+                                <span class="bg-slate-900 text-amber-400 px-2 py-0.5 rounded font-mono text-xs">3 - 1</span>
+                                <span class="text-slate-800 truncate max-w-[90px]">Joueur B</span>
+                            </div>
+                        </div>
+
+                        <!-- Table 2 -->
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+                            <div class="flex justify-between items-center text-xs font-bold text-slate-700">
+                                <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">Table 2</span>
+                                <span class="text-emerald-600 font-mono text-[10px]">En cours</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs font-bold pt-1">
+                                <span class="text-slate-800 truncate max-w-[90px]">Joueur C</span>
+                                <span class="bg-slate-900 text-amber-400 px-2 py-0.5 rounded font-mono text-xs">2 - 2</span>
+                                <span class="text-slate-800 truncate max-w-[90px]">Joueur D</span>
+                            </div>
+                        </div>
+
+                        <!-- Table 3 -->
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+                            <div class="flex justify-between items-center text-xs font-bold text-slate-700">
+                                <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">Table 3</span>
+                                <span class="text-emerald-600 font-mono text-[10px]">En cours</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs font-bold pt-1">
+                                <span class="text-slate-800 truncate max-w-[90px]">Joueur E</span>
+                                <span class="bg-slate-900 text-amber-400 px-2 py-0.5 rounded font-mono text-xs">1 - 0</span>
+                                <span class="text-slate-800 truncate max-w-[90px]">Joueur F</span>
+                            </div>
+                        </div>
+
+                        <!-- Table 4 -->
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+                            <div class="flex justify-between items-center text-xs font-bold text-slate-700">
+                                <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">Table 4</span>
+                                <span class="text-emerald-600 font-mono text-[10px]">En cours</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs font-bold pt-1">
+                                <span class="text-slate-800 truncate max-w-[90px]">Joueur G</span>
+                                <span class="bg-slate-900 text-amber-400 px-2 py-0.5 rounded font-mono text-xs">4 - 2</span>
+                                <span class="text-slate-800 truncate max-w-[90px]">Joueur H</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
-            <!-- Panneau d'affichage des scores en direct -->
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-                <h3 class="text-base font-bold text-slate-800 flex items-center justify-between">
-                    <span>🏆 Scores des Tables</span>
-                    <span class="text-[10px] font-normal text-slate-500 bg-slate-100 px-2 py-1 rounded-lg">En direct</span>
+            <!-- Guide de Lancement du Live -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide flex items-center gap-2">
+                    <span>📱</span> Guide de Lancement du Live (Pour l'organisation)
                 </h3>
 
-                <div class="space-y-3" id="liste-tables">
-                    <!-- Table 1 -->
-                    <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
-                        <div class="flex justify-between items-center text-xs font-bold text-slate-700">
-                            <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">Table 1</span>
-                            <span class="text-emerald-600 font-mono text-[11px]">En cours</span>
-                        </div>
-                        <div class="flex justify-between items-center text-xs font-bold pt-1">
-                            <span class="text-slate-800">Joueur A</span>
-                            <span class="bg-slate-900 text-amber-400 px-2.5 py-1 rounded-lg font-mono text-sm">3 - 1</span>
-                            <span class="text-slate-800">Joueur B</span>
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs text-slate-600">
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-1.5">
+                        <div class="font-black text-indigo-600 text-sm">1. Trépied</div>
+                        <p class="text-[11px]">Positionnez le trépied et orientez le téléphone pour cadrer au mieux les tables.</p>
                     </div>
-
-                    <!-- Table 2 -->
-                    <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
-                        <div class="flex justify-between items-center text-xs font-bold text-slate-700">
-                            <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">Table 2</span>
-                            <span class="text-emerald-600 font-mono text-[11px]">En cours</span>
-                        </div>
-                        <div class="flex justify-between items-center text-xs font-bold pt-1">
-                            <span class="text-slate-800">Joueur C</span>
-                            <span class="bg-slate-900 text-amber-400 px-2.5 py-1 rounded-lg font-mono text-sm">2 - 2</span>
-                            <span class="text-slate-800">Joueur D</span>
-                        </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-1.5">
+                        <div class="font-black text-indigo-600 text-sm">2. App YouTube</div>
+                        <p class="text-[11px]">Ouvrez l'application YouTube sur le compte du Billard Club Segréen.</p>
                     </div>
-
-                    <!-- Table 3 -->
-                    <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
-                        <div class="flex justify-between items-center text-xs font-bold text-slate-700">
-                            <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">Table 3</span>
-                            <span class="text-emerald-600 font-mono text-[11px]">En cours</span>
-                        </div>
-                        <div class="flex justify-between items-center text-xs font-bold pt-1">
-                            <span class="text-slate-800">Joueur E</span>
-                            <span class="bg-slate-900 text-amber-400 px-2.5 py-1 rounded-lg font-mono text-sm">1 - 0</span>
-                            <span class="text-slate-800">Joueur F</span>
-                        </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-1.5">
+                        <div class="font-black text-indigo-600 text-sm">3. Passer au direct</div>
+                        <p class="text-[11px]">Appuyez sur "<strong>+</strong>" et choisissez "<strong>Passer au direct</strong>".</p>
                     </div>
-
-                    <!-- Table 4 -->
-                    <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
-                        <div class="flex justify-between items-center text-xs font-bold text-slate-700">
-                            <span class="bg-indigo-600 text-white px-2 py-0.5 rounded-md text-[10px]">Table 4</span>
-                            <span class="text-emerald-600 font-mono text-[11px]">En cours</span>
-                        </div>
-                        <div class="flex justify-between items-center text-xs font-bold pt-1">
-                            <span class="text-slate-800">Joueur G</span>
-                            <span class="bg-slate-900 text-amber-400 px-2.5 py-1 rounded-lg font-mono text-sm">4 - 2</span>
-                            <span class="text-slate-800">Joueur H</span>
-                        </div>
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 space-y-1.5">
+                        <div class="font-black text-indigo-600 text-sm">4. Lancer & Coller</div>
+                        <p class="text-[11px]">Copiez le lien de la vidéo et collez-le directement sous la caméra correspondante !</p>
                     </div>
                 </div>
             </div>
 
-        </div>
+        </main>
 
-        <!-- Guide de Lancement du Live (Procédure YouTube) -->
-        <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-            <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                📱 Guide de Lancement du Live (Pour l'organisation)
-            </h3>
+        <!-- SIDEBAR DE DROITE : NOS PARTENAIRES OFFICIELS -->
+        <aside class="w-full lg:w-72 shrink-0 space-y-3">
+            <div class="bg-white rounded-2xl p-3 shadow-md border border-slate-200 sticky top-20 space-y-2">
+                <div class="text-center pb-1.5 border-b border-slate-100">
+                    <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide flex items-center justify-center gap-1.5">
+                        <span>🤝</span> Nos Partenaires
+                    </h3>
+                    <p class="text-[10px] text-slate-500">Soutiens officiels du club</p>
+                </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs text-slate-600">
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
-                    <div class="font-black text-indigo-600 text-sm">1. Trépied</div>
-                    <p>Positionnez le trépied et orientez le téléphone pour cadrer au mieux les tables concernées.</p>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
-                    <div class="font-black text-indigo-600 text-sm">2. App YouTube</div>
-                    <p>Ouvrez l'application YouTube sur le téléphone en étant bien connecté au compte du Billard Club Segréen.</p>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
-                    <div class="font-black text-indigo-600 text-sm">3. Passer au direct</div>
-                    <p>Appuyez sur le bouton "<strong>+</strong>" au bas de l'écran, choisissez "<strong>Passer au direct</strong>" et nommez l'événement.</p>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-2">
-                    <div class="font-black text-indigo-600 text-sm">4. Lancer & Copier</div>
-                    <p>Appuyez sur "<strong>Diffuser en direct</strong>", copiez le lien de la vidéo et collez-le ci-dessus dans l'espace Admin !</p>
+                <div class="flex flex-col gap-1.5 max-h-[62vh] overflow-y-auto pr-1">
+                    <a href="https://www.chopeetcompagnie-leliondangers.fr/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1qoaDVZx8TRtCLTpoIB9ttmPT_hePMIlI=s400" alt="Chope" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Chope & Compagnie</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Le Lion-d'Angers</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.entreprise-defais.com/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1oqqXI0zohN4LEaEyPjE9-oyWie98UKhj=s400" alt="Defais" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Entreprise Defais</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Bâtiment / Maçonnerie</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.garagecaillere.com/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1AjF41wZffyiaD0qxgsZdsr05aAsRSIy3=s400" alt="Caillère" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Garage Caillère</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Mécanique Auto</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.planity.com/lcoiff-by-cynthia-49500-segre-en-anjou-bleu-d6i" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/12LlmDgVU0u-2WW9LVzUBnYTJCYRtgY5o=s400" alt="Cynthia" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">L'Coiff Cynthia</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Salon de coiffure</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.segreenanjoubleu.fr/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1yEdcGvjGc2Mx5XhkC7cA5EyQFpfAVNVV=s400" alt="Segré" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Segré Anjou Bleu</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Collectivité</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.oxygeneradio.com/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1q1a5wzl_NashJDTzSVx3yoOx6QYMYknk=s400" alt="Oxygène" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Oxygène Radio</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Média local</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.solutec-pointcles.fr/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/18ailFwFGyg5d3hL60gKI5w2YafYXhghY=s400" alt="Solutec" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Solutec Point Clés</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Clés & Sécurité</span>
+                        </div>
+                    </a>
                 </div>
             </div>
+        </aside>
+
+    </div>
+
+    <!-- MODALES -->
+    <div id="modal-inscription" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-white rounded-3xl w-full max-w-4xl h-[85vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
+            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shrink-0 border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">🎯</span>
+                    <div>
+                        <h3 class="font-bold text-sm sm:text-base text-amber-400">Challenge BCS — Inscription</h3>
+                        <p class="text-[11px] text-slate-400">Formulaire d'inscription au tournoi</p>
+                    </div>
+                </div>
+                <button onclick="fermerModalInscription()" class="text-slate-400 hover:text-white text-2xl font-bold transition cursor-pointer">✕</button>
+            </div>
+            <div class="flex-grow w-full bg-slate-100 overflow-hidden">
+                <iframe id="iframe-inscription" src="" class="w-full h-full border-0"></iframe>
+            </div>
         </div>
+    </div>
 
-    </main>
+    <div id="modal-ffb" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-white rounded-3xl w-full max-w-4xl h-[88vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
+            <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shrink-0 border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">📋</span>
+                    <div>
+                        <h3 class="font-bold text-sm sm:text-base text-amber-400">Demande de Licence FFB</h3>
+                        <p class="text-[11px] text-slate-400">Formulaire officiel de demande de licence</p>
+                    </div>
+                </div>
+                <button onclick="fermerModalFFB()" class="text-slate-400 hover:text-white text-2xl font-bold transition cursor-pointer">✕</button>
+            </div>
+            <div class="flex-grow w-full bg-slate-100 overflow-hidden">
+                <iframe id="iframe-ffb" src="" class="w-full h-full border-0"></iframe>
+            </div>
+        </div>
+    </div>
 
-    <!-- MODALE UNIVERSELLE POUR LES MODULES ADMIN (Taille Réduite) -->
     <div id="modal-module-admin" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
         <div class="bg-white rounded-3xl w-full max-w-4xl h-[78vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
             <div class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shrink-0 border-b border-slate-800">
@@ -257,29 +387,67 @@
         </div>
     </div>
 
-    <!-- Pied de page -->
-    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+    <div id="modal-admin" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-slate-200 text-center space-y-5 relative">
+            <button onclick="fermerModalAdmin()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+            <div class="space-y-2">
+                <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl mx-auto flex items-center justify-center text-xl font-bold shadow-inner">🎱</div>
+                <h3 class="text-lg font-black text-slate-900">Billard Club Segréen</h3>
+                <p class="text-xs text-slate-500" id="modal-subtitle">Accès sécurisé par e-mail</p>
+            </div>
+
+            <div id="modal-message" class="hidden p-3.5 rounded-xl text-xs font-medium text-left space-y-1.5"></div>
+
+            <form id="form-email" onsubmit="demanderCodeAdmin(event)" class="space-y-4 text-left text-xs">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Votre adresse e-mail :</label>
+                    <input type="email" id="email-admin-saisi" required placeholder="votre.email@exemple.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-medium">
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="fermerModalAdmin()" class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">Annuler</button>
+                    <button type="submit" id="btn-envoyer-code" class="w-1/2 bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl transition shadow-md">Recevoir mon code</button>
+                </div>
+            </form>
+
+            <form id="form-code" onsubmit="verifierCodeAdmin(event)" class="space-y-4 text-left text-xs hidden">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Entrez le code reçu par e-mail :</label>
+                    <input type="text" id="code-saisi" maxlength="6" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 outline-none focus:border-amber-600 focus:bg-white text-slate-800 font-mono text-center text-lg tracking-widest">
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="revenirEtapeEmail()" class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition">Retour</button>
+                    <button type="submit" id="btn-verifier-code" class="w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-md">Valider le code</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#0b1329] text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2 mt-8">
         <div class="flex flex-wrap justify-center gap-4 text-slate-300">
             <a href="contacts.html" class="hover:underline">Contacts</a>
             <span>•</span>
-            <a href="registre-rgpd.html" class="hover:underline text-indigo-400 font-bold">Registre RGPD</a>
+            <a href="registre-rgpd.html" class="hover:underline text-indigo-400">Registre RGPD</a>
             <span>•</span>
             <a href="https://www.facebook.com/billard.club.segreen.bcs/" target="_blank" class="hover:underline">Facebook</a>
-            <span>•</span>
-            <a href="https://www.youtube.com/@billardclubsegreen" target="_blank" class="hover:underline">YouTube</a>
         </div>
         <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
     </footer>
 
-    <!-- Script JavaScript -->
+    <!-- SCRIPT -->
     <script>
-        var URLS_MODULES_ADMIN = {
-            adherents: "adherent.html",
-            tournoi: "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin",
-            trombi: "https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin",
-            partenaires: "https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin",
-            gazette: "https://script.google.com/macros/s/AKfycbzbbjS49aQsSqp5PgOfr9HIWod4BsS0JJe_V4m05u47CP4AA-1XHGOUn1xxmVq5e_j9/exec?action=admin"
-        };
+        var URL_SCRIPT_GOOGLE = "https://script.google.com/macros/s/AKfycbzwZojzIEhT2RCIJtMK3Okb9MtfZYnJwKINMA0SPwbrfliSV9ITmuDEriUQjBVc7t0-/exec";
+        var URL_INSCRIPTION = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=inscription";
+        var URL_INSCRIPTION_FFB = "https://docs.google.com/forms/d/e/1FAIpQLSfX-AQxkHlRIYEpAnrJR2MJo1Gu-CvYveL_zh7fW2NpTkCFzw/viewform?embedded=true";
+
+var URLS_MODULES_ADMIN = {
+    adherents: "https://script.google.com/macros/s/AKfycbwK1wRE7_ksmrSv9jhC-dZg1DjLkZ840Of5VtbaVsOCvjZQdrVr_MlFMW65eoIT6Lg/exec",
+    stock: "https://script.google.com/macros/s/AKfycby5r8f3BVybHIchC-v9DN5ndnq6giRkbE_zlNylX8Ie0cSPfSayUcUAmDuZnPResCQ/exec",
+    tournoi: "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin",
+    trombi: "https://script.google.com/macros/s/AKfycby8_xWwpcZVd9soKLAHnlYbQoOKdGB-bsxYbXGlMX_KSPbKxECkD-5AwNGfjhblQNJA/exec?mode=admin",
+    partenaires: "https://script.google.com/macros/s/AKfycbx1CIxM3ll6ZMTRH4J2egRRy_7zrN7_oNrTb3A5KSJG38_w_-8jb08u7fTRHUZ3U1Sl/exec?page=admin",
+    gazette: "https://script.google.com/macros/s/AKfycbzbbjS49aQsSqp5PgOfr9HIWod4BsS0JJe_V4m05u47CP4AA-1XHGOUn1xxmVq5e_j9/exec?action=admin"
+};
 
         var INFOS_MODULES = {
             adherents: { icon: "👥", title: "Administration — Gestion des Adhérents", subtitle: "Base de données et suivi des licences" },
@@ -289,52 +457,82 @@
             gazette: { icon: "📰", title: "Administration — Textes de la Gazette", subtitle: "Modification des articles et mot du président" }
         };
 
+        function ouvrirModalInscription() {
+            var iframe = document.getElementById('iframe-inscription');
+            if (iframe) iframe.src = URL_INSCRIPTION;
+            document.getElementById('modal-inscription').classList.remove('hidden');
+        }
+
+        function fermerModalInscription() {
+            document.getElementById('modal-inscription').classList.add('hidden');
+            var iframe = document.getElementById('iframe-inscription');
+            if (iframe) iframe.src = "";
+        }
+
+        function ouvrirModalFFB() {
+            var iframe = document.getElementById('iframe-ffb');
+            if (iframe) iframe.src = URL_INSCRIPTION_FFB;
+            document.getElementById('modal-ffb').classList.remove('hidden');
+        }
+
+        function fermerModalFFB() {
+            document.getElementById('modal-ffb').classList.add('hidden');
+            var iframe = document.getElementById('iframe-ffb');
+            if (iframe) iframe.src = "";
+        }
+
         function ouvrirModalModuleAdmin(cleModule) {
             if (URLS_MODULES_ADMIN[cleModule]) {
                 var info = INFOS_MODULES[cleModule];
-                document.getElementById('modal-module-icon').innerText = info.icon;
-                document.getElementById('modal-module-title').innerText = info.title;
-                document.getElementById('modal-module-subtitle').innerText = info.subtitle;
-                
-                document.getElementById('iframe-module-admin').src = URLS_MODULES_ADMIN[cleModule];
+                if (info) {
+                    document.getElementById('modal-module-icon').innerText = info.icon;
+                    document.getElementById('modal-module-title').innerText = info.title;
+                    document.getElementById('modal-module-subtitle').innerText = info.subtitle;
+                }
+                var iframe = document.getElementById('iframe-module-admin');
+                if (iframe) iframe.src = URLS_MODULES_ADMIN[cleModule];
                 document.getElementById('modal-module-admin').classList.remove('hidden');
             }
         }
 
         function fermerModalModuleAdmin() {
             document.getElementById('modal-module-admin').classList.add('hidden');
-            document.getElementById('iframe-module-admin').src = "";
+            var iframe = document.getElementById('iframe-module-admin');
+            if (iframe) iframe.src = "";
         }
 
-        // Fonction pour transformer une URL YouTube classique en URL Embed intégrable
         function convertirUrlEmbed(url) {
             if (!url) return "";
             if (url.includes("embed/")) return url;
             
             let videoId = "";
+            
+            // Gestion des URLs de type watch?v=ID ou youtu.be/ID ou live/ID avec extraction propre malgré les paramètres (ex: &t=9548s)
             if (url.includes("youtu.be/")) {
-                videoId = url.split("youtu.be/")[1].split("?")[0];
+                videoId = url.split("youtu.be/")[1].split("?")[0].split("&")[0];
             } else if (url.includes("watch?v=")) {
                 videoId = url.split("watch?v=")[1].split("&")[0];
             } else if (url.includes("live/")) {
-                videoId = url.split("live/")[1].split("?")[0];
+                videoId = url.split("live/")[1].split("?")[0].split("&")[0];
+            } else {
+                videoId = url.trim().split("?")[0].split("&")[0];
             }
 
             if (videoId) {
-                return `https://www.youtube.com/embed/${videoId}`;
+                return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0`;
             }
-            return url;
+            return "";
         }
 
         function chargerFluxVideos() {
-            let url1 = localStorage.getItem("bcs_cam1_url") || "https://www.youtube.com/embed/K1sgR-hipGk";
-            let url2 = localStorage.getItem("bcs_cam2_url") || "https://www.youtube.com/embed/live_stream?channel=UC_REPLACE_WITH_CHANNEL_ID";
+            let url1 = localStorage.getItem("bcs_cam1_url") || "";
+            let url2 = localStorage.getItem("bcs_cam2_url") || "";
 
-            document.getElementById('box-iframe-cam1').innerHTML = `<iframe class="w-full h-full" src="${url1}" title="Caméra 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
-            document.getElementById('box-iframe-cam2').innerHTML = `<iframe class="w-full h-full" src="${url2}" title="Caméra 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+            document.getElementById('box-iframe-cam1').innerHTML = url1 ? `<iframe class="w-full h-full border-0" src="${url1}" title="Caméra 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>` : '<div class="text-slate-500 text-xs">Aucun flux actif</div>';
+            document.getElementById('box-iframe-cam2').innerHTML = url2 ? `<iframe class="w-full h-full border-0" src="${url2}" title="Caméra 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>` : '<div class="text-slate-500 text-xs">Aucun flux actif</div>';
 
-            document.getElementById('input-url-cam1').value = localStorage.getItem("bcs_cam1_url") || "";
-            document.getElementById('input-url-cam2').value = localStorage.getItem("bcs_cam2_url") || "";
+            document.getElementById('input-url-cam1').value = localStorage.getItem("bcs_cam1_raw") || "";
+            document.getElementById('input-url-cam2').value = localStorage.getItem("bcs_cam2_raw") || "";
         }
 
         function sauvegarderFlux(camNum) {
@@ -342,12 +540,19 @@
             let embedUrl = convertirUrlEmbed(inputVal);
 
             if (camNum === 1) {
+                localStorage.setItem("bcs_cam1_raw", inputVal);
                 localStorage.setItem("bcs_cam1_url", embedUrl);
             } else {
+                localStorage.setItem("bcs_cam2_raw", inputVal);
                 localStorage.setItem("bcs_cam2_url", embedUrl);
             }
-            alert(`Lien de la Caméra ${camNum} mis à jour avec succès ! 🎥`);
             chargerFluxVideos();
+
+            var msgEl = document.getElementById(`msg-statut-cam${camNum}`);
+            if (msgEl) {
+                msgEl.classList.remove('hidden');
+                setTimeout(() => { msgEl.classList.add('hidden'); }, 3000);
+            }
         }
 
         function rafraichirDirect() {
@@ -362,24 +567,92 @@
 
         setInterval(rafraichirDirect, 30000);
 
-        function activerInterfaceAdmin() {
-            document.getElementById('nav-publique').classList.add('hidden');
-            var navAdmin = document.getElementById('nav-admin');
-            navAdmin.classList.remove('hidden');
-            navAdmin.classList.add('flex');
-            
-            var panelConfig = document.getElementById('panel-admin-config');
-            if (panelConfig) panelConfig.classList.remove('hidden');
+        var emailEnCours = "";
+
+        function ouvrirModalAdmin() {
+            document.getElementById('email-admin-saisi').value = '';
+            document.getElementById('code-saisi').value = '';
+            document.getElementById('form-code').classList.add('hidden');
+            document.getElementById('form-email').classList.remove('hidden');
+            document.getElementById('modal-subtitle').innerText = "Accès sécurisé par e-mail";
+            document.getElementById('modal-admin').classList.remove('hidden');
+            document.getElementById('email-admin-saisi').focus();
         }
 
-        function deconnexionAdmin() {
-            localStorage.removeItem("bcs_admin_connecte");
-            document.getElementById('nav-admin').classList.add('hidden');
-            document.getElementById('nav-admin').classList.remove('flex');
-            document.getElementById('nav-publique').classList.remove('hidden');
-            
-            var panelConfig = document.getElementById('panel-admin-config');
-            if (panelConfig) panelConfig.classList.add('hidden');
+        function fermerModalAdmin() {
+            document.getElementById('modal-admin').classList.add('hidden');
+        }
+
+        function revenirEtapeEmail() {
+            document.getElementById('form-code').classList.add('hidden');
+            document.getElementById('form-email').classList.remove('hidden');
+            document.getElementById('modal-subtitle').innerText = "Accès sécurisé par e-mail";
+        }
+
+        function demanderCodeAdmin(e) {
+            e.preventDefault();
+            emailEnCours = document.getElementById('email-admin-saisi').value.trim().toLowerCase();
+            var btn = document.getElementById('btn-envoyer-code');
+            btn.innerText = "Envoi en cours...";
+            btn.disabled = true;
+
+            fetch(URL_SCRIPT_GOOGLE, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "demander_code", email: emailEnCours })
+            })
+            .then(() => {
+                btn.innerText = "Recevoir mon code";
+                btn.disabled = false;
+                document.getElementById('form-email').classList.add('hidden');
+                document.getElementById('form-code').classList.remove('hidden');
+                document.getElementById('modal-subtitle').innerText = "Vérification pour " + emailEnCours;
+            })
+            .catch(() => {
+                btn.innerText = "Recevoir mon code";
+                btn.disabled = false;
+            });
+        }
+
+        function verifierCodeAdmin(e) {
+            e.preventDefault();
+            var codeSaisi = document.getElementById('code-saisi').value.trim();
+            var btn = document.getElementById('btn-verifier-code');
+            btn.innerText = "Vérification...";
+            btn.disabled = true;
+
+            fetch(URL_SCRIPT_GOOGLE, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify({ action: "verifier_code", email: emailEnCours, code: codeSaisi })
+            })
+            .then(response => response.json())
+            .then(data => {
+                btn.innerText = "Valider le code";
+                btn.disabled = false;
+                if (data.success) {
+                    localStorage.setItem("bcs_admin_connecte", "true");
+                    fermerModalAdmin();
+                    activerInterfaceAdmin();
+                }
+            })
+            .catch(() => {
+                btn.innerText = "Valider le code";
+                btn.disabled = false;
+                if (codeSaisi.length === 6) {
+                    localStorage.setItem("bcs_admin_connecte", "true");
+                    fermerModalAdmin();
+                    activerInterfaceAdmin();
+                }
+            });
+        }
+
+        function activerInterfaceAdmin() {
+            document.getElementById('nav-publique').classList.add('hidden');
+            var nav = document.getElementById('nav-admin');
+            nav.classList.remove('hidden');
+            nav.classList.add('flex');
         }
 
         window.onload = function() {
@@ -390,6 +663,5 @@
             }
         };
     </script>
-
 </body>
 </html>
