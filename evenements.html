@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Calendrier et évènements du Billard Club Segréen (BCS) à Segré-en-Anjou Bleu.">
+    <title>Billard Club Segréen — Évènements</title>
+    
+    <!-- FAVICON EMOJI BILLARD 🎱 -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎱</text></svg>">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html { zoom: 0.85; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0b1329; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col justify-between text-slate-800">
+
+    <!-- BARRE EN-TÊTE FIXE EN HAUT -->
+    <header class="bg-[#0b1329] text-white shadow-lg fixed top-0 left-0 right-0 z-50 h-16 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 shrink-0">
+                <div class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-xl shadow border border-slate-700">🎱</div>
+                <div>
+                    <h1 class="text-xl font-black uppercase tracking-wider text-amber-400 leading-tight">BILLARD CLUB SEGRÉEN</h1>
+                    <p class="text-[11px] text-slate-400">Plateforme officielle BCS</p>
+                </div>
+            </a>
+
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-xl transition flex items-center gap-2 shadow font-bold text-xs">
+                    🔒 Accès Administrateur
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- DISPOSITION PRINCIPALE 3 COLONNES -->
+    <div class="flex flex-col lg:flex-row max-w-[96rem] w-full mx-auto pt-20 px-4 gap-6 flex-grow">
+        
+        <!-- SIDEBAR DE NAVIGATION GAUCHE -->
+        <aside class="w-full lg:w-60 shrink-0">
+            <div class="bg-[#0b1329] rounded-2xl p-4 shadow-md border border-slate-800 sticky top-20 text-white space-y-3">
+                <div class="text-xs font-black uppercase tracking-wider text-amber-400 border-b border-slate-800 pb-2 flex items-center gap-2">
+                    <span>📑</span> Navigation Menu
+                </div>
+
+                <nav id="nav-publique" class="flex flex-col gap-1.5 text-xs font-bold">
+                    <a href="index.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🏠 Accueil</a>
+                    <a href="inscriptionchallenge.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🎯 Inscription Challenge</a>
+                    <a href="inscriptionffb.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🎯 Inscription FFB</a>
+                    <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🏆 CueScore</a>
+                    <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📰 La Gazette</a>
+                    <!-- ONGLET ACTIF -->
+                    <a href="evenements.html" class="bg-indigo-600 text-white px-3.5 py-2.5 rounded-xl transition border border-indigo-500 flex items-center gap-2 shadow">📅 Évènements</a>
+                    <a href="galerie.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🖼️ Challenge BCS</a>
+                    <a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📸 Trombinoscope</a>
+                    <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🤝 Partenaires</a>
+                    <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📺 Direct & TV</a>
+                    <a href="contacts.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📞 Contacts</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- ZONE CENTRALE -->
+        <main class="flex-grow space-y-5 min-w-0">
+
+            <!-- BARRE DE CONTRÔLE ET BOUTON DE BASCULE EXPLICITE -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-3">
+                <div class="text-xs font-bold text-slate-700 flex items-center gap-2">
+                    <span>⚡</span> Mode d'affichage de la saison
+                </div>
+                <button onclick="basculerVue()" id="btn-bascule" class="bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold px-4 py-2 rounded-xl text-xs transition shadow flex items-center gap-2 cursor-pointer">
+                    <span>📊</span> Afficher le programme & calendrier prévisionnel
+                </button>
+            </div>
+
+            <!-- VUE 1 : SÉLECTEUR DES MOIS + PUBLICATIONS -->
+            <div id="vue-calendrier" class="space-y-5">
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200">
+                    <div id="mois-boutons" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5">
+                        <!-- Généré automatiquement par JavaScript -->
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200 space-y-5">
+                    <div class="border-b border-slate-100 pb-3 flex items-center justify-between flex-wrap gap-2">
+                        <h2 id="titre-mois-actif" class="text-base sm:text-lg font-black text-slate-800 flex items-center gap-2">
+                            <span>📅</span> Évènements
+                        </h2>
+                        <span class="text-[11px] font-bold bg-amber-100 text-amber-800 px-3 py-1 rounded-full">
+                            Saison 2026 / 2027
+                        </span>
+                    </div>
+
+                    <div id="contenu-evenement" class="flex flex-col items-center justify-center gap-6 w-full overflow-x-auto py-2">
+                        <!-- Rempli dynamiquement selon le mois choisi -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- VUE 2 : PROGRAMME & CALENDRIER PRÉVISIONNEL DE LA SAISON -->
+            <div id="vue-recap" class="hidden space-y-5">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+                    <div class="border-b border-slate-100 pb-3 flex items-center justify-between flex-wrap gap-2">
+                        <h2 class="text-base sm:text-lg font-black text-slate-800 flex items-center gap-2">
+                            <span>📅</span> Programme & Calendrier du Challenge BCS — Saison 2026 / 2027
+                        </h2>
+                        <span class="text-[11px] font-bold bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">
+                            Vue d'ensemble
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        
+                        <!-- Septembre -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div class="h-44 overflow-hidden bg-slate-900">
+                                <img src="salle1.jpg" alt="Septembre 2026" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80'">
+                            </div>
+                            <div class="p-4 space-y-2 flex-grow">
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100">📌 Septembre 2026</span>
+                                <h3 class="font-bold text-slate-900 text-sm">Rentrée et Début du challenge BCS</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">Reprise de la saison au club et lancement de la première manche du Challenge BCS.</p>
+                            </div>
+                        </div>
+
+                        <!-- Octobre -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div class="h-44 overflow-hidden bg-slate-900">
+                                <img src="salle2.jpg" alt="Octobre 2026" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&w=800&q=80'">
+                            </div>
+                            <div class="p-4 space-y-2 flex-grow">
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100">🎯 Octobre 2026</span>
+                                <h3 class="font-bold text-slate-900 text-sm">Deuxième tournoi du challenge BCS</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">Poursuite de la compétition interne avec la deuxième étape officielle sur nos tables.</p>
+                            </div>
+                        </div>
+
+                        <!-- Novembre -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div class="h-44 overflow-hidden bg-slate-900">
+                                <img src="competition1.jpg" alt="Novembre 2026" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&w=800&q=80'">
+                            </div>
+                            <div class="p-4 space-y-2 flex-grow">
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100">🏆 Novembre 2026</span>
+                                <h3 class="font-bold text-slate-900 text-sm">Troisième tournoi du challenge BCS</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">Troisième étape qualificative pour le classement général du Challenge BCS.</p>
+                            </div>
+                        </div>
+
+                        <!-- Décembre (Photo libre de droit Noël) -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div class="h-44 overflow-hidden bg-slate-900">
+                                <img src="https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=800&q=80" alt="Noël - Décembre 2026" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 space-y-2 flex-grow">
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100">🎄 Décembre 2026 (Prévisionnel)</span>
+                                <h3 class="font-bold text-slate-900 text-sm">Quatrième tournoi du challenge BCS</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">Quatrième manche du challenge dans une ambiance conviviale de fin d'année.</p>
+                            </div>
+                        </div>
+
+                        <!-- Janvier -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div class="h-44 overflow-hidden bg-slate-900">
+                                <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&w=800&q=80" alt="Janvier 2027" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 space-y-2 flex-grow">
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100">🥂 Janvier 2027 (Prévisionnel)</span>
+                                <h3 class="font-bold text-slate-900 text-sm">Cinquième tournoi du challenge BCS</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">Reprise des tournois pour la nouvelle année avec la cinquième étape du challenge.</p>
+                            </div>
+                        </div>
+
+                        <!-- Février -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div class="h-44 overflow-hidden bg-slate-900">
+                                <img src="https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?auto=format&fit=crop&w=800&q=80" alt="Février 2027" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 space-y-2 flex-grow">
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100">🎱 Février 2027 (Prévisionnel)</span>
+                                <h3 class="font-bold text-slate-900 text-sm">Sixième tournoi du challenge BCS</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">Sixième manche hivernale du Challenge BCS ouverte aux joueurs du club.</p>
+                            </div>
+                        </div>
+
+                        <!-- Mars -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div class="h-44 overflow-hidden bg-slate-900">
+                                <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80" alt="Mars 2027" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 space-y-2 flex-grow">
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100">🔥 Mars 2027 (Prévisionnel)</span>
+                                <h3 class="font-bold text-slate-900 text-sm">Septième tournoi du challenge BCS</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">Septième étape du challenge à l'approche du printemps sportif.</p>
+                            </div>
+                        </div>
+
+                        <!-- Avril -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div class="h-44 overflow-hidden bg-slate-900">
+                                <img src="https://images.unsplash.com/photo-1589802829985-817e51171b92?auto=format&fit=crop&w=800&q=80" alt="Avril 2027" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 space-y-2 flex-grow">
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100">🌸 Avril 2027 (Prévisionnel)</span>
+                                <h3 class="font-bold text-slate-900 text-sm">Huitième tournoi du challenge BCS</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">Huitième manche décisive pour la qualification aux phases finales.</p>
+                            </div>
+                        </div>
+
+                        <!-- Mai -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div class="h-44 overflow-hidden bg-slate-900">
+                                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" alt="Mai 2027" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 space-y-2 flex-grow">
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100">🏅 Mai 2027 (Prévisionnel)</span>
+                                <h3 class="font-bold text-slate-900 text-sm">Neuvième tournoi du challenge BCS</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">Neuvième et dernière manche régulière avant la grande finale du challenge.</p>
+                            </div>
+                        </div>
+
+                        <!-- Juin -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between">
+                            <div class="h-44 overflow-hidden bg-slate-900">
+                                <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80" alt="Juin 2027" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 space-y-2 flex-grow">
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100">☀️ Juin 2027 (Prévisionnel)</span>
+                                <h3 class="font-bold text-slate-900 text-sm">CHALLENGE FINAL tournoi du challenge BCS</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">Grande finale du Challenge BCS, remise des récompenses et clôture festive de la saison.</p>
+                            </div>
+                        </div>
+
+                        <!-- Juillet & Août -->
+                        <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col justify-between md:col-span-2">
+                            <div class="h-44 overflow-hidden bg-slate-900">
+                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80" alt="Juillet & Août 2027" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-4 space-y-2 flex-grow">
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-100">🏖️ Juillet & Août 2027 (Prévisionnel)</span>
+                                <h3 class="font-bold text-slate-900 text-sm">Permanences & Bilan estival</h3>
+                                <p class="text-xs text-slate-600 leading-relaxed">Permanences d'été au club, bilan de la saison écoulée et préparation des inscriptions à venir.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- SIDEBAR DE DROITE : NOS PARTENAIRES OFFICIELS -->
+        <aside class="w-full lg:w-72 shrink-0 space-y-3">
+            <div class="bg-white rounded-2xl p-3 shadow-md border border-slate-200 sticky top-20 space-y-2">
+                <div class="text-center pb-1.5 border-b border-slate-100">
+                    <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide flex items-center justify-center gap-1.5">
+                        <span>🤝</span> Nos Partenaires
+                    </h3>
+                    <p class="text-[10px] text-slate-500">Soutiens officiels du club</p>
+                </div>
+
+                <div class="flex flex-col gap-1.5 max-h-[62vh] overflow-y-auto pr-1">
+                    <a href="https://www.chopeetcompagnie-leliondangers.fr/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1qoaDVZx8TRtCLTpoIB9ttmPT_hePMIlI=s400" alt="Chope" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Chope & Compagnie</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Le Lion-d'Angers</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.entreprise-defais.com/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1oqqXI0zohN4LEaEyPjE9-oyWie98UKhj=s400" alt="Defais" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Entreprise Defais</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Bâtiment / Maçonnerie</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.garagecaillere.com/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1AjF41wZffyiaD0qxgsZdsr05aAsRSIy3=s400" alt="Caillère" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Garage Caillère</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Mécanique Auto</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.planity.com/lcoiff-by-cynthia-49500-segre-en-anjou-bleu-d6i" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/12LlmDgVU0u-2WW9LVzUBnYTJCYRtgY5o=s400" alt="Cynthia" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">L'Coiff Cynthia</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Salon de coiffure</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.segreenanjoubleu.fr/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1yEdcGvjGc2Mx5XhkC7cA5EyQFpfAVNVV=s400" alt="Segré" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Segré Anjou Bleu</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Collectivité</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.oxygeneradio.com/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/1q1a5wzl_NashJDTzSVx3yoOx6QYMYknk=s400" alt="Oxygène" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Oxygène Radio</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Média local</span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.solutec-pointcles.fr/" target="_blank" class="bg-slate-50 border border-slate-200 hover:border-indigo-500 rounded-xl p-2 shadow-sm transition-all flex items-center gap-2.5 group">
+                        <div class="w-10 h-10 shrink-0 flex items-center justify-center bg-white rounded-lg border border-slate-100">
+                            <img src="https://lh3.googleusercontent.com/d/18ailFwFGyg5d3hL60gKI5w2YafYXhghY=s400" alt="Solutec" class="max-h-8 max-w-full object-contain group-hover:scale-105 transition-transform">
+                        </div>
+                        <div class="text-left overflow-hidden">
+                            <span class="text-[11px] font-bold text-slate-800 group-hover:text-indigo-600 block leading-tight truncate">Solutec Point Clés</span>
+                            <span class="text-[9px] text-slate-400 block truncate">Clés & Sécurité</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#0b1329] text-slate-400 border-t border-slate-800 py-6 text-center text-xs space-y-2 mt-8">
+        <div class="flex flex-wrap justify-center gap-4 text-slate-300">
+            <a href="contacts.html" class="hover:underline">Contacts</a>
+            <span>•</span>
+            <a href="registre-rgpd.html" class="hover:underline text-indigo-400">Registre RGPD</a>
+            <span>•</span>
+            <a href="https://www.facebook.com/billard.club.segreen.bcs/" target="_blank" class="hover:underline">Facebook</a>
+        </div>
+        <div>Billard Club Segréen • Plateforme Web Indépendante 🎱</div>
+    </footer>
+
+    <!-- SCRIPT DE GESTION ET BASCULE DES VUES -->
+    <script>
+        const EVENEMENTS_SAISON = [
+            {
+                id: "sept-2026",
+                label: "Septembre 2026",
+                icone: "📌",
+                iframes: [
+                    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid0VNFNwFGEGv6gXFDqnzhjsta16bmW8EnN5GitPEtp6n45gfNLqgEoMisELB8erggjl&show_text=true&width=500" width="500" height="651" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+                ]
+            },
+            {
+                id: "oct-2026",
+                label: "Octobre 2026",
+                icone: "🎯",
+                iframes: [
+                    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid02cBhQbtFzUFJgpVgZejRLC8vWJCkybtuNfBf3J5J1jtXpeNJh9gaWvjEXKLPyeMREl&show_text=true&width=500" width="500" height="651" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+                ]
+            },
+            {
+                id: "nov-2026",
+                label: "Novembre 2026",
+                icone: "🏆",
+                iframes: [
+                    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid05mJMUofHAT5kBDyyEmYvHarEjvo7LxSyPfDojA25Cr96RJ3PT49jvWpMC4qAzL7Vl&show_text=true&width=500" width="500" height="651" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+                ]
+            },
+            {
+                id: "dec-2026",
+                label: "Décembre 2026",
+                icone: "🎄",
+                iframes: [
+                    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid0uGEY7Jc2DWe21zdiCZ1VAv9bF7TARFh1VJKsAewDkFc2vBnjhSFvLQveQ8bkNuPml&show_text=true&width=500" width="500" height="498" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+                ]
+            },
+            {
+                id: "jan-2027",
+                label: "Janvier 2027",
+                icone: "🥂",
+                iframes: [
+                    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid0o3QPKgxet22YcRoL1pE7i4PmwytYtuaygTdPZzEzNHjnt2K7gJo3gHN1m9h8BtcEl&show_text=true&width=500" width="500" height="498" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+                ]
+            },
+            {
+                id: "fev-2027",
+                label: "Février 2027",
+                icone: "🎱",
+                iframes: [
+                    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid0yyb1GahuvVMVhhvfooti2YWmSQqycsNdufkKcrzYjSbfqjhF36sp6uE4cN3yFhHVl&show_text=true&width=500" width="500" height="498" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+                ]
+            },
+            {
+                id: "mars-2027",
+                label: "Mars 2027",
+                icone: "🔥",
+                iframes: [
+                    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid022iNusG6Dmo45n5mc9MDbKdLXfPMsg2SU8rXr4grz7sefpRSnjXwiNwkFQRgskKP2l&show_text=true&width=500" width="500" height="498" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+                ]
+            },
+            {
+                id: "avr-2027",
+                label: "Avril 2027",
+                icone: "🌸",
+                iframes: [
+                    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid0CJ9eRrqTgKJPdaRLD454cbLZFXzuRjpGWdpCan2yLi4avCiy3i3w2LmdbncjuYqul&show_text=true&width=500" width="500" height="498" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+                ]
+            },
+            {
+                id: "mai-2027",
+                label: "Mai 2027",
+                icone: "🏅",
+                iframes: [
+                    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid0dCLvdwT8SMtDp4ssuUitXSZmb2frRK2QqhSYAVGoZj2Fg62XGtvQijUQNAgjfBNel&show_text=true&width=500" width="500" height="498" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+                ]
+            },
+            {
+                id: "juin-2027",
+                label: "Juin 2027",
+                icone: "☀️",
+                iframes: [
+                    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid028v1PSeS4tsCqPbtTdsBPeXMdmXMMLFUoxhX7iVcKMoGayi4j9EER62c4v7QejaRkl&show_text=true&width=500" width="500" height="498" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+                ]
+            },
+            {
+                id: "juil-2027",
+                label: "Juillet 2027",
+                icone: "🏖️",
+                iframes: [
+                    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid0bYZpUxugRCzRozaJQKJnJgcVfLEVBy5CZVLF9buZRuKJg4SzEP1ghXhbqGGxkaiSl&show_text=true&width=500" width="500" height="498" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+                ]
+            },
+            {
+                id: "aout-2027",
+                label: "Août 2027",
+                icone: "🌻",
+                iframes: [
+                    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbillard.club.segreen.bcs%2Fposts%2Fpfbid02W8uybgQni1DXeje7zxgxbv91Nm35LwfgxbFmiKgPCCzHuYFx6YvwSJA422GnTLHzl&show_text=true&width=500" width="500" height="498" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+                ]
+            }
+        ];
+
+        let moisActifId = "sept-2026";
+        let modeRecap = false;
+
+        function basculerVue() {
+            modeRecap = !modeRecap;
+            const vueCalendrier = document.getElementById("vue-calendrier");
+            const vueRecap = document.getElementById("vue-recap");
+            const btnBascule = document.getElementById("btn-bascule");
+
+            if (modeRecap) {
+                vueCalendrier.classList.add("hidden");
+                vueRecap.classList.remove("hidden");
+                btnBascule.innerHTML = "<span>📅</span> Recliquer ici pour afficher le calendrier par mois";
+            } else {
+                vueRecap.classList.add("hidden");
+                vueCalendrier.classList.remove("hidden");
+                btnBascule.innerHTML = "<span>📊</span> Afficher le programme & calendrier prévisionnel";
+            }
+        }
+
+        function afficherBoutonsMois() {
+            const container = document.getElementById("mois-boutons");
+            container.innerHTML = EVENEMENTS_SAISON.map(ev => {
+                const estActif = ev.id === moisActifId;
+                return `
+                    <button onclick="selectionnerMois('${ev.id}')"
+                        class="px-3 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 border cursor-pointer
+                        ${estActif 
+                            ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm' 
+                            : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'}">
+                        <span>${ev.icone}</span>
+                        <span>${ev.label}</span>
+                    </button>
+                `;
+            }).join("");
+        }
+
+        function selectionnerMois(id) {
+            moisActifId = id;
+            afficherBoutonsMois();
+
+            const ev = EVENEMENTS_SAISON.find(item => item.id === id);
+            if (!ev) return;
+
+            document.getElementById("titre-mois-actif").innerHTML = `<span>📅</span> Évènements : ${ev.label}`;
+
+            const zoneContenu = document.getElementById("contenu-evenement");
+
+            if (ev.iframes && ev.iframes.length > 0) {
+                zoneContenu.innerHTML = ev.iframes.map(codeIframe => `
+                    <div class="bg-slate-50 p-2 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex justify-center max-w-full overflow-x-auto">
+                        ${codeIframe}
+                    </div>
+                `).join("");
+            } else {
+                zoneContenu.innerHTML = `
+                    <div class="text-center py-12 px-4 bg-slate-50 rounded-2xl border border-dashed border-slate-300 w-full max-w-lg space-y-2">
+                        <div class="text-3xl">🎱</div>
+                        <p class="text-sm font-bold text-slate-700">Aucun évènement publié pour ${ev.label}</p>
+                        <p class="text-xs text-slate-500">Les prochains tournois et animations du club seront ajoutés ici très prochainement.</p>
+                    </div>
+                `;
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            afficherBoutonsMois();
+            selectionnerMois(moisActifId);
+        });
+    </script>
+</body>
+</html>
