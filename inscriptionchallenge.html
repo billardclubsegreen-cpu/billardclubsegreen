@@ -54,13 +54,14 @@
 
                 <!-- NAVIGATION PUBLIQUE VERTICALE -->
                 <nav id="nav-publique" class="flex flex-col gap-1.5 text-xs font-bold">
-                    <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2.5 rounded-xl transition border border-indigo-500 flex items-center gap-2">🏠 Accueil</a>
+                    <a href="index.html" onclick="fermerVideosAuMilieu(event)" class="bg-indigo-600 text-white px-3.5 py-2.5 rounded-xl transition border border-indigo-500 flex items-center gap-2">🏠 Accueil</a>
                     <a href="inscriptionchallenge.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🎯 Inscription Challenge</a>
                     <a href="inscriptionffb.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🎯 Inscription FFB</a>
                     <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🏆 CueScore</a>
                     <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📰 La Gazette</a>
 					<a href="evenements.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📅 Évènements</a>
 					<a href="galerie.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🖼️ Challenge BCS</a>
+					<button type="button" onclick="ouvrirVideosAuMilieu()" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2 text-left cursor-pointer">🎬 Vidéos & Rétrospectives</button>
 					<a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📸 Trombinoscope</a>
                     <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🤝 Partenaires</a>
                     <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📺 Direct & TV</a>
@@ -90,10 +91,10 @@
 
             <!-- En-tête explicatif -->
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 text-center space-y-3">
-                <div class="w-12 h-12 bg-indigo-100 text-indigo-700 rounded-2xl mx-auto flex items-center justify-center text-2xl font-bold shadow-inner">🎯</div>
-                <h2 class="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-wide">
+                🎯
+                <h4class="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-wide">
                     Inscription au Challenge BCS
-                </h2>
+                </h4>
                 <p class="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
                     Inscrivez-vous directement au tournoi du Challenge du Billard Club Segréen via le formulaire ci-dessous.
                 </p>
