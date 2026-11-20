@@ -204,6 +204,19 @@
 
     </div>
 
+    <!-- MODALE CLASSEMENT GÉNÉRAL -->
+    <div id="modal-classement-parent" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 items-center justify-center p-3 sm:p-6">
+        <div class="bg-[#1e1e2f] text-white rounded-3xl w-full max-w-4xl h-[85vh] shadow-2xl border border-slate-700 flex flex-col overflow-hidden relative">
+            <div class="bg-slate-900 px-6 py-4 flex justify-between items-center shrink-0 border-b border-slate-800">
+                <h3 class="font-bold text-sm sm:text-base text-amber-400">🏆 Classement Général</h3>
+                <button type="button" onclick="fermerModalClassementParent()" class="text-slate-400 hover:text-white text-2xl font-bold transition cursor-pointer">✕</button>
+            </div>
+            <div class="flex-grow w-full bg-slate-900 overflow-hidden">
+                <iframe id="iframe-classement-parent" src="" class="w-full h-full border-0"></iframe>
+            </div>
+        </div>
+    </div>
+
     <!-- MODALE INSCRIPTION FFB (IFRAME GOOGLE FORMS) -->
     <div id="modal-ffb" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-6">
         <div class="bg-white rounded-3xl w-full max-w-4xl h-[88vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden relative">
@@ -312,16 +325,26 @@ var URLS_MODULES_ADMIN = {
         };
 
         function ouvrirClassementDepuisBandeau() {
-            var iframe = document.getElementById('iframe-inscription');
-            if (!iframe || !iframe.contentWindow) return;
-            iframe.scrollIntoView({ behavior: "smooth", block: "nearest" });
-            try {
-                if (typeof iframe.contentWindow.ouvrirModalClassement === "function") {
-                    iframe.contentWindow.ouvrirModalClassement();
-                    return;
-                }
-            } catch (e) {}
-            iframe.contentWindow.postMessage({ action: "ouvrirModalClassement" }, "*");
+            var modal = document.getElementById('modal-classement-parent');
+            var iframe = document.getElementById('iframe-classement-parent');
+            var urlClassement = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=statistiques";
+            if (modal && iframe) {
+                iframe.src = urlClassement;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                window.open(urlClassement, "_blank");
+            }
+        }
+
+        function fermerModalClassementParent() {
+            var modal = document.getElementById('modal-classement-parent');
+            var iframe = document.getElementById('iframe-classement-parent');
+            if (iframe) iframe.src = "";
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
         }
 
         function ouvrirModalFFB() {
