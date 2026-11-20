@@ -51,7 +51,6 @@
                     <span>📑</span> Navigation Menu
                 </div>
 
-
                 <!-- NAVIGATION PUBLIQUE VERTICALE -->
                 <nav id="nav-publique" class="flex flex-col gap-1.5 text-xs font-bold">
                     <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2.5 rounded-xl transition border border-indigo-500 flex items-center gap-2">🏠 Accueil</a>
@@ -106,12 +105,13 @@
                         <span class="text-xl">🎯</span>
                         <h3 class="font-bold text-sm sm:text-base text-amber-400">Challenge BCS — Formulaire d'inscription</h3>
                     </div>
-                    <a href="https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=inscription" target="_blank" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-1.5 rounded-lg transition font-bold shadow">
-                        Ouvrir dans un nouvel onglet ↗
-                    </a>
+
+                    <button type="button" onclick="ouvrirClassementDepuisBandeau()" class="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white text-xs font-semibold px-4 py-1.5 rounded-full shadow transition cursor-pointer flex items-center gap-1.5">
+                        🏆 Classement Général
+                    </button>
                 </div>
                 
-                <iframe src="https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=inscription" 
+                <iframe id="iframe-inscription" src="https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=inscription" 
                         class="w-full flex-grow border-0 min-h-[800px]">
                 </iframe>
             </div>
@@ -310,6 +310,19 @@ var URLS_MODULES_ADMIN = {
             partenaires: { icon: "🤝", title: "Administration — Mécénat & Partenaires", subtitle: "Gestion des dons et contrats publicitaires" },
             gazette: { icon: "📰", title: "Administration — Textes de la Gazette", subtitle: "Modification des articles et mot du président" }
         };
+
+        function ouvrirClassementDepuisBandeau() {
+            var iframe = document.getElementById('iframe-inscription');
+            if (!iframe || !iframe.contentWindow) return;
+            iframe.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            try {
+                if (typeof iframe.contentWindow.ouvrirModalClassement === "function") {
+                    iframe.contentWindow.ouvrirModalClassement();
+                    return;
+                }
+            } catch (e) {}
+            iframe.contentWindow.postMessage({ action: "ouvrirModalClassement" }, "*");
+        }
 
         function ouvrirModalFFB() {
             var iframe = document.getElementById('iframe-ffb');

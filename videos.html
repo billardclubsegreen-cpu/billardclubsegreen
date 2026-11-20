@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vidéos & Rétrospectives — Billard Club Segréen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen p-4 sm:p-6">
+  <div class="max-w-5xl mx-auto space-y-6">
+
+    <!-- En-tête -->
+    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+      <h1 class="text-xl sm:text-2xl font-black text-slate-900">🎬 Vidéos & Rétrospectives — BCS Segré</h1>
+      <p class="text-sm text-slate-500 mt-1">Retrouvez les vidéos du Challenge et la rétrospective du club.</p>
+    </div>
+
+    <!-- Grille des vidéos intégrées -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- CHALLENGE -->
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col gap-3">
+        <h2 class="text-base font-black text-slate-900 uppercase tracking-wide">🏆 Challenge</h2>
+        <div class="w-full aspect-video rounded-xl overflow-hidden bg-slate-900 border border-slate-200">
+          <iframe
+            src="https://drive.google.com/file/d/1XHkV4Z9VSPsjsoP1rCfMuCZDv3VUEpB0/preview"
+            class="w-full h-full border-0"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            title="Vidéo Challenge BCS">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- RETROSPECTIVE -->
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col gap-3">
+        <h2 class="text-base font-black text-slate-900 uppercase tracking-wide">🎞️ Rétrospective</h2>
+        <div class="w-full aspect-video rounded-xl overflow-hidden bg-slate-900 border border-slate-200">
+          <iframe
+            src="https://drive.google.com/file/d/1bTUkcX9QcjvOQnA_Y4c4c1XE0srjWafI/preview"
+            class="w-full h-full border-0"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            title="Vidéo Rétrospective BCS">
+          </iframe>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>
