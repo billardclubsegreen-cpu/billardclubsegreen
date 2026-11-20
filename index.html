@@ -73,13 +73,14 @@
 
                 <!-- NAVIGATION PUBLIQUE VERTICALE -->
                 <nav id="nav-publique" class="flex flex-col gap-1.5 text-xs font-bold">
-                    <a href="index.html" class="bg-indigo-600 text-white px-3.5 py-2.5 rounded-xl transition border border-indigo-500 flex items-center gap-2">🏠 Accueil</a>
+                    <a href="index.html" onclick="fermerVideosAuMilieu(event)" class="bg-indigo-600 text-white px-3.5 py-2.5 rounded-xl transition border border-indigo-500 flex items-center gap-2">🏠 Accueil</a>
                     <a href="inscriptionchallenge.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🎯 Inscription Challenge</a>
                     <a href="inscriptionffb.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🎯 Inscription FFB</a>
                     <a href="cuescore.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🏆 CueScore</a>
                     <a href="gazette.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📰 La Gazette</a>
 					<a href="evenements.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📅 Évènements</a>
 					<a href="galerie.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🖼️ Challenge BCS</a>
+					<button type="button" onclick="ouvrirVideosAuMilieu()" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2 text-left cursor-pointer">🎬 Vidéos & Rétrospectives</button>
 					<a href="trombinoscope.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📸 Trombinoscope</a>
                     <a href="partenaires.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">🤝 Partenaires</a>
                     <a href="streaming.html" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl transition border border-slate-700/50 flex items-center gap-2">📺 Direct & TV</a>
@@ -107,137 +108,158 @@
         <!-- ZONE CENTRALE (CONTENU PRINCIPAL) -->
         <main class="flex-grow space-y-6 min-w-0">
 
-            <!-- ===== ANNONCE DU 3e TOURNOI DU CHALLENGE BCS ===== -->
-            <section class="bcs-challenge-hero" aria-labelledby="bcs-challenge-title">
-                <div class="bcs-challenge-content">
-                    <div class="bcs-challenge-eyebrow">Billard Club Segréen présente</div>
-                    <h2 id="bcs-challenge-title" class="bcs-challenge-title">LE CHALLENGE BCS</h2>
-                    <div class="bcs-challenge-edition">3e TOURNOI</div>
-
-                    <!-- SPONSORS PLACÉS EN PREMIER -->
-                    <div class="bcs-challenge-partner">
-                        <img src="https://lh3.googleusercontent.com/d/1qoaDVZx8TRtCLTpoIB9ttmPT_hePMIlI=s400"
-                             alt="Logo Chope et Compagnie Le Lion-d’Angers" loading="lazy">
-                        <div>
-                            <span class="bcs-challenge-partner-label">En partenariat avec</span>
-                            <span class="bcs-challenge-partner-name">CHOPE &amp; COMPAGNIE</span>
-                            <span class="text-[11px] text-slate-300">Le Lion-d’Angers</span>
-                        </div>
+            <!-- CONTENEUR VIDÉOS AU MILIEU (MASQUÉ PAR DÉFAUT) -->
+            <section id="zone-videos-centrale" class="hidden bg-white rounded-2xl p-4 sm:p-6 shadow-md border border-slate-200 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">🎬</span>
+                        <h2 class="text-base sm:text-lg font-black text-slate-900 uppercase tracking-wide">Vidéos & Rétrospectives</h2>
                     </div>
-
-                    <p class="bcs-challenge-copy">
-                        La bataille continue ! Précision, maîtrise et adrénaline : chaque partie compte pour le classement.
-                    </p>
-                    
-                    <p class="bcs-challenge-tags">PASSION <span aria-hidden="true">•</span> PARTAGE <span aria-hidden="true">•</span> PERFORMANCE</p>
-                    
-                    <!-- BOUTONS D'ACTION -->
-                    <div class="flex flex-wrap justify-center gap-2 mt-2">
-                        <a href="streaming.html" class="bcs-challenge-button">🎱 Suivre le challenge</a>
-                        <a href="inscriptionchallenge.html" class="bcs-challenge-button bg-indigo-600 hover:bg-indigo-500 text-white cursor-pointer">🎯 Inscription au challenge</a>
-                        <button onclick="ouvrirModalQRCode('saisie')" class="bcs-challenge-button bg-slate-800 hover:bg-slate-700 text-white cursor-pointer">📱 QR Code Saisie Scores</button>
-                        <button onclick="ouvrirModalQRCode('cartesien')" class="bcs-challenge-button bg-amber-600 hover:bg-amber-500 text-white cursor-pointer">🎯 Tournoi Cartésien</button>
-                    </div>
+                    <button type="button" onclick="fermerVideosAuMilieu()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition cursor-pointer">
+                        ✕ Fermer
+                    </button>
                 </div>
-                
-                <!-- DIAPORAMA INTERACTIF -->
-                <div class="bcs-challenge-media">
-                    <iframe src="lechallengebcsetae3.html" 
-                            class="w-full h-full border-0" 
-                            allowfullscreen>
-                    </iframe>
+                <div class="w-full h-[72vh] min-h-[520px] rounded-xl overflow-hidden border border-slate-200 bg-slate-100">
+                    <iframe id="iframe-videos-centrale" src="" class="w-full h-full border-0" allowfullscreen title="Vidéos et Rétrospectives BCS"></iframe>
                 </div>
             </section>
-            <!-- ===== FIN ANNONCE DU CHALLENGE BCS ===== -->
 
-            <!-- Grille 2 Colonnes : Bienvenue & Vidéo -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-                
-                <!-- Colonne 1 : Bloc de Bienvenue Compact -->
-                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 text-center space-y-3 flex flex-col justify-center">
-                    <div class="flex items-center justify-center gap-2">
-                        <div class="w-8 h-8 bg-amber-100 text-amber-700 rounded-lg flex items-center justify-center text-lg font-bold shadow-inner">🎱</div>
-                        <h2 class="text-base sm:text-lg font-black text-slate-900 uppercase tracking-wide">Billard Club Segréen</h2>
-                    </div>
-                   <p class="text-xs text-slate-600 leading-relaxed max-w-md mx-auto">
-    <strong>Devenir partenaire du Billard Club Segréen</strong>, c'est associer l'image de votre entreprise à nos valeurs sportives tout en soutenant activement <strong class="text-indigo-600">le développement de notre club local</strong>.
-</p>
-                    <div class="flex flex-wrap justify-center gap-2 pt-1">
-                        <button onclick="ouvrirModalExplicationPartenaires()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm flex items-center gap-1.5 cursor-pointer">
-                            🤝 Renseignements ici.
-                        </button>
-                    </div>
-                </div>
+            <!-- CONTENU D'ACCUEIL NORMAL -->
+            <div id="contenu-accueil-normal" class="space-y-6">
 
-                <!-- Colonne 2 : Diaporama Vidéo Interactif BCS (Placé en bas à droite) -->
-                <div id="bcs-player-container" class="bg-slate-900 rounded-2xl p-3 shadow-md border border-slate-800 space-y-2 text-center flex flex-col justify-between">
-                    <!-- En-tête du lecteur -->
-                    <div class="flex items-center justify-between px-1 gap-2">
-                        <div class="flex items-center gap-1.5 text-amber-400 font-bold text-xs">
-                            <span>🎬</span> Découverte en Vidéo — Billard Club Segréen
-                        </div>
-                        <button id="audio-toggle-btn" onclick="toggleAudio()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-2 py-0.5 rounded-lg border border-slate-700 text-[10px] font-bold flex items-center gap-1 transition-all active:scale-95">
-                            <span id="audio-icon">🔇</span> <span id="audio-label">Musique</span>
-                        </button>
-                    </div>
+                <!-- ===== ANNONCE DU 3e TOURNOI DU CHALLENGE BCS ===== -->
+                <section class="bcs-challenge-hero" aria-labelledby="bcs-challenge-title">
+                    <div class="bcs-challenge-content">
+                        <div class="bcs-challenge-eyebrow">Billard Club Segréen présente</div>
+                        <h2 id="bcs-challenge-title" class="bcs-challenge-title">LE CHALLENGE BCS</h2>
+                        <div class="bcs-challenge-edition">3e TOURNOI</div>
 
-                    <!-- Lecteur Audio libre de droit -->
-                    <audio id="bcs-bg-music" loop preload="auto">
-                        <source src="sub_clair-vlog-627633.mp3" type="audio/mpeg">
-                    </audio>
-
-                    <!-- Zone Ecran Vidéo (Hauteur agrandie à 320px) -->
-                    <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-inner bg-black border border-slate-800 max-h-[320px] min-h-[280px] group">
-                        <div id="slider-bcs" class="w-full h-full relative">
-                            <!-- Slides générées via JavaScript -->
-                        </div>
-
-                        <!-- Masque Dégradé Inférieur -->
-                        <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none z-10"></div>
-
-                        <!-- Overlay Légende -->
-                        <div class="absolute bottom-2 inset-x-3 z-20 flex items-end justify-between text-left pointer-events-none">
-                            <div class="space-y-0.5 max-w-[75%]">
-                                <span id="slide-badge" class="inline-block bg-amber-500 text-slate-950 font-black text-[9px] uppercase tracking-wider px-1.5 py-0.2 rounded shadow">
-                                    BCS SEGRÉ
-                                </span>
-                                <h4 id="slide-title" class="text-xs font-bold text-white drop-shadow truncate">
-                                    Chargement...
-                                </h4>
-                            </div>
-                            <div class="text-[10px] font-bold text-amber-400 bg-slate-900/80 px-2 py-0.5 rounded border border-slate-700">
-                                <span id="slide-index">1</span>/<span id="slide-total">19</span>
+                        <!-- SPONSORS PLACÉS EN PREMIER -->
+                        <div class="bcs-challenge-partner">
+                            <img src="https://lh3.googleusercontent.com/d/1qoaDVZx8TRtCLTpoIB9ttmPT_hePMIlI=s400"
+                                 alt="Logo Chope et Compagnie Le Lion-d’Angers" loading="lazy">
+                            <div>
+                                <span class="bcs-challenge-partner-label">En partenariat avec</span>
+                                <span class="bcs-challenge-partner-name">CHOPE &amp; COMPAGNIE</span>
+                                <span class="text-[11px] text-slate-300">Le Lion-d’Angers</span>
                             </div>
                         </div>
 
-                        <!-- Flèches de Navigation au Survol -->
-                        <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-slate-900/80 hover:bg-amber-500 hover:text-slate-950 text-white p-1.5 rounded-full border border-slate-700 opacity-0 group-hover:opacity-100 transition-all text-xs">
-                            ❮
-                        </button>
-                        <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-slate-900/80 hover:bg-amber-500 hover:text-slate-950 text-white p-1.5 rounded-full border border-slate-700 opacity-0 group-hover:opacity-100 transition-all text-xs">
-                            ❯
-                        </button>
-                    </div>
-
-                    <!-- Barre de Progression & Contrôles -->
-                    <div class="space-y-1.5 pt-0.5">
-                        <div class="w-full bg-slate-800 rounded-full h-1 overflow-hidden cursor-pointer" onclick="seekSlide(event)">
-                            <div id="progress-bar" class="bg-amber-400 h-full w-0 transition-all duration-300 linear rounded-full"></div>
+                        <p class="bcs-challenge-copy">
+                            La bataille continue ! Précision, maîtrise et adrénaline : chaque partie compte pour le classement.
+                        </p>
+                        
+                        <p class="bcs-challenge-tags">PASSION <span aria-hidden="true">•</span> PARTAGE <span aria-hidden="true">•</span> PERFORMANCE</p>
+                        
+                        <!-- BOUTONS D'ACTION -->
+                        <div class="flex flex-wrap justify-center gap-2 mt-2">
+                            <a href="streaming.html" class="bcs-challenge-button">🎱 Suivre le challenge</a>
+                            <a href="inscriptionchallenge.html" class="bcs-challenge-button bg-indigo-600 hover:bg-indigo-500 text-white cursor-pointer">🎯 Inscription au challenge</a>
+                            <button onclick="ouvrirModalQRCode('saisie')" class="bcs-challenge-button bg-slate-800 hover:bg-slate-700 text-white cursor-pointer">📱 QR Code Saisie Scores</button>
+                            <button onclick="ouvrirModalQRCode('cartesien')" class="bcs-challenge-button bg-amber-600 hover:bg-amber-500 text-white cursor-pointer">🎯 Tournoi Cartésien</button>
                         </div>
+                    </div>
+                    
+                    <!-- DIAPORAMA INTERACTIF -->
+                    <div class="bcs-challenge-media">
+                        <iframe src="lechallengebcsetae3.html" 
+                                class="w-full h-full border-0" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                </section>
+                <!-- ===== FIN ANNONCE DU CHALLENGE BCS ===== -->
 
-                        <div class="flex items-center justify-between px-1">
-                            <button id="play-pause-btn" onclick="togglePlayPause()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-2.5 py-0.5 rounded-lg text-[10px] flex items-center gap-1 transition-all active:scale-95">
-                                <span id="play-icon">⏸</span> <span id="play-label">Pause</span>
-                            </button>
-
-                            <div id="dots-container" class="flex items-center gap-1 overflow-x-auto max-w-[130px] sm:max-w-[180px] py-0.5 no-scrollbar">
-                            </div>
-
-                            <button onclick="resetSlideshow()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-0.5 rounded-lg text-[10px] border border-slate-700 font-semibold transition-all">
-                                🔄 Recommencer
+                <!-- Grille 2 Colonnes : Bienvenue & Vidéo -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                    
+                    <!-- Colonne 1 : Bloc de Bienvenue Compact -->
+                    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 text-center space-y-3 flex flex-col justify-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <div class="w-8 h-8 bg-amber-100 text-amber-700 rounded-lg flex items-center justify-center text-lg font-bold shadow-inner">🎱</div>
+                            <h2 class="text-base sm:text-lg font-black text-slate-900 uppercase tracking-wide">Billard Club Segréen</h2>
+                        </div>
+                       <p class="text-xs text-slate-600 leading-relaxed max-w-md mx-auto">
+        <strong>Devenir partenaire du Billard Club Segréen</strong>, c'est associer l'image de votre entreprise à nos valeurs sportives tout en soutenant activement <strong class="text-indigo-600">le développement de notre club local</strong>.
+    </p>
+                        <div class="flex flex-wrap justify-center gap-2 pt-1">
+                            <button onclick="ouvrirModalExplicationPartenaires()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm flex items-center gap-1.5 cursor-pointer">
+                                🤝 Renseignements ici.
                             </button>
                         </div>
                     </div>
+
+                    <!-- Colonne 2 : Diaporama Vidéo Interactif BCS (Placé en bas à droite) -->
+                    <div id="bcs-player-container" class="bg-slate-900 rounded-2xl p-3 shadow-md border border-slate-800 space-y-2 text-center flex flex-col justify-between">
+                        <!-- En-tête du lecteur -->
+                        <div class="flex items-center justify-between px-1 gap-2">
+                            <div class="flex items-center gap-1.5 text-amber-400 font-bold text-xs">
+                                <span>🎬</span> Découverte en Vidéo — Billard Club Segréen
+                            </div>
+                            <button id="audio-toggle-btn" onclick="toggleAudio()" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-2 py-0.5 rounded-lg border border-slate-700 text-[10px] font-bold flex items-center gap-1 transition-all active:scale-95">
+                                <span id="audio-icon">🔇</span> <span id="audio-label">Musique</span>
+                            </button>
+                        </div>
+
+                        <!-- Lecteur Audio libre de droit -->
+                        <audio id="bcs-bg-music" loop preload="auto">
+                            <source src="sub_clair-vlog-627633.mp3" type="audio/mpeg">
+                        </audio>
+
+                        <!-- Zone Ecran Vidéo (Hauteur agrandie à 320px) -->
+                        <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-inner bg-black border border-slate-800 max-h-[320px] min-h-[280px] group">
+                            <div id="slider-bcs" class="w-full h-full relative">
+                                <!-- Slides générées via JavaScript -->
+                            </div>
+
+                            <!-- Masque Dégradé Inférieur -->
+                            <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none z-10"></div>
+
+                            <!-- Overlay Légende -->
+                            <div class="absolute bottom-2 inset-x-3 z-20 flex items-end justify-between text-left pointer-events-none">
+                                <div class="space-y-0.5 max-w-[75%]">
+                                    <span id="slide-badge" class="inline-block bg-amber-500 text-slate-950 font-black text-[9px] uppercase tracking-wider px-1.5 py-0.2 rounded shadow">
+                                        BCS SEGRÉ
+                                    </span>
+                                    <h4 id="slide-title" class="text-xs font-bold text-white drop-shadow truncate">
+                                        Chargement...
+                                    </h4>
+                                </div>
+                                <div class="text-[10px] font-bold text-amber-400 bg-slate-900/80 px-2 py-0.5 rounded border border-slate-700">
+                                    <span id="slide-index">1</span>/<span id="slide-total">19</span>
+                                </div>
+                            </div>
+
+                            <!-- Flèches de Navigation au Survol -->
+                            <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-slate-900/80 hover:bg-amber-500 hover:text-slate-950 text-white p-1.5 rounded-full border border-slate-700 opacity-0 group-hover:opacity-100 transition-all text-xs">
+                                ❮
+                            </button>
+                            <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-slate-900/80 hover:bg-amber-500 hover:text-slate-950 text-white p-1.5 rounded-full border border-slate-700 opacity-0 group-hover:opacity-100 transition-all text-xs">
+                                ❯
+                            </button>
+                        </div>
+
+                        <!-- Barre de Progression & Contrôles -->
+                        <div class="space-y-1.5 pt-0.5">
+                            <div class="w-full bg-slate-800 rounded-full h-1 overflow-hidden cursor-pointer" onclick="seekSlide(event)">
+                                <div id="progress-bar" class="bg-amber-400 h-full w-0 transition-all duration-300 linear rounded-full"></div>
+                            </div>
+
+                            <div class="flex items-center justify-between px-1">
+                                <button id="play-pause-btn" onclick="togglePlayPause()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-2.5 py-0.5 rounded-lg text-[10px] flex items-center gap-1 transition-all active:scale-95">
+                                    <span id="play-icon">⏸</span> <span id="play-label">Pause</span>
+                                </button>
+
+                                <div id="dots-container" class="flex items-center gap-1 overflow-x-auto max-w-[130px] sm:max-w-[180px] py-0.5 no-scrollbar">
+                                </div>
+
+                                <button onclick="resetSlideshow()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-0.5 rounded-lg text-[10px] border border-slate-700 font-semibold transition-all">
+                                    🔄 Recommencer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -537,6 +559,26 @@
 
     <!-- SCRIPT DE COMMUNICATION ET MODALES -->
     <script>
+        function ouvrirVideosAuMilieu() {
+            var accueil = document.getElementById('contenu-accueil-normal');
+            var zoneVideos = document.getElementById('zone-videos-centrale');
+            var iframeVideos = document.getElementById('iframe-videos-centrale');
+            if (accueil) accueil.classList.add('hidden');
+            if (zoneVideos) zoneVideos.classList.remove('hidden');
+            if (iframeVideos && !iframeVideos.getAttribute('src')) {
+                iframeVideos.src = 'videos.html';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function fermerVideosAuMilieu(e) {
+            if (e) e.preventDefault();
+            var accueil = document.getElementById('contenu-accueil-normal');
+            var zoneVideos = document.getElementById('zone-videos-centrale');
+            if (zoneVideos) zoneVideos.classList.add('hidden');
+            if (accueil) accueil.classList.remove('hidden');
+        }
+
         var URL_SCRIPT_GOOGLE = "https://script.google.com/macros/s/AKfycbzwZojzIEhT2RCIJtMK3Okb9MtfZYnJwKINMA0SPwbrfliSV9ITmuDEriUQjBVc7t0-/exec";
         var URL_SAISIE_JOUEUR = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=saisiejoueur";
         var URL_CARTESIEN = "https://script.google.com/macros/s/AKfycbx2NsUV20_lbXzX95Gc1olrluV-42o4UhczzN6rkqbsbR77uovMG_GKe-rkxf3k-aNc/exec?page=admin";
@@ -1028,11 +1070,6 @@
             }
         }
 		
-		
-		
-		
-		
-		
 		// URL du script Google Apps Script dédié au Chat
 var URL_CHAT_SCRIPT = "https://script.google.com/macros/s/AKfycbwT1sfOXnuycJEzYGQpP-9o1bK4RRz3FUC0lu-YoiL6k3jjEdmspbj3SEVvtyktHbw/exec";
 var intervalleChat = null;
@@ -1121,10 +1158,6 @@ function envoyerMessageChatBCS(e) {
     });
 }
 		
-		
-		
-		
-		
 	// Fonction pour vider le chat via le script Google Apps Script
 function resetChatBCS() {
     if (!confirm("Voulez-vous vraiment vider tout l'historique du chat ?")) return;
@@ -1144,24 +1177,7 @@ function resetChatBCS() {
         console.error(err);
     });
 }	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
     </script>
-	
-	
-	
-	
 	
 	<!-- BOUTON FLOTTANT DU CHAT (EN BAS À DROITE) -->
 <button onclick="toggleChatBCS()" class="fixed bottom-5 right-5 z-50 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold p-3.5 rounded-full shadow-2xl border border-amber-300 flex items-center gap-2 transition-transform hover:scale-105 cursor-pointer">
@@ -1171,10 +1187,7 @@ function resetChatBCS() {
 
 <!-- FENÊTRE DU CHAT -->
 <div id="chat-bcs-modal" class="fixed bottom-20 right-5 z-50 w-80 sm:w-96 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl hidden flex-col overflow-hidden text-slate-100 transition-all">
-   
-
-
-   <!-- En-tête du Chat -->
+    <!-- En-tête du Chat -->
     <div class="bg-[#0b1329] p-3.5 border-b border-slate-800 flex justify-between items-center">
         <div class="flex items-center gap-2">
             <div class="w-7 h-7 bg-amber-400/20 text-amber-400 rounded-lg flex items-center justify-center font-bold text-sm">🎱</div>
@@ -1206,22 +1219,6 @@ function resetChatBCS() {
         </div>
     </form>
 </div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 </body>
 </html>
